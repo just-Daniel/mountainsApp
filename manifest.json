@@ -1,0 +1,17 @@
+{
+  "name": "У гори — чек-лист походу",
+  "short_name": "У гори",
+  "description": "Чек-лист спорядження, відео, маршрути та безпека для походу в гори.",
+  "lang": "uk",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#EEF1ED",
+  "theme_color": "#163A2E",
+  "icons": [
+    { "src": "icon-192.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "icon-512.png", "sizes": "512x512", "type": "image/png" },
+    { "src": "icon-maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ]
+}
