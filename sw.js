@@ -1,6 +1,6 @@
 // Service worker — кешує застосунок для роботи офлайн.
 // Підвищуй версію CACHE при оновленні контенту, щоб користувачі отримали свіжу версію.
-const CACHE = "u-gory-v6";
+const CACHE = "u-gory-v8";
 const ASSETS = [
   "./",
   "./index.html",

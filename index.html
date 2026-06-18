@@ -301,6 +301,135 @@
         color: var(--mist);
         margin: 0 0 14px 2px;
       }
+      /* articles */
+      .acard {
+        background: var(--paper);
+        border: 1px solid var(--line);
+        border-radius: var(--radius);
+        box-shadow: var(--shadow);
+        overflow: hidden;
+        margin-bottom: 12px;
+      }
+      .acard-head {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        width: 100%;
+        background: none;
+        border: 0;
+        font: inherit;
+        color: var(--ink);
+        text-align: left;
+        cursor: pointer;
+        padding: 15px;
+        min-height: var(--tap);
+      }
+      .acard-head h3 {
+        margin: 0;
+        flex: 1;
+        font-size: 15.5px;
+        font-weight: 700;
+        line-height: 1.3;
+      }
+      .acard-head .chev {
+        display: inline-flex;
+        color: var(--mist);
+        flex: 0 0 auto;
+        transition: transform 0.2s;
+      }
+      .acard-head .chev svg {
+        width: 20px;
+        height: 20px;
+      }
+      .acard-head[aria-expanded="false"] .chev {
+        transform: rotate(-90deg);
+      }
+      .acard-body {
+        display: none;
+        padding: 2px 15px 6px;
+        border-top: 1px solid var(--line);
+      }
+      .acard.open .acard-body {
+        display: block;
+      }
+      .a-intro {
+        font-weight: 600;
+        font-size: 14px;
+        margin: 14px 0 12px;
+      }
+      .asteps {
+        list-style: none;
+        counter-reset: step;
+        margin: 0 0 8px;
+        padding: 0;
+      }
+      .asteps li {
+        position: relative;
+        padding-left: 36px;
+        margin-bottom: 15px;
+        font-size: 14px;
+        line-height: 1.5;
+      }
+      .asteps li:last-child {
+        margin-bottom: 0;
+      }
+      .asteps li::before {
+        counter-increment: step;
+        content: counter(step);
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 25px;
+        height: 25px;
+        border-radius: 50%;
+        background: var(--moss-soft);
+        color: var(--moss);
+        font-size: 12.5px;
+        font-weight: 700;
+        display: grid;
+        place-items: center;
+      }
+      .asteps b {
+        display: block;
+        margin-bottom: 2px;
+      }
+      .a-warn-intro {
+        color: #c0392b;
+      }
+      .awarn {
+        list-style: none;
+        margin: 0 0 8px;
+        padding: 0;
+      }
+      .awarn li {
+        position: relative;
+        padding-left: 36px;
+        margin-bottom: 15px;
+        font-size: 14px;
+        line-height: 1.5;
+      }
+      .awarn li:last-child {
+        margin-bottom: 0;
+      }
+      .awarn li::before {
+        content: "✕";
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 25px;
+        height: 25px;
+        border-radius: 50%;
+        background: #fdecea;
+        color: #c0392b;
+        font-size: 13px;
+        font-weight: 700;
+        display: grid;
+        place-items: center;
+      }
+      .awarn b {
+        display: block;
+        margin-bottom: 2px;
+      }
       .progress {
         margin-top: 14px;
       }
@@ -1170,10 +1299,15 @@
       </section>
 
       <!-- VIDEO -->
-      <section id="video" aria-label="Відео">
-        <h2 class="panel-title">Відео-поради</h2>
-        <p class="lead">Подивись завчасно — у горах часто немає інтернету.</p>
+      <section id="video" aria-label="Поради">
+        <h2 class="panel-title">Поради</h2>
+        <p class="lead">
+          Відео та статті — переглянь завчасно, у горах часто немає зв'язку.
+        </p>
+        <h3 class="sub-head">Відео</h3>
         <div id="videoList"></div>
+        <h3 class="sub-head">Статті</h3>
+        <div id="articleList"></div>
       </section>
 
       <!-- ROUTES -->
@@ -1343,7 +1477,7 @@
             <rect x="3" y="5" width="18" height="14" rx="3" />
             <path d="M10 9l5 3-5 3V9z" fill="currentColor" stroke="none" />
           </svg>
-          <span>Відео</span>
+          <span>Поради</span>
         </button>
         <button data-tab="routes">
           <svg
@@ -1764,6 +1898,51 @@
               '</p><span class="src">Дивитися на YouTube →</span></span></a>',
           )
           .join("");
+
+        /* ---------- ARTICLES ---------- */
+        const articleList = document.getElementById("articleList");
+        articleList.innerHTML = (D.articles || [])
+          .map(
+            (a, i) =>
+              '<div class="acard">' +
+              '<button class="acard-head" aria-expanded="false" data-a="' +
+              i +
+              '"><h3>' +
+              esc(a.title) +
+              "</h3>" +
+              CHEV +
+              "</button>" +
+              '<div class="acard-body">' +
+              (a.intro ? '<p class="a-intro">' + esc(a.intro) + "</p>" : "") +
+              '<ol class="asteps">' +
+              (a.steps || [])
+                .map((s) => "<li><b>" + esc(s.t) + "</b>" + esc(s.d) + "</li>")
+                .join("") +
+              "</ol>" +
+              (a.warnings && a.warnings.length
+                ? (a.warnIntro
+                    ? '<p class="a-intro a-warn-intro">' +
+                      esc(a.warnIntro) +
+                      "</p>"
+                    : "") +
+                  '<ul class="awarn">' +
+                  a.warnings
+                    .map(
+                      (w) =>
+                        "<li><b>" + esc(w.t) + "</b>" + esc(w.d) + "</li>",
+                    )
+                    .join("") +
+                  "</ul>"
+                : "") +
+              "</div></div>",
+          )
+          .join("");
+        articleList.addEventListener("click", (e) => {
+          const head = e.target.closest(".acard-head");
+          if (!head) return;
+          const card = head.closest(".acard");
+          head.setAttribute("aria-expanded", card.classList.toggle("open"));
+        });
 
         /* ---------- ROUTES ---------- */
         function diffClass(d) {
