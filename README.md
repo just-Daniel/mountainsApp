@@ -22,8 +22,19 @@ all content lives in `data.js`, user state lives in `localStorage`.
 
 ```
 mountainsApp/
-├── index.html              ← the app (design + logic; no content here)
+├── index.html              ← markup only; pulls in css/ + data.js + js/
 ├── data.js                 ← ALL CONTENT (edit this file)
+├── css/
+│   ├── base.css            ← tokens, reset, header, controls
+│   ├── components.css      ← articles, section layout, checklist, cards
+│   └── safety-nav.css      ← safety section, bottom nav, responsive
+├── js/                     ← classic scripts, loaded in order (shared scope)
+│   ├── state.js            ← data/language, service worker, helpers, state
+│   ├── gear.js             ← checklist render + interaction
+│   ├── controls.js         ← day / season / reset / filter controls
+│   ├── render.js           ← section renderers (gear, videos, articles, …)
+│   ├── i18n.js             ← language strings + language switch
+│   └── main.js             ← tabs, data check, bootstrap (loaded LAST)
 ├── sw.js                   ← offline cache (service worker)
 ├── manifest.json           ← PWA settings
 └── images/
@@ -35,8 +46,12 @@ mountainsApp/
         └── hora_lopata.jpg
 ```
 
-All images are grouped by purpose under `images/` (`icons/`, `routes/`).
-Add new folders (e.g. `images/gear/`) as new content types appear.
+No build step. CSS is split into plain `.css` files (linked in order) and JS
+into plain classic scripts that share one global scope (load order matters —
+`main.js` last). This keeps double-click `file://` opening working. All images
+are grouped by purpose under `images/`; add folders (e.g. `images/gear/`) as
+new content types appear. After adding any `css/` or `js/` file, list it in the
+`ASSETS` array in `sw.js`.
 
 ## Run locally
 

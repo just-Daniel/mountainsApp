@@ -18,23 +18,27 @@
 
 ## Технічні рішення (і чому саме так)
 
-- **Один самодостатній `index.html`** — увесь CSS і JS усередині. Простий деплой, добре превʼюється.
-- **Контент у `data.js`, а НЕ `data.json`** — навмисно. `fetch('data.json')` не працює при відкритті файлу подвійним кліком (`file://`, CORS). `data.js` через `<script src>` працює і локально, і на сервері. Контент лежить у `window.MOUNTAIN_DATA`.
-- **Ілюстрації маршрутів — власні SVG** (теки `images/`), щоб уникнути проблем з авторськими правами й працювати офлайн. Призначені для заміни на реальні фото.
-- **Стан чек-листа в `localStorage`**, окремо для 1 і 2 днів. Ключі: `gory-pack-v1`, `gory-day-v1`, `gory-season-v1`.
+- **Без збірки, але вже не монофайл.** CSS — у теці `css/` (кілька `.css` через `<link>` по порядку), JS — у теці `js/` (класичні скрипти, що ділять спільний глобальний скоуп; порядок підключення важливий, `main.js` останнім). Це не ES-модулі, тож відкриття подвійним кліком (`file://`) працює. Простий деплой без тулчейну.
+- **Контент і мови у `data.js`, а НЕ `data.json`** — навмисно. `fetch` не працює при відкритті подвійним кліком (`file://`, CORS). `data.js` через `<script src>` працює і локально, і на сервері. Двомовно: `window.MOUNTAIN_DATA = { uk:{...}, en:{...} }`, кожна мова має `ui` + контент + `safety`.
+- **Ілюстрації маршрутів — власні SVG/фото** (`images/routes/`), щоб уникнути проблем з авторськими правами й працювати офлайн. Іконки — `images/icons/`.
+- **Стан чек-листа в `localStorage`** за ПОЗИЦІЄЮ (`день|індекс категорії|індекс пункту`), тож галочки зберігаються при зміні мови. Ключі: `gory-pack-v2`, `gory-day-v1`, `gory-season-v1`, `gory-lang-v1`.
 
 ## Структура файлів
 
 ```
 mountainsApp/
-├── index.html      # застосунок: дизайн (CSS) + логіка (JS). Контент НЕ тут.
-├── data.js         # увесь контент: gear, videos, routes, routeApps, gearExamples
-├── sw.js           # service worker (офлайн-кеш). Має список файлів ASSETS і версію CACHE.
+├── index.html      # лише розмітка; підключає css/, data.js, js/
+├── data.js         # УВЕСЬ контент + рядки UI, двомовно (uk/en)
+├── css/            # base.css, components.css, safety-nav.css
+├── js/             # state, gear, controls, render, i18n, main (порядок!)
+├── sw.js           # service worker (офлайн-кеш): масив ASSETS + версія CACHE
 ├── manifest.json   # PWA: назва, іконки, кольори
-├── favicon.png, icon-192.png, icon-512.png, icon-maskable-512.png, apple-touch-icon.png
-└── images/         # SVG-ілюстрації маршрутів (сюди ж класти реальні фото)
-    ├── parashka.svg, hoverla.svg, pip-ivan.svg, synevyr.svg
+└── images/
+    ├── icons/      # favicon + іконки PWA
+    └── routes/     # ілюстрації/фото маршрутів (parashka.svg, hora_lopata.jpg)
 ```
+
+> Після додавання нового файлу в `css/` чи `js/` — додай його і в `<link>`/`<script>` в `index.html`, і в масив `ASSETS` у `sw.js`.
 
 ## Модель контенту (`data.js` → `window.MOUNTAIN_DATA`)
 

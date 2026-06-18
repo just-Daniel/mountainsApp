@@ -1,0 +1,159 @@
+/* safety-nav.css — розділ «Безпека», нижня навігація, адаптив
+   Частина застосунку «У гори». Завантажується через <link> у index.html.
+   Порядок підключення = base → components → safety-nav (зберігає каскад). */
+
+      /* safety */
+      .scard {
+background: var(--paper);
+border: 1px solid var(--line);
+border-radius: var(--radius);
+padding: 15px 16px;
+margin-bottom: 12px;
+box-shadow: var(--shadow);
+      }
+      .scard h3 {
+margin: 0 0 8px;
+font-size: 16px;
+font-weight: 800;
+display: flex;
+align-items: center;
+gap: 9px;
+color: var(--spruce);
+      }
+      .scard h3 .si {
+width: 22px;
+height: 22px;
+flex: 0 0 auto;
+      }
+      .scard ul {
+margin: 0;
+padding-left: 18px;
+      }
+      .scard li {
+font-size: 14.5px;
+margin: 5px 0;
+      }
+      .scard li b {
+color: var(--ink);
+      }
+      .emergency {
+display: flex;
+gap: 10px;
+flex-wrap: wrap;
+margin-top: 4px;
+      }
+      .emergency a {
+flex: 1;
+min-width: 130px;
+text-decoration: none;
+background: var(--signal);
+color: #fff;
+border-radius: 13px;
+padding: 13px 14px;
+display: flex;
+flex-direction: column;
+gap: 1px;
+box-shadow: var(--shadow);
+      }
+      .emergency a .num {
+font-size: 23px;
+font-weight: 800;
+line-height: 1;
+      }
+      .emergency a .who {
+font-size: 12px;
+opacity: 0.92;
+      }
+      .emergency a.alt {
+background: var(--spruce);
+      }
+      .footnote {
+margin: 26px 4px 0;
+font-size: 12px;
+color: var(--mist);
+text-align: center;
+      }
+
+      /* BOTTOM DOCK */
+      .dock {
+position: fixed;
+left: 0;
+right: 0;
+bottom: 0;
+z-index: 30;
+display: flex;
+justify-content: center;
+padding: 10px 12px calc(10px + env(safe-area-inset-bottom));
+pointer-events: none;
+      }
+      .dock nav {
+pointer-events: auto;
+display: flex;
+gap: 1px;
+background: var(--paper);
+border: 1px solid var(--line);
+border-radius: 20px;
+padding: 6px;
+box-shadow: 0 6px 28px rgba(22, 32, 28, 0.16);
+width: 100%;
+max-width: 520px;
+      }
+      .dock button {
+flex: 1;
+border: 0;
+background: none;
+cursor: pointer;
+font: inherit;
+display: flex;
+flex-direction: column;
+align-items: center;
+gap: 3px;
+padding: 8px 2px 6px;
+border-radius: 14px;
+color: var(--mist);
+min-height: 54px;
+transition:
+  color 0.15s,
+  background 0.15s;
+      }
+      .dock button svg {
+width: 22px;
+height: 22px;
+      }
+      .dock button span {
+font-size: 10px;
+font-weight: 600;
+white-space: nowrap;
+      }
+      .dock button[aria-current="true"] {
+color: var(--spruce);
+background: var(--moss-soft);
+      }
+
+      @media (min-width: 720px) {
+.appbar {
+  padding-top: 34px;
+  padding-bottom: 30px;
+}
+.appbar h1 {
+  font-size: 38px;
+}
+main {
+  padding: 24px 16px 32px;
+}
+.vcard .thumb {
+  width: 168px;
+  height: 96px;
+}
+      }
+      @media (prefers-reduced-motion: reduce) {
+* {
+  animation: none !important;
+  transition: none !important;
+}
+      }
+      :focus-visible {
+outline: 3px solid var(--signal);
+outline-offset: 2px;
+border-radius: 8px;
+      }
