@@ -5,5 +5,8 @@
 .vscode/
 .idea/
 
+# Локальні дев-файли прев'ю (Claude Code: launch.json, serve.js тощо)
+.claude/
+
 # Logs
 *.log

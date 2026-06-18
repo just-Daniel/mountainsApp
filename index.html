@@ -164,28 +164,59 @@
         margin-top: 12px;
         flex-wrap: wrap;
       }
-      .chip {
+      .switch {
         display: inline-flex;
         align-items: center;
-        gap: 7px;
+        gap: 11px;
         cursor: pointer;
-        border: 1px solid var(--line);
-        background: var(--paper);
-        border-radius: 999px;
-        padding: 8px 13px;
+        border: 0;
+        background: none;
+        padding: 6px 2px;
         min-height: 40px;
         font: inherit;
+        color: var(--ink);
+      }
+      .switch-track {
+        position: relative;
+        flex: 0 0 auto;
+        width: 46px;
+        height: 26px;
+        border-radius: 999px;
+        background: #cdd5cf;
+        transition: background 0.2s;
+      }
+      .switch[aria-checked="true"] .switch-track {
+        background: var(--sky);
+      }
+      .switch-thumb {
+        position: absolute;
+        top: 3px;
+        left: 3px;
+        width: 20px;
+        height: 20px;
+        border-radius: 50%;
+        background: #fff;
+        box-shadow: 0 1px 2px rgba(0, 0, 0, 0.25);
+        transition: transform 0.2s;
+      }
+      .switch[aria-checked="true"] .switch-thumb {
+        transform: translateX(20px);
+      }
+      .switch-text {
+        display: flex;
+        flex-direction: column;
+        line-height: 1.2;
+        text-align: left;
+      }
+      .switch-label {
         font-size: 13px;
         font-weight: 600;
-        color: var(--ink);
-        transition:
-          border-color 0.18s,
-          background 0.18s;
       }
-      .chip[aria-pressed="true"] {
-        border-color: var(--sky);
-        background: var(--sky-soft);
-        color: #1c4a6b;
+      .switch-hint {
+        font-size: 12px;
+        font-weight: 400;
+        color: var(--mist);
+        margin-top: 2px;
       }
       .progress {
         margin-top: 14px;
@@ -386,6 +417,15 @@
         flex: 1;
         font-size: 15.5px;
         transition: color 0.18s;
+        display: flex;
+        flex-direction: column;
+        gap: 2px;
+      }
+      .item .item-desc {
+        font-size: 12.5px;
+        font-weight: 400;
+        color: var(--mist);
+        line-height: 1.3;
       }
       .badge {
         font-size: 10.5px;
@@ -409,6 +449,8 @@
       }
       .item[aria-checked="true"] .label {
         color: var(--mist);
+      }
+      .item[aria-checked="true"] .item-title {
         text-decoration: line-through;
         text-decoration-color: #b8c5bd;
       }
@@ -916,13 +958,18 @@
           </button>
         </div>
         <div class="row2">
-          <button class="chip" id="seasonChip" aria-pressed="false">
-            <span class="dot">❄️</span>
-            <span class="chip-label">Холодна пора</span>
-          </button>
-          <span style="font-size: 12.5px; color: var(--mist)"
-            >додає зимове спорядження</span
+          <button
+            class="switch"
+            id="seasonChip"
+            role="switch"
+            aria-checked="false"
           >
+            <span class="switch-track"><span class="switch-thumb"></span></span>
+            <span class="switch-text">
+              <span class="switch-label">❄️ Зимове спорядження</span>
+              <span class="switch-hint">вимкнено · тепла пора</span>
+            </span>
+          </button>
         </div>
         <div class="progress">
           <div class="meta">
@@ -1172,6 +1219,49 @@
         "use strict";
         const D = window.MOUNTAIN_DATA;
 
+        /* ---------- SERVICE WORKER ----------
+           На справжньому хостингу (https) — реєструємо для офлайну.
+           Локально (localhost / file://) — НЕ реєструємо, а наявний SW і кеш
+           прибираємо: інакше під час розробки браузер віддає застарілий вміст
+           (звідси бувала помилка «Не вдалося завантажити контент»).
+           Має стояти ДО перевірки даних нижче, щоб самоочищення спрацювало
+           навіть коли з кешу прийшов зламаний data.js. */
+        (function manageSW() {
+          if (!("serviceWorker" in navigator)) return;
+          const h = location.hostname;
+          const dev =
+            location.protocol === "file:" ||
+            h === "localhost" ||
+            h === "127.0.0.1" ||
+            h === "" ||
+            /^192\.168\./.test(h) ||
+            /^10\./.test(h);
+          if (dev) {
+            const hadCtrl = !!navigator.serviceWorker.controller;
+            Promise.all([
+              navigator.serviceWorker
+                .getRegistrations()
+                .then((rs) => Promise.all(rs.map((r) => r.unregister()))),
+              window.caches
+                ? caches
+                    .keys()
+                    .then((ks) => Promise.all(ks.map((k) => caches.delete(k))))
+                : null,
+            ]).then(() => {
+              // Якщо сторінку контролював старий SW — одноразово перезавантажуємо,
+              // щоб отримати свіжі файли вже без нього.
+              if (hadCtrl && !sessionStorage.getItem("sw-cleaned")) {
+                sessionStorage.setItem("sw-cleaned", "1");
+                location.reload();
+              }
+            });
+            return;
+          }
+          window.addEventListener("load", () =>
+            navigator.serviceWorker.register("sw.js").catch(() => {}),
+          );
+        })();
+
         function esc(s) {
           return String(s).replace(
             /[&<>]/g,
@@ -1250,8 +1340,12 @@
                 escAttr(k) +
                 '">' +
                 '<span class="tick"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 13l4 4L19 7"/></svg></span>' +
-                '<span class="label">' +
+                '<span class="label"><span class="item-title">' +
                 esc(it.n) +
+                "</span>" +
+                (it.desc
+                  ? '<span class="item-desc">' + esc(it.desc) + "</span>"
+                  : "") +
                 "</span>" +
                 (it.opt ? '<span class="badge">опц.</span>' : "") +
                 "</button>";
@@ -1311,11 +1405,11 @@
         function setSeason(v) {
           season = v;
           localStorage.setItem(LS_SEASON, v);
-          seasonChip.setAttribute("aria-pressed", v === "cold");
-          seasonChip.querySelector(".dot").textContent =
-            v === "cold" ? "❄️" : "☀️";
-          seasonChip.querySelector(".chip-label").textContent =
-            v === "cold" ? "Холодна пора" : "Тепла пора";
+          const cold = v === "cold";
+          seasonChip.setAttribute("aria-checked", cold);
+          seasonChip.querySelector(".switch-hint").textContent = cold
+            ? "увімкнено · холодна пора"
+            : "вимкнено · тепла пора";
           renderGear();
         }
         seasonChip.addEventListener("click", () =>
@@ -1463,13 +1557,6 @@
         d2.setAttribute("aria-pressed", day === "2");
         setSeason(season);
         showTab("gear");
-
-        /* ---------- SERVICE WORKER ---------- */
-        if ("serviceWorker" in navigator) {
-          window.addEventListener("load", () =>
-            navigator.serviceWorker.register("sw.js").catch(() => {}),
-          );
-        }
       })();
     </script>
   </body>
