@@ -15,7 +15,8 @@ window.MOUNTAIN_DATA = {
     ui: {
       docTitle: "У гори — чек-лист і поради для походу",
       htmlLang: "uk",
-      eyebrow: "Похід у гори · Що з собою брати? · Чи кого?",
+      brand: "У гори",
+      eyebrow: "Похід у гори · Що з собою брати?",
       tagline:
         "Збери рюкзак правильно, переглянь, який має бути стаф, маршрути й головне про безпеку.",
       day1: "1 день",
@@ -245,7 +246,8 @@ window.MOUNTAIN_DATA = {
       {
         item: "Вода",
         wrong: "Носити пляшку в руці.",
-        right: "Гідратор або пляшка в бічній кишені — руки вільні, п'єш частіше.",
+        right:
+          "Гідратор або пляшка в бічній кишені — руки вільні, п'єш частіше.",
       },
     ],
 
@@ -254,7 +256,11 @@ window.MOUNTAIN_DATA = {
        Категорія: {cat, items, must?, season?, note?} */
     gear: {
       1: [
-        { cat: "Must have", must: true, items: ["Гроші", "Документи", "Квитки"] },
+        {
+          cat: "Must have",
+          must: true,
+          items: ["Гроші", "Документи", "Квитки"],
+        },
         {
           cat: "Основне",
           items: [
@@ -313,7 +319,11 @@ window.MOUNTAIN_DATA = {
         },
       ],
       2: [
-        { cat: "Must have", must: true, items: ["Гроші", "Документи", "Квитки"] },
+        {
+          cat: "Must have",
+          must: true,
+          items: ["Гроші", "Документи", "Квитки"],
+        },
         {
           cat: "Основне",
           items: [
@@ -469,17 +479,16 @@ window.MOUNTAIN_DATA = {
           ],
         },
       ],
-      footnote:
-        "Цей застосунок — помічник, а не заміна досвідченого інструктора.",
     },
   },
 
   /* ============================== ENGLISH ============================== */
   en: {
     ui: {
-      docTitle: "У гори — hiking checklist & tips",
+      docTitle: "In the mountains — hiking checklist & tips",
       htmlLang: "en",
-      eyebrow: "Hiking in the mountains · What to pack · Who to bring?",
+      brand: "In the mountains",
+      eyebrow: "Hiking in the mountains · What to pack",
       tagline:
         "Pack your bag right, see what proper gear looks like, routes, and the essentials of safety.",
       day1: "1 day",
@@ -672,7 +681,8 @@ window.MOUNTAIN_DATA = {
         item: "Insulation",
         layer: "2 · Mid layer",
         wrong: "A cotton hoodie or sweater — gets wet and dries slowly.",
-        right: "A fleece — keeps you warm even when damp and weighs almost nothing.",
+        right:
+          "A fleece — keeps you warm even when damp and weighs almost nothing.",
       },
       {
         item: "Weather protection",
@@ -683,7 +693,8 @@ window.MOUNTAIN_DATA = {
       {
         item: "Trousers",
         wrong: "Jeans — heavy, cold and very slow to dry.",
-        right: "Quick-dry trekking trousers (or thermal leggings under shorts).",
+        right:
+          "Quick-dry trekking trousers (or thermal leggings under shorts).",
       },
       {
         item: "Footwear",
@@ -704,13 +715,18 @@ window.MOUNTAIN_DATA = {
       {
         item: "Water",
         wrong: "Carrying a bottle in your hand.",
-        right: "A hydration bladder or a bottle in a side pocket — hands free, you drink more often.",
+        right:
+          "A hydration bladder or a bottle in a side pocket — hands free, you drink more often.",
       },
     ],
 
     gear: {
       1: [
-        { cat: "Must have", must: true, items: ["Money", "Documents", "Tickets"] },
+        {
+          cat: "Must have",
+          must: true,
+          items: ["Money", "Documents", "Tickets"],
+        },
         {
           cat: "Essentials",
           items: [
@@ -722,7 +738,10 @@ window.MOUNTAIN_DATA = {
           cat: "Kitchen",
           items: ["Jetboil", "Gas canister", "Spoon", "Thermos", "1 L bottle"],
         },
-        { cat: "Electronics", items: ["Power bank", "Charging cable", "Flashlight"] },
+        {
+          cat: "Electronics",
+          items: ["Power bank", "Charging cable", "Flashlight"],
+        },
         {
           cat: "Hygiene",
           items: ["Toilet paper / dry wipes", "Wet wipes"],
@@ -769,7 +788,11 @@ window.MOUNTAIN_DATA = {
         },
       ],
       2: [
-        { cat: "Must have", must: true, items: ["Money", "Documents", "Tickets"] },
+        {
+          cat: "Must have",
+          must: true,
+          items: ["Money", "Documents", "Tickets"],
+        },
         {
           cat: "Essentials",
           items: [
@@ -924,8 +947,6 @@ window.MOUNTAIN_DATA = {
           ],
         },
       ],
-      footnote:
-        "This app is a helper, not a replacement for an experienced instructor.",
     },
   },
 };

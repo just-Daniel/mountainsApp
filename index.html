@@ -1217,7 +1217,7 @@
             <path d="M9.5 8L13 14L11 14L9.5 11L8 14L3 20" fill="#2E6B4F" />
             <circle cx="17.5" cy="6.5" r="2.4" fill="#F26A1B" />
           </svg>
-          У гори
+          <span data-i18n="brand">У гори</span>
         </h1>
         <p data-i18n="tagline">
           Збери рюкзак правильно, переглянь, який має бути стаф, маршрути й
@@ -2031,7 +2031,8 @@
                 "</ul></div>",
             )
             .join("");
-          html += '<p class="footnote">' + esc(s.footnote) + "</p>";
+          if (s.footnote)
+            html += '<p class="footnote">' + esc(s.footnote) + "</p>";
           document.getElementById("safety").innerHTML = html;
         }
 
