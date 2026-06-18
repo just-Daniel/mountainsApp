@@ -1,511 +1,1476 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="uk">
-<head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-<title>У гори — чек-лист і поради для походу</title>
-<meta name="description" content="Помічник для походу в гори: чек-лист на 1 і 2 дні, як виглядає спорядження, відео, маршрути та безпека." />
-<meta name="theme-color" content="#163A2E" />
-<link rel="manifest" href="manifest.json" />
-<link rel="icon" href="favicon.png" />
-<link rel="apple-touch-icon" href="apple-touch-icon.png" />
-<style>
-  :root{
-    --spruce:#163A2E; --spruce-2:#1E4A3A; --moss:#2E6B4F; --moss-soft:#E2EDE6;
-    --signal:#F26A1B; --signal-soft:#FBE6D6; --sky:#3C7DB0; --sky-soft:#E1ECF4;
-    --stone:#EEF1ED; --paper:#FFFFFF; --ink:#16201C; --mist:#5C6B64; --line:#DDE3DE;
-    --radius:16px; --shadow:0 1px 2px rgba(22,32,28,.06), 0 8px 24px rgba(22,32,28,.06);
-    --tap:48px; --maxw:720px;
-    --font:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,system-ui,sans-serif;
-  }
-  *{box-sizing:border-box;}
-  html,body{margin:0;padding:0;}
-  body{font-family:var(--font);background:var(--stone);color:var(--ink);line-height:1.45;
-    -webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;
-    padding-bottom:calc(100px + env(safe-area-inset-bottom));}
-  .wrap{max-width:var(--maxw);margin:0 auto;}
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, viewport-fit=cover"
+    />
+    <title>У гори — чек-лист і поради для походу</title>
+    <meta
+      name="description"
+      content="Помічник для походу в гори: чек-лист на 1 і 2 дні, як виглядає спорядження, відео, маршрути та безпека."
+    />
+    <meta name="theme-color" content="#163A2E" />
+    <link rel="manifest" href="manifest.json" />
+    <link rel="icon" href="favicon.png" />
+    <link rel="apple-touch-icon" href="apple-touch-icon.png" />
+    <style>
+      :root {
+        --spruce: #163a2e;
+        --spruce-2: #1e4a3a;
+        --moss: #2e6b4f;
+        --moss-soft: #e2ede6;
+        --signal: #f26a1b;
+        --signal-soft: #fbe6d6;
+        --sky: #3c7db0;
+        --sky-soft: #e1ecf4;
+        --stone: #eef1ed;
+        --paper: #ffffff;
+        --ink: #16201c;
+        --mist: #5c6b64;
+        --line: #dde3de;
+        --radius: 16px;
+        --shadow:
+          0 1px 2px rgba(22, 32, 28, 0.06), 0 8px 24px rgba(22, 32, 28, 0.06);
+        --tap: 48px;
+        --maxw: 720px;
+        --font:
+          -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+          "Helvetica Neue", Arial, system-ui, sans-serif;
+      }
+      * {
+        box-sizing: border-box;
+      }
+      html,
+      body {
+        margin: 0;
+        padding: 0;
+      }
+      body {
+        font-family: var(--font);
+        background: var(--stone);
+        color: var(--ink);
+        line-height: 1.45;
+        -webkit-font-smoothing: antialiased;
+        text-rendering: optimizeLegibility;
+        padding-bottom: calc(100px + env(safe-area-inset-bottom));
+      }
+      .wrap {
+        max-width: var(--maxw);
+        margin: 0 auto;
+      }
 
-  /* HEADER */
-  .appbar{position:relative;background:var(--spruce);color:#EAF2EC;overflow:hidden;
-    padding:calc(22px + env(safe-area-inset-top)) 20px 22px;}
-  .appbar .contour{position:absolute;inset:0;width:100%;height:100%;opacity:.5;pointer-events:none;}
-  .appbar .inner{position:relative;max-width:var(--maxw);margin:0 auto;}
-  .eyebrow{font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:#8FB7A2;font-weight:700;margin:0 0 6px;}
-  .appbar h1{margin:0;font-size:30px;line-height:1.05;font-weight:800;letter-spacing:-.01em;display:flex;align-items:center;gap:10px;}
-  .appbar p{margin:8px 0 0;color:#B6D2C2;font-size:14px;max-width:46ch;}
+      /* HEADER */
+      .appbar {
+        position: relative;
+        background: var(--spruce);
+        color: #eaf2ec;
+        overflow: hidden;
+        padding: calc(22px + env(safe-area-inset-top)) 20px 22px;
+      }
+      .appbar .contour {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        opacity: 0.5;
+        pointer-events: none;
+      }
+      .appbar .inner {
+        position: relative;
+        max-width: var(--maxw);
+        margin: 0 auto;
+      }
+      .eyebrow {
+        font-size: 11px;
+        letter-spacing: 0.22em;
+        text-transform: uppercase;
+        color: #8fb7a2;
+        font-weight: 700;
+        margin: 0 0 6px;
+      }
+      .appbar h1 {
+        margin: 0;
+        font-size: 30px;
+        line-height: 1.05;
+        font-weight: 800;
+        letter-spacing: -0.01em;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+      .appbar p {
+        margin: 8px 0 0;
+        color: #b6d2c2;
+        font-size: 14px;
+        max-width: 46ch;
+      }
 
-  /* STICKY CONTROLS (gear only) */
-  .controls{position:sticky;top:0;z-index:20;background:var(--stone);border-bottom:1px solid var(--line);}
-  .controls .inner{max-width:var(--maxw);margin:0 auto;padding:12px 16px 14px;}
-  .segmented{display:flex;gap:4px;background:var(--paper);border:1px solid var(--line);border-radius:14px;padding:4px;box-shadow:var(--shadow);}
-  .segmented button{flex:1;border:0;background:transparent;cursor:pointer;font:inherit;font-weight:700;color:var(--mist);
-    padding:11px 8px;border-radius:10px;min-height:var(--tap);transition:background .18s,color .18s;}
-  .segmented button .sub{display:block;font-weight:500;font-size:11px;color:var(--mist);}
-  .segmented button[aria-pressed="true"]{background:var(--spruce);color:#fff;}
-  .segmented button[aria-pressed="true"] .sub{color:#A9CBB8;}
-  .row2{display:flex;gap:10px;align-items:center;margin-top:12px;flex-wrap:wrap;}
-  .chip{display:inline-flex;align-items:center;gap:7px;cursor:pointer;border:1px solid var(--line);background:var(--paper);
-    border-radius:999px;padding:8px 13px;min-height:40px;font:inherit;font-size:13px;font-weight:600;color:var(--ink);
-    transition:border-color .18s,background .18s;}
-  .chip[aria-pressed="true"]{border-color:var(--sky);background:var(--sky-soft);color:#1c4a6b;}
-  .progress{margin-top:14px;}
-  .progress .meta{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:7px;}
-  .progress .meta b{font-size:14px;font-weight:700;}
-  .progress .meta .reset{border:0;background:none;color:var(--mist);font:inherit;font-size:12.5px;cursor:pointer;
-    padding:6px 8px;border-radius:8px;text-decoration:underline;text-underline-offset:2px;}
-  .progress .meta .reset:hover{color:var(--signal);}
-  .bar{height:10px;border-radius:999px;background:#DCE4DE;overflow:hidden;}
-  .bar > i{display:block;height:100%;width:0%;border-radius:999px;background:linear-gradient(90deg,var(--moss),#3B855F);
-    transition:width .35s cubic-bezier(.22,.61,.36,1);}
-  .done-flag{margin-top:9px;font-size:13.5px;font-weight:700;color:var(--moss);display:none;}
-  .done-flag.show{display:block;}
+      /* STICKY CONTROLS (gear only) */
+      .controls {
+        position: sticky;
+        top: 0;
+        z-index: 20;
+        background: var(--stone);
+        border-bottom: 1px solid var(--line);
+      }
+      .controls .inner {
+        max-width: var(--maxw);
+        margin: 0 auto;
+        padding: 12px 16px 14px;
+      }
+      .segmented {
+        display: flex;
+        gap: 4px;
+        background: var(--paper);
+        border: 1px solid var(--line);
+        border-radius: 14px;
+        padding: 4px;
+        box-shadow: var(--shadow);
+      }
+      .segmented button {
+        flex: 1;
+        border: 0;
+        background: transparent;
+        cursor: pointer;
+        font: inherit;
+        font-weight: 700;
+        color: var(--mist);
+        padding: 11px 8px;
+        border-radius: 10px;
+        min-height: var(--tap);
+        transition:
+          background 0.18s,
+          color 0.18s;
+      }
+      .segmented button .sub {
+        display: block;
+        font-weight: 500;
+        font-size: 11px;
+        color: var(--mist);
+      }
+      .segmented button[aria-pressed="true"] {
+        background: var(--spruce);
+        color: #fff;
+      }
+      .segmented button[aria-pressed="true"] .sub {
+        color: #a9cbb8;
+      }
+      .row2 {
+        display: flex;
+        gap: 10px;
+        align-items: center;
+        margin-top: 12px;
+        flex-wrap: wrap;
+      }
+      .chip {
+        display: inline-flex;
+        align-items: center;
+        gap: 7px;
+        cursor: pointer;
+        border: 1px solid var(--line);
+        background: var(--paper);
+        border-radius: 999px;
+        padding: 8px 13px;
+        min-height: 40px;
+        font: inherit;
+        font-size: 13px;
+        font-weight: 600;
+        color: var(--ink);
+        transition:
+          border-color 0.18s,
+          background 0.18s;
+      }
+      .chip[aria-pressed="true"] {
+        border-color: var(--sky);
+        background: var(--sky-soft);
+        color: #1c4a6b;
+      }
+      .progress {
+        margin-top: 14px;
+      }
+      .progress .meta {
+        display: flex;
+        justify-content: space-between;
+        align-items: baseline;
+        margin-bottom: 7px;
+      }
+      .progress .meta b {
+        font-size: 14px;
+        font-weight: 700;
+      }
+      .progress .meta .reset {
+        border: 0;
+        background: none;
+        color: var(--mist);
+        font: inherit;
+        font-size: 12.5px;
+        cursor: pointer;
+        padding: 6px 8px;
+        border-radius: 8px;
+        text-decoration: underline;
+        text-underline-offset: 2px;
+      }
+      .progress .meta .reset:hover {
+        color: var(--signal);
+      }
+      .bar {
+        height: 10px;
+        border-radius: 999px;
+        background: #dce4de;
+        overflow: hidden;
+      }
+      .bar > i {
+        display: block;
+        height: 100%;
+        width: 0%;
+        border-radius: 999px;
+        background: linear-gradient(90deg, var(--moss), #3b855f);
+        transition: width 0.35s cubic-bezier(0.22, 0.61, 0.36, 1);
+      }
+      .done-flag {
+        margin-top: 9px;
+        font-size: 13.5px;
+        font-weight: 700;
+        color: var(--moss);
+        display: none;
+      }
+      .done-flag.show {
+        display: block;
+      }
 
-  /* CONTENT */
-  main{padding:18px 16px 28px;}
-  main > section{display:none;animation:fade .25s ease both;}
-  main > section.active{display:block;}
-  @keyframes fade{from{opacity:0;transform:translateY(6px);}to{opacity:1;transform:none;}}
-  .panel-title{font-size:21px;font-weight:800;letter-spacing:-.01em;margin:6px 0 2px;}
-  .lead{font-size:14.5px;color:var(--mist);margin:2px 0 18px;}
-  .sub-head{font-size:12px;letter-spacing:.12em;text-transform:uppercase;font-weight:800;color:var(--spruce);margin:26px 0 12px;}
+      /* CONTENT */
+      main {
+        padding: 18px 16px 28px;
+      }
+      main > section {
+        display: none;
+        animation: fade 0.25s ease both;
+      }
+      main > section.active {
+        display: block;
+      }
+      @keyframes fade {
+        from {
+          opacity: 0;
+          transform: translateY(6px);
+        }
+        to {
+          opacity: 1;
+          transform: none;
+        }
+      }
+      .panel-title {
+        font-size: 21px;
+        font-weight: 800;
+        letter-spacing: -0.01em;
+        margin: 6px 0 2px;
+      }
+      .lead {
+        font-size: 14.5px;
+        color: var(--mist);
+        margin: 2px 0 18px;
+      }
+      .sub-head {
+        font-size: 12px;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        font-weight: 800;
+        color: var(--spruce);
+        margin: 26px 0 12px;
+      }
 
-  /* gear list */
-  .cat{margin:22px 0 10px;}
-  .cat:first-child{margin-top:6px;}
-  .cat-head{display:flex;align-items:center;gap:10px;}
-  .blaze{width:6px;height:20px;border-radius:3px;background:var(--moss);flex:0 0 auto;}
-  .cat--must .blaze{background:var(--signal);}
-  .cat--season .blaze{background:var(--sky);}
-  .cat-head h2{margin:0;font-size:12px;letter-spacing:.14em;text-transform:uppercase;font-weight:800;color:var(--spruce);}
-  .cat--must .cat-head h2{color:var(--signal);}
-  .cat--season .cat-head h2{color:var(--sky);}
-  .cat-count{margin-left:auto;font-size:12px;color:var(--mist);font-weight:600;}
-  .cat-note{margin:6px 0 0 16px;font-size:12.5px;color:var(--mist);font-style:italic;}
-  .list{list-style:none;margin:8px 0 0;padding:0;background:var(--paper);border:1px solid var(--line);
-    border-radius:var(--radius);overflow:hidden;box-shadow:var(--shadow);}
-  .item{display:flex;align-items:center;gap:13px;width:100%;text-align:left;background:none;border:0;border-top:1px solid var(--line);
-    font:inherit;color:var(--ink);cursor:pointer;padding:13px 15px;min-height:var(--tap);transition:background .12s;}
-  .item:first-child{border-top:0;}
-  .item:active{background:#F3F6F3;}
-  .tick{flex:0 0 auto;width:24px;height:24px;border-radius:50%;border:2px solid #C2CEC7;background:var(--paper);
-    display:grid;place-items:center;transition:all .18s;}
-  .tick svg{width:14px;height:14px;opacity:0;transform:scale(.5);transition:all .18s;}
-  .item .label{flex:1;font-size:15.5px;transition:color .18s;}
-  .badge{font-size:10.5px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;color:var(--mist);
-    background:var(--stone);border-radius:6px;padding:3px 7px;flex:0 0 auto;}
-  .item[aria-checked="true"] .tick{background:var(--moss);border-color:var(--moss);}
-  .item[aria-checked="true"] .tick svg{opacity:1;transform:scale(1);stroke:#fff;}
-  .item[aria-checked="true"] .label{color:var(--mist);text-decoration:line-through;text-decoration-color:#B8C5BD;}
+      /* gear list */
+      .cat {
+        margin: 22px 0 10px;
+      }
+      .cat:first-child {
+        margin-top: 6px;
+      }
+      .cat-head {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+      .blaze {
+        width: 6px;
+        height: 20px;
+        border-radius: 3px;
+        background: var(--moss);
+        flex: 0 0 auto;
+      }
+      .cat--must .blaze {
+        background: var(--signal);
+      }
+      .cat--season .blaze {
+        background: var(--sky);
+      }
+      .cat-head h2 {
+        margin: 0;
+        font-size: 12px;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        font-weight: 800;
+        color: var(--spruce);
+      }
+      .cat--must .cat-head h2 {
+        color: var(--signal);
+      }
+      .cat--season .cat-head h2 {
+        color: var(--sky);
+      }
+      .cat-count {
+        margin-left: auto;
+        font-size: 12px;
+        color: var(--mist);
+        font-weight: 600;
+      }
+      .cat-note {
+        margin: 6px 0 0 16px;
+        font-size: 12.5px;
+        color: var(--mist);
+        font-style: italic;
+      }
+      .list {
+        list-style: none;
+        margin: 8px 0 0;
+        padding: 0;
+        background: var(--paper);
+        border: 1px solid var(--line);
+        border-radius: var(--radius);
+        overflow: hidden;
+        box-shadow: var(--shadow);
+      }
+      .item {
+        display: flex;
+        align-items: center;
+        gap: 13px;
+        width: 100%;
+        text-align: left;
+        background: none;
+        border: 0;
+        border-top: 1px solid var(--line);
+        font: inherit;
+        color: var(--ink);
+        cursor: pointer;
+        padding: 13px 15px;
+        min-height: var(--tap);
+        transition: background 0.12s;
+      }
+      .item:first-child {
+        border-top: 0;
+      }
+      .item:active {
+        background: #f3f6f3;
+      }
+      .tick {
+        flex: 0 0 auto;
+        width: 24px;
+        height: 24px;
+        border-radius: 50%;
+        border: 2px solid #c2cec7;
+        background: var(--paper);
+        display: grid;
+        place-items: center;
+        transition: all 0.18s;
+      }
+      .tick svg {
+        width: 14px;
+        height: 14px;
+        opacity: 0;
+        transform: scale(0.5);
+        transition: all 0.18s;
+      }
+      .item .label {
+        flex: 1;
+        font-size: 15.5px;
+        transition: color 0.18s;
+      }
+      .badge {
+        font-size: 10.5px;
+        font-weight: 700;
+        letter-spacing: 0.04em;
+        text-transform: uppercase;
+        color: var(--mist);
+        background: var(--stone);
+        border-radius: 6px;
+        padding: 3px 7px;
+        flex: 0 0 auto;
+      }
+      .item[aria-checked="true"] .tick {
+        background: var(--moss);
+        border-color: var(--moss);
+      }
+      .item[aria-checked="true"] .tick svg {
+        opacity: 1;
+        transform: scale(1);
+        stroke: #fff;
+      }
+      .item[aria-checked="true"] .label {
+        color: var(--mist);
+        text-decoration: line-through;
+        text-decoration-color: #b8c5bd;
+      }
 
-  /* info box */
-  .info{background:var(--moss-soft);border:1px solid #CFE0D6;border-radius:var(--radius);padding:14px 16px;margin:0 0 18px;
-    font-size:14px;color:#1f4636;}
-  .info b{color:var(--spruce);}
-  .info--warn{background:var(--signal-soft);border-color:#F2CDB1;color:#7a3a13;}
-  .info--warn b{color:#b3551c;}
+      /* info box */
+      .info {
+        background: var(--moss-soft);
+        border: 1px solid #cfe0d6;
+        border-radius: var(--radius);
+        padding: 14px 16px;
+        margin: 0 0 18px;
+        font-size: 14px;
+        color: #1f4636;
+      }
+      .info b {
+        color: var(--spruce);
+      }
+      .info--warn {
+        background: var(--signal-soft);
+        border-color: #f2cdb1;
+        color: #7a3a13;
+      }
+      .info--warn b {
+        color: #b3551c;
+      }
 
-  /* gear examples (right/wrong) */
-  .ex-card{background:var(--paper);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);padding:14px 16px;margin-bottom:12px;}
-  .ex-head{display:flex;align-items:center;gap:10px;margin-bottom:9px;flex-wrap:wrap;}
-  .ex-head h3{margin:0;font-size:16px;font-weight:800;}
-  .ex-layer{font-size:11px;font-weight:700;letter-spacing:.03em;color:#1c4a6b;background:var(--sky-soft);border-radius:999px;padding:3px 10px;}
-  .ex-row{display:flex;gap:10px;align-items:flex-start;font-size:14px;margin:6px 0;}
-  .ex-row .mark{flex:0 0 auto;width:22px;height:22px;border-radius:50%;display:grid;place-items:center;font-weight:800;font-size:13px;margin-top:1px;}
-  .ex-row.wrong .mark{background:#F6DAD2;color:#c0492a;}
-  .ex-row.right .mark{background:var(--moss-soft);color:#1f6b46;}
-  .ex-row.wrong span:last-child{color:var(--mist);}
-  .ex-row.right span:last-child{color:#243029;}
+      /* gear examples (right/wrong) */
+      .ex-card {
+        background: var(--paper);
+        border: 1px solid var(--line);
+        border-radius: var(--radius);
+        box-shadow: var(--shadow);
+        padding: 14px 16px;
+        margin-bottom: 12px;
+      }
+      .ex-head {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        margin-bottom: 9px;
+        flex-wrap: wrap;
+      }
+      .ex-head h3 {
+        margin: 0;
+        font-size: 16px;
+        font-weight: 800;
+      }
+      .ex-layer {
+        font-size: 11px;
+        font-weight: 700;
+        letter-spacing: 0.03em;
+        color: #1c4a6b;
+        background: var(--sky-soft);
+        border-radius: 999px;
+        padding: 3px 10px;
+      }
+      .ex-row {
+        display: flex;
+        gap: 10px;
+        align-items: flex-start;
+        font-size: 14px;
+        margin: 6px 0;
+      }
+      .ex-row .mark {
+        flex: 0 0 auto;
+        width: 22px;
+        height: 22px;
+        border-radius: 50%;
+        display: grid;
+        place-items: center;
+        font-weight: 800;
+        font-size: 13px;
+        margin-top: 1px;
+      }
+      .ex-row.wrong .mark {
+        background: #f6dad2;
+        color: #c0492a;
+      }
+      .ex-row.right .mark {
+        background: var(--moss-soft);
+        color: #1f6b46;
+      }
+      .ex-row.wrong span:last-child {
+        color: var(--mist);
+      }
+      .ex-row.right span:last-child {
+        color: #243029;
+      }
 
-  /* video cards */
-  .vcard{display:flex;gap:14px;align-items:center;text-decoration:none;color:inherit;background:var(--paper);
-    border:1px solid var(--line);border-radius:var(--radius);padding:12px;margin-bottom:12px;box-shadow:var(--shadow);
-    transition:transform .15s,border-color .15s;}
-  .vcard:hover{transform:translateY(-2px);border-color:var(--moss);}
-  .thumb{position:relative;flex:0 0 auto;width:128px;height:74px;border-radius:11px;overflow:hidden;background:var(--spruce);}
-  .thumb img{width:100%;height:100%;object-fit:cover;display:block;}
-  .thumb .play{position:absolute;inset:0;display:grid;place-items:center;}
-  .thumb .play span{width:38px;height:38px;border-radius:50%;background:rgba(22,58,46,.82);display:grid;place-items:center;}
-  .vcard .vmeta h3{margin:0 0 4px;font-size:15.5px;font-weight:700;}
-  .vcard .vmeta p{margin:0;font-size:13px;color:var(--mist);}
-  .vcard .vmeta .src{margin-top:6px;font-size:12px;color:var(--signal);font-weight:600;}
+      /* video cards */
+      .vcard {
+        display: flex;
+        gap: 14px;
+        align-items: center;
+        text-decoration: none;
+        color: inherit;
+        background: var(--paper);
+        border: 1px solid var(--line);
+        border-radius: var(--radius);
+        padding: 12px;
+        margin-bottom: 12px;
+        box-shadow: var(--shadow);
+        transition:
+          transform 0.15s,
+          border-color 0.15s;
+      }
+      .vcard:hover {
+        transform: translateY(-2px);
+        border-color: var(--moss);
+      }
+      .thumb {
+        position: relative;
+        flex: 0 0 auto;
+        width: 128px;
+        height: 74px;
+        border-radius: 11px;
+        overflow: hidden;
+        background: var(--spruce);
+      }
+      .thumb img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
+      }
+      .thumb .play {
+        position: absolute;
+        inset: 0;
+        display: grid;
+        place-items: center;
+      }
+      .thumb .play span {
+        width: 38px;
+        height: 38px;
+        border-radius: 50%;
+        background: rgba(22, 58, 46, 0.82);
+        display: grid;
+        place-items: center;
+      }
+      .vcard .vmeta h3 {
+        margin: 0 0 4px;
+        font-size: 15.5px;
+        font-weight: 700;
+      }
+      .vcard .vmeta p {
+        margin: 0;
+        font-size: 13px;
+        color: var(--mist);
+      }
+      .vcard .vmeta .src {
+        margin-top: 6px;
+        font-size: 12px;
+        color: var(--signal);
+        font-weight: 600;
+      }
 
-  /* route cards */
-  .route-card{background:var(--paper);border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;
-    box-shadow:var(--shadow);margin-bottom:14px;}
-  .route-img{aspect-ratio:16/9;background:var(--spruce);}
-  .route-img img{width:100%;height:100%;object-fit:cover;display:block;}
-  .route-body{padding:14px 16px 16px;}
-  .route-top{display:flex;align-items:flex-start;gap:10px;}
-  .route-top h3{margin:0;font-size:18px;font-weight:800;flex:1;letter-spacing:-.01em;}
-  .days-badge{flex:0 0 auto;font-size:12px;font-weight:700;color:var(--spruce);background:var(--moss-soft);border-radius:999px;padding:4px 11px;}
-  .route-area{margin:3px 0 0;font-size:13px;color:var(--mist);}
-  .route-meta{display:flex;flex-wrap:wrap;align-items:center;gap:10px;margin:11px 0;font-size:13.5px;}
-  .route-meta .m{color:var(--mist);}
-  .pill{font-size:11.5px;font-weight:700;border-radius:999px;padding:3px 10px;}
-  .pill--easy{background:var(--moss-soft);color:#1f6b46;}
-  .pill--mid{background:#FBEFD6;color:#9a6a12;}
-  .pill--hard{background:var(--signal-soft);color:#b3551c;}
-  .route-desc{margin:0;font-size:14px;color:#33403b;}
-  .route-tip{margin:11px 0 0;font-size:13px;color:#1f4636;background:var(--moss-soft);border-radius:10px;padding:9px 12px;}
+      /* route cards */
+      .route-card {
+        background: var(--paper);
+        border: 1px solid var(--line);
+        border-radius: var(--radius);
+        overflow: hidden;
+        box-shadow: var(--shadow);
+        margin-bottom: 14px;
+      }
+      .route-img {
+        aspect-ratio: 16/9;
+        background: var(--spruce);
+      }
+      .route-img img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
+      }
+      .route-body {
+        padding: 14px 16px 16px;
+      }
+      .route-top {
+        display: flex;
+        align-items: flex-start;
+        gap: 10px;
+      }
+      .route-top h3 {
+        margin: 0;
+        font-size: 18px;
+        font-weight: 800;
+        flex: 1;
+        letter-spacing: -0.01em;
+      }
+      .days-badge {
+        flex: 0 0 auto;
+        font-size: 12px;
+        font-weight: 700;
+        color: var(--spruce);
+        background: var(--moss-soft);
+        border-radius: 999px;
+        padding: 4px 11px;
+      }
+      .route-area {
+        margin: 3px 0 0;
+        font-size: 13px;
+        color: var(--mist);
+      }
+      .route-meta {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: 10px;
+        margin: 11px 0;
+        font-size: 13.5px;
+      }
+      .route-meta .m {
+        color: var(--mist);
+      }
+      .pill {
+        font-size: 11.5px;
+        font-weight: 700;
+        border-radius: 999px;
+        padding: 3px 10px;
+      }
+      .pill--easy {
+        background: var(--moss-soft);
+        color: #1f6b46;
+      }
+      .pill--mid {
+        background: #fbefd6;
+        color: #9a6a12;
+      }
+      .pill--hard {
+        background: var(--signal-soft);
+        color: #b3551c;
+      }
+      .route-desc {
+        margin: 0;
+        font-size: 14px;
+        color: #33403b;
+      }
+      .route-tip {
+        margin: 11px 0 0;
+        font-size: 13px;
+        color: #1f4636;
+        background: var(--moss-soft);
+        border-radius: 10px;
+        padding: 9px 12px;
+      }
 
-  /* link cards (apps) */
-  .link-card{display:flex;align-items:center;gap:12px;text-decoration:none;color:inherit;background:var(--paper);
-    border:1px solid var(--line);border-radius:14px;padding:14px 15px;margin-bottom:10px;box-shadow:var(--shadow);
-    transition:border-color .15s,transform .15s;}
-  .link-card:hover{border-color:var(--moss);transform:translateY(-1px);}
-  .link-card .lc-ico{width:40px;height:40px;border-radius:11px;background:var(--moss-soft);display:grid;place-items:center;flex:0 0 auto;}
-  .link-card .lc-body{flex:1;}
-  .link-card .lc-body h3{margin:0;font-size:15.5px;font-weight:700;}
-  .link-card .lc-body p{margin:2px 0 0;font-size:13px;color:var(--mist);}
-  .link-card .lc-go{color:var(--mist);flex:0 0 auto;}
+      /* link cards (apps) */
+      .link-card {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        text-decoration: none;
+        color: inherit;
+        background: var(--paper);
+        border: 1px solid var(--line);
+        border-radius: 14px;
+        padding: 14px 15px;
+        margin-bottom: 10px;
+        box-shadow: var(--shadow);
+        transition:
+          border-color 0.15s,
+          transform 0.15s;
+      }
+      .link-card:hover {
+        border-color: var(--moss);
+        transform: translateY(-1px);
+      }
+      .link-card .lc-ico {
+        width: 40px;
+        height: 40px;
+        border-radius: 11px;
+        background: var(--moss-soft);
+        display: grid;
+        place-items: center;
+        flex: 0 0 auto;
+      }
+      .link-card .lc-body {
+        flex: 1;
+      }
+      .link-card .lc-body h3 {
+        margin: 0;
+        font-size: 15.5px;
+        font-weight: 700;
+      }
+      .link-card .lc-body p {
+        margin: 2px 0 0;
+        font-size: 13px;
+        color: var(--mist);
+      }
+      .link-card .lc-go {
+        color: var(--mist);
+        flex: 0 0 auto;
+      }
 
-  /* safety */
-  .scard{background:var(--paper);border:1px solid var(--line);border-radius:var(--radius);padding:15px 16px;margin-bottom:12px;box-shadow:var(--shadow);}
-  .scard h3{margin:0 0 8px;font-size:16px;font-weight:800;display:flex;align-items:center;gap:9px;color:var(--spruce);}
-  .scard h3 .si{width:22px;height:22px;flex:0 0 auto;}
-  .scard ul{margin:0;padding-left:18px;}
-  .scard li{font-size:14.5px;margin:5px 0;}
-  .scard li b{color:var(--ink);}
-  .emergency{display:flex;gap:10px;flex-wrap:wrap;margin-top:4px;}
-  .emergency a{flex:1;min-width:130px;text-decoration:none;background:var(--signal);color:#fff;border-radius:13px;
-    padding:13px 14px;display:flex;flex-direction:column;gap:1px;box-shadow:var(--shadow);}
-  .emergency a .num{font-size:23px;font-weight:800;line-height:1;}
-  .emergency a .who{font-size:12px;opacity:.92;}
-  .emergency a.alt{background:var(--spruce);}
-  .footnote{margin:26px 4px 0;font-size:12px;color:var(--mist);text-align:center;}
+      /* safety */
+      .scard {
+        background: var(--paper);
+        border: 1px solid var(--line);
+        border-radius: var(--radius);
+        padding: 15px 16px;
+        margin-bottom: 12px;
+        box-shadow: var(--shadow);
+      }
+      .scard h3 {
+        margin: 0 0 8px;
+        font-size: 16px;
+        font-weight: 800;
+        display: flex;
+        align-items: center;
+        gap: 9px;
+        color: var(--spruce);
+      }
+      .scard h3 .si {
+        width: 22px;
+        height: 22px;
+        flex: 0 0 auto;
+      }
+      .scard ul {
+        margin: 0;
+        padding-left: 18px;
+      }
+      .scard li {
+        font-size: 14.5px;
+        margin: 5px 0;
+      }
+      .scard li b {
+        color: var(--ink);
+      }
+      .emergency {
+        display: flex;
+        gap: 10px;
+        flex-wrap: wrap;
+        margin-top: 4px;
+      }
+      .emergency a {
+        flex: 1;
+        min-width: 130px;
+        text-decoration: none;
+        background: var(--signal);
+        color: #fff;
+        border-radius: 13px;
+        padding: 13px 14px;
+        display: flex;
+        flex-direction: column;
+        gap: 1px;
+        box-shadow: var(--shadow);
+      }
+      .emergency a .num {
+        font-size: 23px;
+        font-weight: 800;
+        line-height: 1;
+      }
+      .emergency a .who {
+        font-size: 12px;
+        opacity: 0.92;
+      }
+      .emergency a.alt {
+        background: var(--spruce);
+      }
+      .footnote {
+        margin: 26px 4px 0;
+        font-size: 12px;
+        color: var(--mist);
+        text-align: center;
+      }
 
-  /* BOTTOM DOCK */
-  .dock{position:fixed;left:0;right:0;bottom:0;z-index:30;display:flex;justify-content:center;
-    padding:10px 12px calc(10px + env(safe-area-inset-bottom));pointer-events:none;}
-  .dock nav{pointer-events:auto;display:flex;gap:1px;background:var(--paper);border:1px solid var(--line);
-    border-radius:20px;padding:6px;box-shadow:0 6px 28px rgba(22,32,28,.16);width:100%;max-width:520px;}
-  .dock button{flex:1;border:0;background:none;cursor:pointer;font:inherit;display:flex;flex-direction:column;
-    align-items:center;gap:3px;padding:8px 2px 6px;border-radius:14px;color:var(--mist);min-height:54px;
-    transition:color .15s,background .15s;}
-  .dock button svg{width:22px;height:22px;}
-  .dock button span{font-size:10px;font-weight:600;white-space:nowrap;}
-  .dock button[aria-current="true"]{color:var(--spruce);background:var(--moss-soft);}
+      /* BOTTOM DOCK */
+      .dock {
+        position: fixed;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        z-index: 30;
+        display: flex;
+        justify-content: center;
+        padding: 10px 12px calc(10px + env(safe-area-inset-bottom));
+        pointer-events: none;
+      }
+      .dock nav {
+        pointer-events: auto;
+        display: flex;
+        gap: 1px;
+        background: var(--paper);
+        border: 1px solid var(--line);
+        border-radius: 20px;
+        padding: 6px;
+        box-shadow: 0 6px 28px rgba(22, 32, 28, 0.16);
+        width: 100%;
+        max-width: 520px;
+      }
+      .dock button {
+        flex: 1;
+        border: 0;
+        background: none;
+        cursor: pointer;
+        font: inherit;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 3px;
+        padding: 8px 2px 6px;
+        border-radius: 14px;
+        color: var(--mist);
+        min-height: 54px;
+        transition:
+          color 0.15s,
+          background 0.15s;
+      }
+      .dock button svg {
+        width: 22px;
+        height: 22px;
+      }
+      .dock button span {
+        font-size: 10px;
+        font-weight: 600;
+        white-space: nowrap;
+      }
+      .dock button[aria-current="true"] {
+        color: var(--spruce);
+        background: var(--moss-soft);
+      }
 
-  @media (min-width:720px){
-    .appbar{padding-top:34px;padding-bottom:30px;}
-    .appbar h1{font-size:38px;}
-    main{padding:24px 16px 32px;}
-    .vcard .thumb{width:168px;height:96px;}
-  }
-  @media (prefers-reduced-motion:reduce){ *{animation:none!important;transition:none!important;} }
-  :focus-visible{outline:3px solid var(--signal);outline-offset:2px;border-radius:8px;}
-</style>
-</head>
-<body>
-
-<header class="appbar">
-  <svg class="contour" viewBox="0 0 720 180" preserveAspectRatio="none" aria-hidden="true">
-    <g fill="none" stroke="#2E6B4F" stroke-width="1.5">
-      <path d="M-10,150 C120,120 200,150 320,128 C460,103 560,140 740,112"/>
-      <path d="M-10,120 C140,92 220,120 340,98 C480,72 600,110 740,82"/>
-      <path d="M-10,92 C160,66 250,92 360,72 C500,48 620,84 740,56"/>
-    </g>
-    <path d="M-10,180 L150,86 L250,150 L420,40 L560,150 L740,80 L740,180 Z" fill="#1E4A3A" opacity=".55"/>
-  </svg>
-  <div class="inner">
-    <p class="eyebrow">Майстер-клас · похід у гори</p>
-    <h1>
-      <svg width="30" height="30" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-        <path d="M3 20L9.5 8L13 14L15.5 9.5L21 20H3Z" fill="#F4F2ED"/>
-        <path d="M9.5 8L13 14L11 14L9.5 11L8 14L3 20" fill="#2E6B4F"/>
-        <circle cx="17.5" cy="6.5" r="2.4" fill="#F26A1B"/>
+      @media (min-width: 720px) {
+        .appbar {
+          padding-top: 34px;
+          padding-bottom: 30px;
+        }
+        .appbar h1 {
+          font-size: 38px;
+        }
+        main {
+          padding: 24px 16px 32px;
+        }
+        .vcard .thumb {
+          width: 168px;
+          height: 96px;
+        }
+      }
+      @media (prefers-reduced-motion: reduce) {
+        * {
+          animation: none !important;
+          transition: none !important;
+        }
+      }
+      :focus-visible {
+        outline: 3px solid var(--signal);
+        outline-offset: 2px;
+        border-radius: 8px;
+      }
+    </style>
+  </head>
+  <body>
+    <header class="appbar">
+      <svg
+        class="contour"
+        viewBox="0 0 720 180"
+        preserveAspectRatio="none"
+        aria-hidden="true"
+      >
+        <g fill="none" stroke="#2E6B4F" stroke-width="1.5">
+          <path
+            d="M-10,150 C120,120 200,150 320,128 C460,103 560,140 740,112"
+          />
+          <path d="M-10,120 C140,92 220,120 340,98 C480,72 600,110 740,82" />
+          <path d="M-10,92 C160,66 250,92 360,72 C500,48 620,84 740,56" />
+        </g>
+        <path
+          d="M-10,180 L150,86 L250,150 L420,40 L560,150 L740,80 L740,180 Z"
+          fill="#1E4A3A"
+          opacity=".55"
+        />
       </svg>
-      У гори
-    </h1>
-    <p>Збери рюкзак правильно, переглянь, який має бути стаф, маршрути й головне про безпеку.</p>
-  </div>
-</header>
-
-<div class="controls" id="controls">
-  <div class="inner">
-    <div class="segmented" role="group" aria-label="Тривалість походу">
-      <button id="day1" aria-pressed="true">1 день<span class="sub">радіалка / без ночівлі</span></button>
-      <button id="day2" aria-pressed="false">2 дні<span class="sub">з ночівлею в наметі</span></button>
-    </div>
-    <div class="row2">
-      <button class="chip" id="seasonChip" aria-pressed="false">
-        <span class="dot">❄️</span> <span class="chip-label">Холодна пора</span>
-      </button>
-      <span style="font-size:12.5px;color:var(--mist);">додає зимове спорядження</span>
-    </div>
-    <div class="progress">
-      <div class="meta">
-        <b id="progressText">Зібрано 0 / 0</b>
-        <button class="reset" id="resetBtn">Скинути</button>
+      <div class="inner">
+        <p class="eyebrow">Похід у гори · Що з собою брати? · Чи кого?</p>
+        <h1>
+          <svg
+            width="30"
+            height="30"
+            viewBox="0 0 24 24"
+            fill="none"
+            aria-hidden="true"
+          >
+            <path d="M3 20L9.5 8L13 14L15.5 9.5L21 20H3Z" fill="#F4F2ED" />
+            <path d="M9.5 8L13 14L11 14L9.5 11L8 14L3 20" fill="#2E6B4F" />
+            <circle cx="17.5" cy="6.5" r="2.4" fill="#F26A1B" />
+          </svg>
+          У гори
+        </h1>
+        <p>
+          Збери рюкзак правильно, переглянь, який має бути стаф, маршрути й
+          головне про безпеку.
+        </p>
       </div>
-      <div class="bar"><i id="progressBar"></i></div>
-      <div class="done-flag" id="doneFlag">🎒 Рюкзак зібраний — гарного походу!</div>
-    </div>
-  </div>
-</div>
+    </header>
 
-<main class="wrap">
-  <!-- GEAR (checklist) -->
-  <section id="gear" class="active" aria-label="Рюкзак — чек-лист"></section>
-
-  <!-- STUFF (how gear should look) -->
-  <section id="stuff" aria-label="Як виглядає спорядження">
-    <h2 class="panel-title">Як виглядає спорядження</h2>
-    <p class="lead">Не «гарна кофта», а правильна річ. Головне — матеріал, а не вигляд.</p>
-    <div class="info">
-      <b>Правило трьох шарів.</b> Базовий шар відводить вологу від тіла (термуха).
-      Утеплювальний — тримає тепло (фліска, пуховик). Захисний — рятує від вітру й дощу (мембрана).
-      Разом вони працюють краще, ніж одна товста куртка.
-    </div>
-    <div id="exampleList"></div>
-  </section>
-
-  <!-- VIDEO -->
-  <section id="video" aria-label="Відео">
-    <h2 class="panel-title">Відео-поради</h2>
-    <p class="lead">Подивись завчасно — у горах часто немає інтернету.</p>
-    <div id="videoList"></div>
-  </section>
-
-  <!-- ROUTES -->
-  <section id="routes" aria-label="Маршрути">
-    <h2 class="panel-title">Маршрути</h2>
-    <p class="lead">Куди можна сходити й де шукати власні маршрути.</p>
-    <div id="routeList"></div>
-    <h3 class="sub-head">Де шукати й планувати</h3>
-    <div id="appList"></div>
-  </section>
-
-  <!-- SAFETY -->
-  <section id="safety" aria-label="Безпека">
-    <h2 class="panel-title">Безпека</h2>
-    <p class="lead">Найважливіше, що варто знати кожному в групі.</p>
-
-    <div class="scard">
-      <h3><svg class="si" viewBox="0 0 24 24" fill="none" stroke="#F26A1B" stroke-width="2"><path d="M12 2l8 4v6c0 5-3.5 8-8 10-4.5-2-8-5-8-10V6l8-4z"/></svg>Екстрені номери</h3>
-      <div class="emergency">
-        <a href="tel:112"><span class="num">112</span><span class="who">єдиний екстрений</span></a>
-        <a class="alt" href="tel:101"><span class="num">101</span><span class="who">ДСНС · рятувальники</span></a>
+    <div class="controls" id="controls">
+      <div class="inner">
+        <div class="segmented" role="group" aria-label="Тривалість походу">
+          <button id="day1" aria-pressed="true">
+            1 день<span class="sub">радіалка / без ночівлі</span>
+          </button>
+          <button id="day2" aria-pressed="false">
+            2 дні<span class="sub">з ночівлею в наметі</span>
+          </button>
+        </div>
+        <div class="row2">
+          <button class="chip" id="seasonChip" aria-pressed="false">
+            <span class="dot">❄️</span>
+            <span class="chip-label">Холодна пора</span>
+          </button>
+          <span style="font-size: 12.5px; color: var(--mist)"
+            >додає зимове спорядження</span
+          >
+        </div>
+        <div class="progress">
+          <div class="meta">
+            <b id="progressText">Зібрано 0 / 0</b>
+            <button class="reset" id="resetBtn">Скинути</button>
+          </div>
+          <div class="bar"><i id="progressBar"></i></div>
+          <div class="done-flag" id="doneFlag">
+            🎒 Рюкзак зібраний — гарного походу!
+          </div>
+        </div>
       </div>
-      <ul style="margin-top:12px;">
-        <li>Назви якомога точніше, <b>де ти є</b> (назва гори, стежки, орієнтири, координати з телефону).</li>
-        <li>Бережи заряд: вимкни зайве, тримай телефон у теплі.</li>
-      </ul>
     </div>
 
-    <div class="scard">
-      <h3><svg class="si" viewBox="0 0 24 24" fill="none" stroke="#2E6B4F" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 7v6m0 4h.01"/></svg>Якщо загубився або відстав</h3>
-      <ul>
-        <li><b>Зупинись і не панікуй.</b> Рухатися навмання — гірше, ніж лишитися на місці.</li>
-        <li>Лишайся на стежці й на видному місці, дзвони лідеру або 112.</li>
-        <li>Подавай сигнали: голосом, свистком, яскравим одягом.</li>
-        <li>Не спускайся наосліп у незнайомий бік, особливо в тумані чи сутінках.</li>
-      </ul>
+    <main class="wrap">
+      <!-- GEAR (checklist) -->
+      <section
+        id="gear"
+        class="active"
+        aria-label="Рюкзак — чек-лист"
+      ></section>
+
+      <!-- STUFF (how gear should look) -->
+      <section id="stuff" aria-label="Як виглядає спорядження">
+        <h2 class="panel-title">Як виглядає спорядження</h2>
+        <p class="lead">
+          Не «гарна кофта», а правильна річ. Головне — матеріал, а не вигляд.
+        </p>
+        <div class="info">
+          <b>Правило трьох шарів.</b> Базовий шар відводить вологу від тіла
+          (термуха). Утеплювальний — тримає тепло (фліска, пуховик). Захисний —
+          рятує від вітру й дощу (мембрана). Разом вони працюють краще, ніж одна
+          товста куртка.
+        </div>
+        <div id="exampleList"></div>
+      </section>
+
+      <!-- VIDEO -->
+      <section id="video" aria-label="Відео">
+        <h2 class="panel-title">Відео-поради</h2>
+        <p class="lead">Подивись завчасно — у горах часто немає інтернету.</p>
+        <div id="videoList"></div>
+      </section>
+
+      <!-- ROUTES -->
+      <section id="routes" aria-label="Маршрути">
+        <h2 class="panel-title">Маршрути</h2>
+        <p class="lead">Куди можна сходити й де шукати власні маршрути.</p>
+        <div id="routeList"></div>
+        <h3 class="sub-head">Де шукати й планувати</h3>
+        <div id="appList"></div>
+      </section>
+
+      <!-- SAFETY -->
+      <section id="safety" aria-label="Безпека">
+        <h2 class="panel-title">Безпека</h2>
+        <p class="lead">Найважливіше, що варто знати кожному в групі.</p>
+
+        <div class="scard">
+          <h3>
+            <svg
+              class="si"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="#F26A1B"
+              stroke-width="2"
+            >
+              <path d="M12 2l8 4v6c0 5-3.5 8-8 10-4.5-2-8-5-8-10V6l8-4z" /></svg
+            >Екстрені номери
+          </h3>
+          <div class="emergency">
+            <a href="tel:112"
+              ><span class="num">112</span
+              ><span class="who">єдиний екстрений</span></a
+            >
+            <a class="alt" href="tel:101"
+              ><span class="num">101</span
+              ><span class="who">ДСНС · рятувальники</span></a
+            >
+          </div>
+          <ul style="margin-top: 12px">
+            <li>
+              Назви якомога точніше, <b>де ти є</b> (назва гори, стежки,
+              орієнтири, координати з телефону).
+            </li>
+            <li>Бережи заряд: вимкни зайве, тримай телефон у теплі.</li>
+          </ul>
+        </div>
+
+        <div class="scard">
+          <h3>
+            <svg
+              class="si"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="#2E6B4F"
+              stroke-width="2"
+            >
+              <circle cx="12" cy="12" r="9" />
+              <path d="M12 7v6m0 4h.01" /></svg
+            >Якщо загубився або відстав
+          </h3>
+          <ul>
+            <li>
+              <b>Зупинись і не панікуй.</b> Рухатися навмання — гірше, ніж
+              лишитися на місці.
+            </li>
+            <li>
+              Лишайся на стежці й на видному місці, дзвони лідеру або 112.
+            </li>
+            <li>Подавай сигнали: голосом, свистком, яскравим одягом.</li>
+            <li>
+              Не спускайся наосліп у незнайомий бік, особливо в тумані чи
+              сутінках.
+            </li>
+          </ul>
+        </div>
+
+        <div class="scard">
+          <h3>
+            <svg
+              class="si"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="#2E6B4F"
+              stroke-width="2"
+            >
+              <path d="M12 5v14M5 12h14" /></svg
+            >Базова перша допомога
+          </h3>
+          <ul>
+            <li><b>Мозолі:</b> заклей пластиром одразу, щойно відчув тертя.</li>
+            <li>
+              <b>Переохолодження:</b> переодягнись у сухе, тепле пиття, рухайся.
+            </li>
+            <li>
+              <b>Перегрів / сонце:</b> вода, тінь, головний убір, окуляри.
+            </li>
+            <li><b>Розтягнення:</b> спокій, фіксація, не навантажуй.</li>
+          </ul>
+        </div>
+
+        <div class="scard">
+          <h3>
+            <svg
+              class="si"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="#2E6B4F"
+              stroke-width="2"
+            >
+              <circle cx="9" cy="8" r="3" />
+              <circle cx="17" cy="9" r="2.2" />
+              <path
+                d="M3 20c0-3 2.5-5 6-5s6 2 6 5M15 20c0-2 1-3.5 3-3.5"
+              /></svg
+            >Правила групи
+          </h3>
+          <ul>
+            <li>Не випереджай лідера й не відставай від замикаючого.</li>
+            <li>Темп тримаємо за найслабшим — це не змагання.</li>
+            <li>На розвилках чекаємо одне одного.</li>
+            <li>Щось болить або тривожить — одразу кажи дорослому.</li>
+          </ul>
+        </div>
+        <p class="footnote">
+          Цей застосунок — помічник, а не заміна досвідченого інструктора.
+        </p>
+      </section>
+    </main>
+
+    <div class="dock">
+      <nav role="tablist" aria-label="Розділи">
+        <button data-tab="gear" aria-current="true">
+          <svg
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <path d="M7 9a5 5 0 0110 0v10a2 2 0 01-2 2H9a2 2 0 01-2-2V9z" />
+            <path d="M9.5 9a2.5 2.5 0 015 0" />
+            <path d="M9 14h6" />
+          </svg>
+          <span>Рюкзак</span>
+        </button>
+        <button data-tab="stuff">
+          <svg
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linejoin="round"
+          >
+            <path d="M8 4l4 2 4-2 4 3-2.5 3L15 12v8H9v-8L6.5 10 4 7z" />
+          </svg>
+          <span>Стаф</span>
+        </button>
+        <button data-tab="video">
+          <svg
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linejoin="round"
+          >
+            <rect x="3" y="5" width="18" height="14" rx="3" />
+            <path d="M10 9l5 3-5 3V9z" fill="currentColor" stroke="none" />
+          </svg>
+          <span>Відео</span>
+        </button>
+        <button data-tab="routes">
+          <svg
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <path d="M12 21s7-6.5 7-12a7 7 0 10-14 0c0 5.5 7 12 7 12z" />
+            <circle cx="12" cy="9" r="2.5" />
+          </svg>
+          <span>Маршрути</span>
+        </button>
+        <button data-tab="safety">
+          <svg
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linejoin="round"
+          >
+            <path d="M12 3l7 3v6c0 4.5-3 7-7 9-4-2-7-4.5-7-9V6l7-3z" />
+            <path d="M12 8v4m0 3h.01" stroke-linecap="round" />
+          </svg>
+          <span>Безпека</span>
+        </button>
+      </nav>
     </div>
 
-    <div class="scard">
-      <h3><svg class="si" viewBox="0 0 24 24" fill="none" stroke="#2E6B4F" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg>Базова перша допомога</h3>
-      <ul>
-        <li><b>Мозолі:</b> заклей пластиром одразу, щойно відчув тертя.</li>
-        <li><b>Переохолодження:</b> переодягнись у сухе, тепле пиття, рухайся.</li>
-        <li><b>Перегрів / сонце:</b> вода, тінь, головний убір, окуляри.</li>
-        <li><b>Розтягнення:</b> спокій, фіксація, не навантажуй.</li>
-      </ul>
-    </div>
+    <script src="data.js"></script>
+    <script>
+      (function () {
+        "use strict";
+        const D = window.MOUNTAIN_DATA;
 
-    <div class="scard">
-      <h3><svg class="si" viewBox="0 0 24 24" fill="none" stroke="#2E6B4F" stroke-width="2"><circle cx="9" cy="8" r="3"/><circle cx="17" cy="9" r="2.2"/><path d="M3 20c0-3 2.5-5 6-5s6 2 6 5M15 20c0-2 1-3.5 3-3.5"/></svg>Правила групи</h3>
-      <ul>
-        <li>Не випереджай лідера й не відставай від замикаючого.</li>
-        <li>Темп тримаємо за найслабшим — це не змагання.</li>
-        <li>На розвилках чекаємо одне одного.</li>
-        <li>Щось болить або тривожить — одразу кажи дорослому.</li>
-      </ul>
-    </div>
-    <p class="footnote">Цей застосунок — помічник, а не заміна досвідченого інструктора.</p>
-  </section>
-</main>
+        function esc(s) {
+          return String(s).replace(
+            /[&<>]/g,
+            (m) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;" })[m],
+          );
+        }
+        function escAttr(s) {
+          return esc(s).replace(/"/g, "&quot;");
+        }
 
-<div class="dock">
-  <nav role="tablist" aria-label="Розділи">
-    <button data-tab="gear" aria-current="true">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 9a5 5 0 0110 0v10a2 2 0 01-2 2H9a2 2 0 01-2-2V9z"/><path d="M9.5 9a2.5 2.5 0 015 0"/><path d="M9 14h6"/></svg>
-      <span>Рюкзак</span>
-    </button>
-    <button data-tab="stuff">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M8 4l4 2 4-2 4 3-2.5 3L15 12v8H9v-8L6.5 10 4 7z"/></svg>
-      <span>Стаф</span>
-    </button>
-    <button data-tab="video">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="3"/><path d="M10 9l5 3-5 3V9z" fill="currentColor" stroke="none"/></svg>
-      <span>Відео</span>
-    </button>
-    <button data-tab="routes">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s7-6.5 7-12a7 7 0 10-14 0c0 5.5 7 12 7 12z"/><circle cx="12" cy="9" r="2.5"/></svg>
-      <span>Маршрути</span>
-    </button>
-    <button data-tab="safety">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M12 3l7 3v6c0 4.5-3 7-7 9-4-2-7-4.5-7-9V6l7-3z"/><path d="M12 8v4m0 3h.01" stroke-linecap="round"/></svg>
-      <span>Безпека</span>
-    </button>
-  </nav>
-</div>
+        if (!D || !D.gear) {
+          document.getElementById("gear").innerHTML =
+            '<div class="info info--warn"><b>Не вдалося завантажити контент (data.js).</b> ' +
+            "Переконайся, що файл <b>data.js</b> лежить поряд з index.html. " +
+            "Якщо відкриваєш через подвійний клік і не працює — виклади на GitHub Pages або запусти локальний сервер.</div>";
+          return;
+        }
 
-<script src="data.js"></script>
-<script>
-(function(){
-  "use strict";
-  const D = window.MOUNTAIN_DATA;
+        /* ---------- STATE ---------- */
+        const LS_CHECKED = "gory-pack-v1",
+          LS_DAY = "gory-day-v1",
+          LS_SEASON = "gory-season-v1";
+        let day = localStorage.getItem(LS_DAY) || "1";
+        let season = localStorage.getItem(LS_SEASON) || "warm";
+        let checked = loadChecked();
+        function loadChecked() {
+          try {
+            return JSON.parse(localStorage.getItem(LS_CHECKED)) || {};
+          } catch (e) {
+            return {};
+          }
+        }
+        function saveChecked() {
+          localStorage.setItem(LS_CHECKED, JSON.stringify(checked));
+        }
+        function keyOf(d, cat, name) {
+          return d + "|" + cat + "|" + name;
+        }
+        function norm(it) {
+          return typeof it === "string" ? { n: it } : it;
+        }
 
-  function esc(s){ return String(s).replace(/[&<>]/g, m=>({"&":"&amp;","<":"&lt;",">":"&gt;"}[m])); }
-  function escAttr(s){ return esc(s).replace(/"/g,"&quot;"); }
+        /* ---------- GEAR ---------- */
+        const gearEl = document.getElementById("gear");
+        function visibleCats() {
+          return D.gear[day].filter((c) => !c.season || season === "cold");
+        }
+        function renderGear() {
+          let html = "";
+          visibleCats().forEach((c) => {
+            const cls = c.must ? " cat--must" : c.season ? " cat--season" : "";
+            const items = c.items.map(norm);
+            const done = items.filter(
+              (it) => checked[keyOf(day, c.cat, it.n)],
+            ).length;
+            html +=
+              '<div class="cat' +
+              cls +
+              '"><div class="cat-head"><span class="blaze"></span><h2>' +
+              esc(c.cat) +
+              "</h2>" +
+              '<span class="cat-count">' +
+              done +
+              "/" +
+              items.length +
+              "</span></div>";
+            if (c.note) html += '<p class="cat-note">' + esc(c.note) + "</p>";
+            html += '<ul class="list">';
+            items.forEach((it) => {
+              const k = keyOf(day, c.cat, it.n),
+                on = !!checked[k];
+              html +=
+                '<button class="item" role="checkbox" aria-checked="' +
+                on +
+                '" data-k="' +
+                escAttr(k) +
+                '">' +
+                '<span class="tick"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 13l4 4L19 7"/></svg></span>' +
+                '<span class="label">' +
+                esc(it.n) +
+                "</span>" +
+                (it.opt ? '<span class="badge">опц.</span>' : "") +
+                "</button>";
+            });
+            html += "</ul></div>";
+          });
+          gearEl.innerHTML = html;
+          updateProgress();
+        }
+        function updateProgress() {
+          let total = 0,
+            done = 0;
+          visibleCats().forEach((c) =>
+            c.items.map(norm).forEach((it) => {
+              total++;
+              if (checked[keyOf(day, c.cat, it.n)]) done++;
+            }),
+          );
+          document.getElementById("progressText").textContent =
+            "Зібрано " + done + " / " + total;
+          document.getElementById("progressBar").style.width = total
+            ? (done / total) * 100 + "%"
+            : "0%";
+          document
+            .getElementById("doneFlag")
+            .classList.toggle("show", total > 0 && done === total);
+        }
+        gearEl.addEventListener("click", (e) => {
+          const btn = e.target.closest(".item");
+          if (!btn) return;
+          const k = btn.getAttribute("data-k");
+          if (checked[k]) delete checked[k];
+          else checked[k] = true;
+          btn.setAttribute("aria-checked", checked[k] ? "true" : "false");
+          saveChecked();
+          const box = btn.closest(".cat");
+          box.querySelector(".cat-count").textContent =
+            box.querySelectorAll('.item[aria-checked="true"]').length +
+            "/" +
+            box.querySelectorAll(".item").length;
+          updateProgress();
+        });
 
-  if(!D || !D.gear){
-    document.getElementById("gear").innerHTML =
-      '<div class="info info--warn"><b>Не вдалося завантажити контент (data.js).</b> '
-      + 'Переконайся, що файл <b>data.js</b> лежить поряд з index.html. '
-      + 'Якщо відкриваєш через подвійний клік і не працює — виклади на GitHub Pages або запусти локальний сервер.</div>';
-    return;
-  }
+        /* ---------- CONTROLS ---------- */
+        const d1 = document.getElementById("day1"),
+          d2 = document.getElementById("day2");
+        function setDay(v) {
+          day = v;
+          localStorage.setItem(LS_DAY, v);
+          d1.setAttribute("aria-pressed", v === "1");
+          d2.setAttribute("aria-pressed", v === "2");
+          renderGear();
+        }
+        d1.addEventListener("click", () => setDay("1"));
+        d2.addEventListener("click", () => setDay("2"));
+        const seasonChip = document.getElementById("seasonChip");
+        function setSeason(v) {
+          season = v;
+          localStorage.setItem(LS_SEASON, v);
+          seasonChip.setAttribute("aria-pressed", v === "cold");
+          seasonChip.querySelector(".dot").textContent =
+            v === "cold" ? "❄️" : "☀️";
+          seasonChip.querySelector(".chip-label").textContent =
+            v === "cold" ? "Холодна пора" : "Тепла пора";
+          renderGear();
+        }
+        seasonChip.addEventListener("click", () =>
+          setSeason(season === "cold" ? "warm" : "cold"),
+        );
+        document.getElementById("resetBtn").addEventListener("click", () => {
+          const cats = visibleCats();
+          let n = 0;
+          cats.forEach((c) =>
+            c.items.map(norm).forEach((it) => {
+              if (checked[keyOf(day, c.cat, it.n)]) n++;
+            }),
+          );
+          if (n === 0 || confirm("Зняти всі позначки для цього списку?")) {
+            cats.forEach((c) =>
+              c.items
+                .map(norm)
+                .forEach((it) => delete checked[keyOf(day, c.cat, it.n)]),
+            );
+            saveChecked();
+            renderGear();
+          }
+        });
 
-  /* ---------- STATE ---------- */
-  const LS_CHECKED="gory-pack-v1", LS_DAY="gory-day-v1", LS_SEASON="gory-season-v1";
-  let day = localStorage.getItem(LS_DAY) || "1";
-  let season = localStorage.getItem(LS_SEASON) || "warm";
-  let checked = loadChecked();
-  function loadChecked(){ try{ return JSON.parse(localStorage.getItem(LS_CHECKED))||{}; }catch(e){ return {}; } }
-  function saveChecked(){ localStorage.setItem(LS_CHECKED, JSON.stringify(checked)); }
-  function keyOf(d,cat,name){ return d+"|"+cat+"|"+name; }
-  function norm(it){ return (typeof it==="string") ? {n:it} : it; }
+        /* ---------- STUFF (examples) ---------- */
+        document.getElementById("exampleList").innerHTML = D.gearExamples
+          .map(
+            (e) =>
+              '<div class="ex-card"><div class="ex-head"><h3>' +
+              esc(e.item) +
+              "</h3>" +
+              (e.layer
+                ? '<span class="ex-layer">' + esc(e.layer) + "</span>"
+                : "") +
+              "</div>" +
+              '<div class="ex-row wrong"><span class="mark">✗</span><span>' +
+              esc(e.wrong) +
+              "</span></div>" +
+              '<div class="ex-row right"><span class="mark">✓</span><span>' +
+              esc(e.right) +
+              "</span></div></div>",
+          )
+          .join("");
 
-  /* ---------- GEAR ---------- */
-  const gearEl = document.getElementById("gear");
-  function visibleCats(){ return D.gear[day].filter(c => !c.season || season==="cold"); }
-  function renderGear(){
-    let html="";
-    visibleCats().forEach(c=>{
-      const cls = c.must ? " cat--must" : (c.season ? " cat--season" : "");
-      const items = c.items.map(norm);
-      const done = items.filter(it=>checked[keyOf(day,c.cat,it.n)]).length;
-      html += '<div class="cat'+cls+'"><div class="cat-head"><span class="blaze"></span><h2>'+esc(c.cat)+'</h2>'
-            + '<span class="cat-count">'+done+'/'+items.length+'</span></div>';
-      if(c.note) html += '<p class="cat-note">'+esc(c.note)+'</p>';
-      html += '<ul class="list">';
-      items.forEach(it=>{
-        const k = keyOf(day,c.cat,it.n), on = !!checked[k];
-        html += '<button class="item" role="checkbox" aria-checked="'+on+'" data-k="'+escAttr(k)+'">'
-              + '<span class="tick"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 13l4 4L19 7"/></svg></span>'
-              + '<span class="label">'+esc(it.n)+'</span>'
-              + (it.opt ? '<span class="badge">опц.</span>' : '')
-              + '</button>';
-      });
-      html += '</ul></div>';
-    });
-    gearEl.innerHTML = html;
-    updateProgress();
-  }
-  function updateProgress(){
-    let total=0,done=0;
-    visibleCats().forEach(c=>c.items.map(norm).forEach(it=>{ total++; if(checked[keyOf(day,c.cat,it.n)]) done++; }));
-    document.getElementById("progressText").textContent = "Зібрано "+done+" / "+total;
-    document.getElementById("progressBar").style.width = total ? (done/total*100)+"%" : "0%";
-    document.getElementById("doneFlag").classList.toggle("show", total>0 && done===total);
-  }
-  gearEl.addEventListener("click", e=>{
-    const btn = e.target.closest(".item"); if(!btn) return;
-    const k = btn.getAttribute("data-k");
-    if(checked[k]) delete checked[k]; else checked[k]=true;
-    btn.setAttribute("aria-checked", checked[k]?"true":"false");
-    saveChecked();
-    const box = btn.closest(".cat");
-    box.querySelector(".cat-count").textContent =
-      box.querySelectorAll('.item[aria-checked="true"]').length + "/" + box.querySelectorAll(".item").length;
-    updateProgress();
-  });
+        /* ---------- VIDEOS ---------- */
+        document.getElementById("videoList").innerHTML = D.videos
+          .map(
+            (v) =>
+              '<a class="vcard" href="https://www.youtube.com/watch?v=' +
+              escAttr(v.id) +
+              '" target="_blank" rel="noopener">' +
+              '<span class="thumb"><img loading="lazy" src="https://i.ytimg.com/vi/' +
+              escAttr(v.id) +
+              '/hqdefault.jpg" alt="">' +
+              '<span class="play"><span><svg width="16" height="16" viewBox="0 0 24 24" fill="#fff"><path d="M8 5l11 7-11 7V5z"/></svg></span></span></span>' +
+              '<span class="vmeta"><h3>' +
+              esc(v.title) +
+              "</h3><p>" +
+              esc(v.desc) +
+              '</p><span class="src">Дивитися на YouTube →</span></span></a>',
+          )
+          .join("");
 
-  /* ---------- CONTROLS ---------- */
-  const d1=document.getElementById("day1"), d2=document.getElementById("day2");
-  function setDay(v){ day=v; localStorage.setItem(LS_DAY,v); d1.setAttribute("aria-pressed",v==="1"); d2.setAttribute("aria-pressed",v==="2"); renderGear(); }
-  d1.addEventListener("click",()=>setDay("1")); d2.addEventListener("click",()=>setDay("2"));
-  const seasonChip=document.getElementById("seasonChip");
-  function setSeason(v){
-    season=v; localStorage.setItem(LS_SEASON,v);
-    seasonChip.setAttribute("aria-pressed",v==="cold");
-    seasonChip.querySelector(".dot").textContent = v==="cold"?"❄️":"☀️";
-    seasonChip.querySelector(".chip-label").textContent = v==="cold"?"Холодна пора":"Тепла пора";
-    renderGear();
-  }
-  seasonChip.addEventListener("click",()=>setSeason(season==="cold"?"warm":"cold"));
-  document.getElementById("resetBtn").addEventListener("click",()=>{
-    const cats=visibleCats(); let n=0;
-    cats.forEach(c=>c.items.map(norm).forEach(it=>{ if(checked[keyOf(day,c.cat,it.n)]) n++; }));
-    if(n===0 || confirm("Зняти всі позначки для цього списку?")){
-      cats.forEach(c=>c.items.map(norm).forEach(it=>delete checked[keyOf(day,c.cat,it.n)]));
-      saveChecked(); renderGear();
-    }
-  });
+        /* ---------- ROUTES ---------- */
+        function diffClass(d) {
+          d = (d || "").toLowerCase();
+          if (d.indexOf("склад") > -1) return "pill--hard";
+          if (d.indexOf("серед") > -1) return "pill--mid";
+          return "pill--easy";
+        }
+        document.getElementById("routeList").innerHTML = D.routes
+          .map((r) => {
+            const badge = r.days === 2 ? "2 дні" : "1 день";
+            return (
+              '<article class="route-card">' +
+              '<div class="route-img"><img loading="lazy" src="' +
+              escAttr(r.image) +
+              '" alt="' +
+              escAttr(r.name) +
+              '" onerror="this.style.display=\'none\'"></div>' +
+              '<div class="route-body"><div class="route-top"><h3>' +
+              esc(r.name) +
+              '</h3><span class="days-badge">' +
+              badge +
+              "</span></div>" +
+              '<p class="route-area">' +
+              esc(r.area) +
+              "</p>" +
+              '<div class="route-meta"><span>⛰ ' +
+              esc(r.height) +
+              '</span><span class="m">' +
+              esc(r.duration) +
+              "</span>" +
+              '<span class="pill ' +
+              diffClass(r.difficulty) +
+              '">' +
+              esc(r.difficulty) +
+              "</span></div>" +
+              '<p class="route-desc">' +
+              esc(r.desc) +
+              "</p>" +
+              (r.tip ? '<p class="route-tip">💡 ' + esc(r.tip) + "</p>" : "") +
+              "</div></article>"
+            );
+          })
+          .join("");
 
-  /* ---------- STUFF (examples) ---------- */
-  document.getElementById("exampleList").innerHTML = D.gearExamples.map(e=>
-    '<div class="ex-card"><div class="ex-head"><h3>'+esc(e.item)+'</h3>'
-    + (e.layer ? '<span class="ex-layer">'+esc(e.layer)+'</span>' : '') + '</div>'
-    + '<div class="ex-row wrong"><span class="mark">✗</span><span>'+esc(e.wrong)+'</span></div>'
-    + '<div class="ex-row right"><span class="mark">✓</span><span>'+esc(e.right)+'</span></div></div>'
-  ).join("");
+        document.getElementById("appList").innerHTML = D.routeApps
+          .map(
+            (a) =>
+              '<a class="link-card" href="' +
+              escAttr(a.url) +
+              '" target="_blank" rel="noopener">' +
+              '<span class="lc-ico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#2E6B4F" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 4L3 6v14l6-2 6 2 6-2V4l-6 2-6-2z"/><path d="M9 4v14M15 6v14"/></svg></span>' +
+              '<span class="lc-body"><h3>' +
+              esc(a.name) +
+              "</h3><p>" +
+              esc(a.desc) +
+              "</p></span>" +
+              '<span class="lc-go"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7M9 7h8v8"/></svg></span></a>',
+          )
+          .join("");
 
-  /* ---------- VIDEOS ---------- */
-  document.getElementById("videoList").innerHTML = D.videos.map(v=>
-    '<a class="vcard" href="https://www.youtube.com/watch?v='+escAttr(v.id)+'" target="_blank" rel="noopener">'
-    + '<span class="thumb"><img loading="lazy" src="https://i.ytimg.com/vi/'+escAttr(v.id)+'/hqdefault.jpg" alt="">'
-    + '<span class="play"><span><svg width="16" height="16" viewBox="0 0 24 24" fill="#fff"><path d="M8 5l11 7-11 7V5z"/></svg></span></span></span>'
-    + '<span class="vmeta"><h3>'+esc(v.title)+'</h3><p>'+esc(v.desc)+'</p><span class="src">Дивитися на YouTube →</span></span></a>'
-  ).join("");
+        /* ---------- TABS ---------- */
+        const tabButtons = document.querySelectorAll(".dock button");
+        const sections = document.querySelectorAll("main > section");
+        const controls = document.getElementById("controls");
+        function showTab(name) {
+          sections.forEach((s) => s.classList.toggle("active", s.id === name));
+          tabButtons.forEach((b) =>
+            b.setAttribute(
+              "aria-current",
+              b.dataset.tab === name ? "true" : "false",
+            ),
+          );
+          controls.style.display = name === "gear" ? "" : "none";
+          window.scrollTo(0, 0);
+        }
+        tabButtons.forEach((b) =>
+          b.addEventListener("click", () => showTab(b.dataset.tab)),
+        );
 
-  /* ---------- ROUTES ---------- */
-  function diffClass(d){ d=(d||"").toLowerCase(); if(d.indexOf("склад")>-1) return "pill--hard"; if(d.indexOf("серед")>-1) return "pill--mid"; return "pill--easy"; }
-  document.getElementById("routeList").innerHTML = D.routes.map(r=>{
-    const badge = r.days===2 ? "2 дні" : "1 день";
-    return '<article class="route-card">'
-      + '<div class="route-img"><img loading="lazy" src="'+escAttr(r.image)+'" alt="'+escAttr(r.name)+'" onerror="this.style.display=\'none\'"></div>'
-      + '<div class="route-body"><div class="route-top"><h3>'+esc(r.name)+'</h3><span class="days-badge">'+badge+'</span></div>'
-      + '<p class="route-area">'+esc(r.area)+'</p>'
-      + '<div class="route-meta"><span>⛰ '+esc(r.height)+'</span><span class="m">'+esc(r.duration)+'</span>'
-      + '<span class="pill '+diffClass(r.difficulty)+'">'+esc(r.difficulty)+'</span></div>'
-      + '<p class="route-desc">'+esc(r.desc)+'</p>'
-      + (r.tip ? '<p class="route-tip">💡 '+esc(r.tip)+'</p>' : '')
-      + '</div></article>';
-  }).join("");
+        /* ---------- INIT ---------- */
+        d1.setAttribute("aria-pressed", day === "1");
+        d2.setAttribute("aria-pressed", day === "2");
+        setSeason(season);
+        showTab("gear");
 
-  document.getElementById("appList").innerHTML = D.routeApps.map(a=>
-    '<a class="link-card" href="'+escAttr(a.url)+'" target="_blank" rel="noopener">'
-    + '<span class="lc-ico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#2E6B4F" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 4L3 6v14l6-2 6 2 6-2V4l-6 2-6-2z"/><path d="M9 4v14M15 6v14"/></svg></span>'
-    + '<span class="lc-body"><h3>'+esc(a.name)+'</h3><p>'+esc(a.desc)+'</p></span>'
-    + '<span class="lc-go"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7M9 7h8v8"/></svg></span></a>'
-  ).join("");
-
-  /* ---------- TABS ---------- */
-  const tabButtons = document.querySelectorAll(".dock button");
-  const sections = document.querySelectorAll("main > section");
-  const controls = document.getElementById("controls");
-  function showTab(name){
-    sections.forEach(s=>s.classList.toggle("active", s.id===name));
-    tabButtons.forEach(b=>b.setAttribute("aria-current", b.dataset.tab===name ? "true":"false"));
-    controls.style.display = (name==="gear") ? "" : "none";
-    window.scrollTo(0,0);
-  }
-  tabButtons.forEach(b=>b.addEventListener("click",()=>showTab(b.dataset.tab)));
-
-  /* ---------- INIT ---------- */
-  d1.setAttribute("aria-pressed", day==="1");
-  d2.setAttribute("aria-pressed", day==="2");
-  setSeason(season);
-  showTab("gear");
-
-  /* ---------- SERVICE WORKER ---------- */
-  if("serviceWorker" in navigator){
-    window.addEventListener("load", ()=>navigator.serviceWorker.register("sw.js").catch(()=>{}));
-  }
-})();
-</script>
-</body>
+        /* ---------- SERVICE WORKER ---------- */
+        if ("serviceWorker" in navigator) {
+          window.addEventListener("load", () =>
+            navigator.serviceWorker.register("sw.js").catch(() => {}),
+          );
+        }
+      })();
+    </script>
+  </body>
 </html>

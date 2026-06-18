@@ -1,6 +1,6 @@
 // Service worker — кешує застосунок для роботи офлайн.
 // Підвищуй версію CACHE при оновленні контенту, щоб користувачі отримали свіжу версію.
-const CACHE = "u-gory-v2";
+const CACHE = "u-gory-v3";
 const ASSETS = [
   "./",
   "./index.html",
@@ -14,18 +14,28 @@ const ASSETS = [
   "./images/parashka.svg",
   "./images/hoverla.svg",
   "./images/pip-ivan.svg",
-  "./images/synevyr.svg"
+  "./images/synevyr.svg",
 ];
 
 self.addEventListener("install", (e) => {
-  e.waitUntil(caches.open(CACHE).then((c) => c.addAll(ASSETS)).then(() => self.skipWaiting()));
+  e.waitUntil(
+    caches
+      .open(CACHE)
+      .then((c) => c.addAll(ASSETS))
+      .then(() => self.skipWaiting()),
+  );
 });
 
 self.addEventListener("activate", (e) => {
   e.waitUntil(
-    caches.keys().then((keys) =>
-      Promise.all(keys.filter((k) => k !== CACHE).map((k) => caches.delete(k)))
-    ).then(() => self.clients.claim())
+    caches
+      .keys()
+      .then((keys) =>
+        Promise.all(
+          keys.filter((k) => k !== CACHE).map((k) => caches.delete(k)),
+        ),
+      )
+      .then(() => self.clients.claim()),
   );
 });
 
@@ -45,10 +55,16 @@ self.addEventListener("fetch", (e) => {
 
   // Локальні файли: спершу кеш, потім мережа
   e.respondWith(
-    caches.match(req).then((hit) => hit || fetch(req).then((res) => {
-      const copy = res.clone();
-      caches.open(CACHE).then((c) => c.put(req, copy));
-      return res;
-    }).catch(() => hit))
+    caches.match(req).then(
+      (hit) =>
+        hit ||
+        fetch(req)
+          .then((res) => {
+            const copy = res.clone();
+            caches.open(CACHE).then((c) => c.put(req, copy));
+            return res;
+          })
+          .catch(() => hit),
+    ),
   );
 });
