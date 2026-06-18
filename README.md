@@ -26,14 +26,16 @@ mountainsApp/
 ├── data.js                 ← ALL CONTENT (edit this file)
 ├── sw.js                   ← offline cache (service worker)
 ├── manifest.json           ← PWA settings
-├── favicon.png, icon-192.png, icon-512.png, icon-maskable-512.png, apple-touch-icon.png
 └── images/
+    ├── icons/              ← app icons & favicon (PWA + browser tab)
+    │   ├── favicon.png, apple-touch-icon.png
+    │   └── icon-192.png, icon-512.png, icon-maskable-512.png
     └── routes/             ← route photos/illustrations
         ├── parashka.svg
         └── hora_lopata.jpg
 ```
 
-Content images are grouped by purpose under `images/` (currently `routes/`).
+All images are grouped by purpose under `images/` (`icons/`, `routes/`).
 Add new folders (e.g. `images/gear/`) as new content types appear.
 
 ## Run locally

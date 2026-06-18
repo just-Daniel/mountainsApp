@@ -1,16 +1,16 @@
 // Service worker — кешує застосунок для роботи офлайн.
 // Підвищуй версію CACHE при оновленні контенту, щоб користувачі отримали свіжу версію.
-const CACHE = "u-gory-v9";
+const CACHE = "u-gory-v10";
 const ASSETS = [
   "./",
   "./index.html",
   "./data.js",
   "./manifest.json",
-  "./favicon.png",
-  "./icon-192.png",
-  "./icon-512.png",
-  "./icon-maskable-512.png",
-  "./apple-touch-icon.png",
+  "./images/icons/favicon.png",
+  "./images/icons/icon-192.png",
+  "./images/icons/icon-512.png",
+  "./images/icons/icon-maskable-512.png",
+  "./images/icons/apple-touch-icon.png",
   "./images/routes/parashka.svg",
   "./images/routes/hora_lopata.jpg",
 ];
