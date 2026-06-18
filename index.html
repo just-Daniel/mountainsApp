@@ -89,6 +89,38 @@
         color: #8fb7a2;
         font-weight: 700;
         margin: 0 0 6px;
+        padding-right: 92px;
+      }
+      .lang-switch {
+        position: absolute;
+        top: calc(14px + env(safe-area-inset-top));
+        right: 18px;
+        z-index: 2;
+        display: flex;
+        gap: 2px;
+        background: rgba(255, 255, 255, 0.12);
+        border-radius: 999px;
+        padding: 3px;
+      }
+      .lang-switch button {
+        border: 0;
+        background: none;
+        color: rgba(255, 255, 255, 0.72);
+        font: inherit;
+        font-size: 12px;
+        font-weight: 800;
+        letter-spacing: 0.02em;
+        padding: 5px 11px;
+        min-width: 40px;
+        border-radius: 999px;
+        cursor: pointer;
+        transition:
+          background 0.16s,
+          color 0.16s;
+      }
+      .lang-switch button[aria-pressed="true"] {
+        background: #fff;
+        color: var(--spruce);
       }
       .appbar h1 {
         margin: 0;
@@ -1166,7 +1198,13 @@
         />
       </svg>
       <div class="inner">
-        <p class="eyebrow">Похід у гори · Що з собою брати? · Чи кого?</p>
+        <div class="lang-switch" role="group" aria-label="Language / Мова">
+          <button type="button" data-lang="uk" aria-pressed="true">UA</button>
+          <button type="button" data-lang="en" aria-pressed="false">EN</button>
+        </div>
+        <p class="eyebrow" data-i18n="eyebrow">
+          Похід у гори · Що з собою брати? · Чи кого?
+        </p>
         <h1>
           <svg
             width="30"
@@ -1181,7 +1219,7 @@
           </svg>
           У гори
         </h1>
-        <p>
+        <p data-i18n="tagline">
           Збери рюкзак правильно, переглянь, який має бути стаф, маршрути й
           головне про безпеку.
         </p>
@@ -1192,10 +1230,12 @@
       <div class="inner">
         <div class="segmented" role="group" aria-label="Тривалість походу">
           <button id="day1" aria-pressed="true">
-            1 день<span class="sub">радіалка / без ночівлі</span>
+            <span class="d-main" data-i18n="day1">1 день</span
+            ><span class="sub" data-i18n="day1sub">радіалка / без ночівлі</span>
           </button>
           <button id="day2" aria-pressed="false">
-            2 дні<span class="sub">з ночівлею в наметі</span>
+            <span class="d-main" data-i18n="day2">2 дні</span
+            ><span class="sub" data-i18n="day2sub">з ночівлею в наметі</span>
           </button>
         </div>
         <div class="row2">
@@ -1207,7 +1247,9 @@
           >
             <span class="switch-track"><span class="switch-thumb"></span></span>
             <span class="switch-text">
-              <span class="switch-label">❄️ Зимове спорядження</span>
+              <span class="switch-label" data-i18n="seasonLabel"
+                >❄️ Зимове спорядження</span
+              >
               <span class="switch-hint">вимкнено · тепла пора</span>
             </span>
           </button>
@@ -1222,7 +1264,7 @@
           </div>
         </div>
         <div class="viewbar">
-          <button class="reset" id="resetBtn">Скинути</button>
+          <button class="reset" id="resetBtn" data-i18n="reset">Скинути</button>
           <button
             class="view-toggle"
             id="viewToggle"
@@ -1255,9 +1297,15 @@
         </div>
         <div class="view-panel" id="viewPanel" hidden>
           <div class="filters" role="group" aria-label="Що показувати">
-            <button data-filter="all" aria-pressed="true">Усі</button>
-            <button data-filter="must" aria-pressed="false">Необхідне</button>
-            <button data-filter="opt" aria-pressed="false">Опційне</button>
+            <button data-filter="all" aria-pressed="true" data-i18n="filterAll">
+              Усі
+            </button>
+            <button data-filter="must" aria-pressed="false" data-i18n="filterMust">
+              Необхідне
+            </button>
+            <button data-filter="opt" aria-pressed="false" data-i18n="filterOpt">
+              Опційне
+            </button>
           </div>
           <button
             class="switch"
@@ -1267,8 +1315,12 @@
           >
             <span class="switch-track"><span class="switch-thumb"></span></span>
             <span class="switch-text">
-              <span class="switch-label">Сховати зібране</span>
-              <span class="switch-hint">показувати лише ще не зібране</span>
+              <span class="switch-label" data-i18n="hidePackedLabel"
+                >Сховати зібране</span
+              >
+              <span class="switch-hint" data-i18n="hidePackedHint"
+                >показувати лише ще не зібране</span
+              >
             </span>
           </button>
         </div>
@@ -1285,11 +1337,13 @@
 
       <!-- STUFF (how gear should look) -->
       <section id="stuff" aria-label="Як виглядає спорядження">
-        <h2 class="panel-title">Як виглядає спорядження</h2>
-        <p class="lead">
+        <h2 class="panel-title" data-i18n="stuffTitle">
+          Як виглядає спорядження
+        </h2>
+        <p class="lead" data-i18n="stuffLead">
           Не «гарна кофта», а правильна річ. Головне — матеріал, а не вигляд.
         </p>
-        <div class="info">
+        <div class="info" data-i18n-html="threeLayer">
           <b>Правило трьох шарів.</b> Базовий шар відводить вологу від тіла
           (термуха). Утеплювальний — тримає тепло (фліска, пуховик). Захисний —
           рятує від вітру й дощу (мембрана). Разом вони працюють краще, ніж одна
@@ -1300,141 +1354,29 @@
 
       <!-- VIDEO -->
       <section id="video" aria-label="Поради">
-        <h2 class="panel-title">Поради</h2>
-        <p class="lead">
+        <h2 class="panel-title" data-i18n="adviceTitle">Поради</h2>
+        <p class="lead" data-i18n="adviceLead">
           Відео та статті — переглянь завчасно, у горах часто немає зв'язку.
         </p>
-        <h3 class="sub-head">Відео</h3>
+        <h3 class="sub-head" data-i18n="subVideos">Відео</h3>
         <div id="videoList"></div>
-        <h3 class="sub-head">Статті</h3>
+        <h3 class="sub-head" data-i18n="subArticles">Статті</h3>
         <div id="articleList"></div>
       </section>
 
       <!-- ROUTES -->
       <section id="routes" aria-label="Маршрути">
-        <h2 class="panel-title">Маршрути</h2>
-        <p class="lead">Куди можна сходити й де шукати власні маршрути.</p>
+        <h2 class="panel-title" data-i18n="routesTitle">Маршрути</h2>
+        <p class="lead" data-i18n="routesLead">
+          Куди можна сходити й де шукати власні маршрути.
+        </p>
         <div id="routeList"></div>
-        <h3 class="sub-head">Де шукати й планувати</h3>
+        <h3 class="sub-head" data-i18n="subFindRoutes">Де шукати й планувати</h3>
         <div id="appList"></div>
       </section>
 
-      <!-- SAFETY -->
-      <section id="safety" aria-label="Безпека">
-        <h2 class="panel-title">Безпека</h2>
-        <p class="lead">Найважливіше, що варто знати кожному в групі.</p>
-
-        <div class="scard">
-          <h3>
-            <svg
-              class="si"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="#F26A1B"
-              stroke-width="2"
-            >
-              <path d="M12 2l8 4v6c0 5-3.5 8-8 10-4.5-2-8-5-8-10V6l8-4z" /></svg
-            >Екстрені номери
-          </h3>
-          <div class="emergency">
-            <a href="tel:112"
-              ><span class="num">112</span
-              ><span class="who">єдиний екстрений</span></a
-            >
-            <a class="alt" href="tel:101"
-              ><span class="num">101</span
-              ><span class="who">ДСНС · рятувальники</span></a
-            >
-          </div>
-          <ul style="margin-top: 12px">
-            <li>
-              Назви якомога точніше, <b>де ти є</b> (назва гори, стежки,
-              орієнтири, координати з телефону).
-            </li>
-            <li>Бережи заряд: вимкни зайве, тримай телефон у теплі.</li>
-          </ul>
-        </div>
-
-        <div class="scard">
-          <h3>
-            <svg
-              class="si"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="#2E6B4F"
-              stroke-width="2"
-            >
-              <circle cx="12" cy="12" r="9" />
-              <path d="M12 7v6m0 4h.01" /></svg
-            >Якщо загубився або відстав
-          </h3>
-          <ul>
-            <li>
-              <b>Зупинись і не панікуй.</b> Рухатися навмання — гірше, ніж
-              лишитися на місці.
-            </li>
-            <li>
-              Лишайся на стежці й на видному місці, дзвони лідеру або 112.
-            </li>
-            <li>Подавай сигнали: голосом, свистком, яскравим одягом.</li>
-            <li>
-              Не спускайся наосліп у незнайомий бік, особливо в тумані чи
-              сутінках.
-            </li>
-          </ul>
-        </div>
-
-        <div class="scard">
-          <h3>
-            <svg
-              class="si"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="#2E6B4F"
-              stroke-width="2"
-            >
-              <path d="M12 5v14M5 12h14" /></svg
-            >Базова перша допомога
-          </h3>
-          <ul>
-            <li><b>Мозолі:</b> заклей пластиром одразу, щойно відчув тертя.</li>
-            <li>
-              <b>Переохолодження:</b> переодягнись у сухе, тепле пиття, рухайся.
-            </li>
-            <li>
-              <b>Перегрів / сонце:</b> вода, тінь, головний убір, окуляри.
-            </li>
-            <li><b>Розтягнення:</b> спокій, фіксація, не навантажуй.</li>
-          </ul>
-        </div>
-
-        <div class="scard">
-          <h3>
-            <svg
-              class="si"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="#2E6B4F"
-              stroke-width="2"
-            >
-              <circle cx="9" cy="8" r="3" />
-              <circle cx="17" cy="9" r="2.2" />
-              <path
-                d="M3 20c0-3 2.5-5 6-5s6 2 6 5M15 20c0-2 1-3.5 3-3.5"
-              /></svg
-            >Правила групи
-          </h3>
-          <ul>
-            <li>Не випереджай лідера й не відставай від замикаючого.</li>
-            <li>Темп тримаємо за найслабшим — це не змагання.</li>
-            <li>На розвилках чекаємо одне одного.</li>
-            <li>Щось болить або тривожить — одразу кажи дорослому.</li>
-          </ul>
-        </div>
-        <p class="footnote">
-          Цей застосунок — помічник, а не заміна досвідченого інструктора.
-        </p>
-      </section>
+      <!-- SAFETY (filled by renderSafety from data) -->
+      <section id="safety" aria-label="Безпека"></section>
     </main>
 
     <div class="dock">
@@ -1452,7 +1394,7 @@
             <path d="M9.5 9a2.5 2.5 0 015 0" />
             <path d="M9 14h6" />
           </svg>
-          <span>Рюкзак</span>
+          <span data-i18n="navGear">Рюкзак</span>
         </button>
         <button data-tab="stuff">
           <svg
@@ -1464,7 +1406,7 @@
           >
             <path d="M8 4l4 2 4-2 4 3-2.5 3L15 12v8H9v-8L6.5 10 4 7z" />
           </svg>
-          <span>Стаф</span>
+          <span data-i18n="navStuff">Стаф</span>
         </button>
         <button data-tab="video">
           <svg
@@ -1477,7 +1419,7 @@
             <rect x="3" y="5" width="18" height="14" rx="3" />
             <path d="M10 9l5 3-5 3V9z" fill="currentColor" stroke="none" />
           </svg>
-          <span>Поради</span>
+          <span data-i18n="navAdvice">Поради</span>
         </button>
         <button data-tab="routes">
           <svg
@@ -1491,7 +1433,7 @@
             <path d="M12 21s7-6.5 7-12a7 7 0 10-14 0c0 5.5 7 12 7 12z" />
             <circle cx="12" cy="9" r="2.5" />
           </svg>
-          <span>Маршрути</span>
+          <span data-i18n="navRoutes">Маршрути</span>
         </button>
         <button data-tab="safety">
           <svg
@@ -1504,7 +1446,7 @@
             <path d="M12 3l7 3v6c0 4.5-3 7-7 9-4-2-7-4.5-7-9V6l7-3z" />
             <path d="M12 8v4m0 3h.01" stroke-linecap="round" />
           </svg>
-          <span>Безпека</span>
+          <span data-i18n="navSafety">Безпека</span>
         </button>
       </nav>
     </div>
@@ -1513,7 +1455,7 @@
     <script>
       (function () {
         "use strict";
-        const D = window.MOUNTAIN_DATA;
+        const DATA = window.MOUNTAIN_DATA;
 
         /* ---------- SERVICE WORKER ----------
            На справжньому хостингу (https) — реєструємо для офлайну.
@@ -1567,8 +1509,12 @@
         function escAttr(s) {
           return esc(s).replace(/"/g, "&quot;");
         }
+        // esc + проста розмітка **жирний**
+        function fmt(s) {
+          return esc(s).replace(/\*\*([^*]+)\*\*/g, "<b>$1</b>");
+        }
 
-        if (!D || !D.gear) {
+        if (!DATA || !DATA.uk || !DATA.uk.gear) {
           document.getElementById("gear").innerHTML =
             '<div class="info info--warn"><b>Не вдалося завантажити контент (data.js).</b> ' +
             "Переконайся, що файл <b>data.js</b> лежить поряд з index.html. " +
@@ -1577,9 +1523,13 @@
         }
 
         /* ---------- STATE ---------- */
-        const LS_CHECKED = "gory-pack-v1",
+        const LS_CHECKED = "gory-pack-v2",
           LS_DAY = "gory-day-v1",
-          LS_SEASON = "gory-season-v1";
+          LS_SEASON = "gory-season-v1",
+          LS_LANG = "gory-lang-v1";
+        let lang = localStorage.getItem(LS_LANG) || "uk";
+        if (!DATA[lang]) lang = "uk";
+        let D = DATA[lang]; // активна мова; перепризначається в setLang
         let day = localStorage.getItem(LS_DAY) || "1";
         let season = localStorage.getItem(LS_SEASON) || "warm";
         let checked = loadChecked();
@@ -1593,8 +1543,10 @@
         function saveChecked() {
           localStorage.setItem(LS_CHECKED, JSON.stringify(checked));
         }
-        function keyOf(d, cat, name) {
-          return d + "|" + cat + "|" + name;
+        // Ключі — за ПОЗИЦІЄЮ (день|індекс категорії|індекс пункту), не за текстом,
+        // щоб галочки зберігалися при перемиканні мови.
+        function keyOf(d, ci, ii) {
+          return d + "|" + ci + "|" + ii;
         }
         function norm(it) {
           return typeof it === "string" ? { n: it } : it;
@@ -1609,19 +1561,23 @@
         let filter = "all";
         let hidePacked = false;
         const catState = {};
-        const FILTER_LABEL = { all: "Усі", must: "Необхідне", opt: "Опційне" };
-        function catKey(c) {
-          return day + "|" + c.cat;
+        function catKey(ci) {
+          return day + "|c" + ci;
         }
+        // Видимі категорії з їх СТАЛИМ індексом у повному масиві дня (ci)
         function visibleCats() {
-          return D.gear[day].filter((c) => !c.season || season === "cold");
+          const out = [];
+          D.gear[day].forEach((c, ci) => {
+            if (!c.season || season === "cold") out.push({ c: c, ci: ci });
+          });
+          return out;
         }
-        // Пункти категорії з урахуванням активного фільтра (без «сховати зібране»)
+        // Пункти категорії з фільтром; зберігаємо сталий індекс пункту (ii)
         function itemsFor(c) {
           return c.items
-            .map(norm)
-            .filter((it) =>
-              filter === "all" ? true : filter === "opt" ? !!it.opt : !it.opt,
+            .map((it, ii) => ({ it: norm(it), ii: ii }))
+            .filter((x) =>
+              filter === "all" ? true : filter === "opt" ? !!x.it.opt : !x.it.opt,
             );
         }
         const TICK =
@@ -1630,28 +1586,31 @@
           '<span class="chev" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg></span>';
 
         function renderGear() {
+          const ui = D.ui;
           let html = "";
           let baseTotal = 0,
             hiddenPacked = 0;
-          visibleCats().forEach((c) => {
+          visibleCats().forEach(({ c, ci }) => {
             const cls = c.must ? " cat--must" : c.season ? " cat--season" : "";
             const base = itemsFor(c); // після фільтра
             if (!base.length) return; // у цьому фільтрі категорія порожня
             baseTotal += base.length;
             const done = base.filter(
-              (it) => checked[keyOf(day, c.cat, it.n)],
+              (x) => checked[keyOf(day, ci, x.ii)],
             ).length;
             const complete = done === base.length;
             const shown = hidePacked
-              ? base.filter((it) => !checked[keyOf(day, c.cat, it.n)])
+              ? base.filter((x) => !checked[keyOf(day, ci, x.ii)])
               : base;
             if (hidePacked) hiddenPacked += base.length - shown.length;
             if (!shown.length) return; // усе зібрано (режим «сховати зібране»)
 
             // згортання: ручний стан має пріоритет над авто-згортанням повної
-            const st = catState[catKey(c)];
+            const st = catState[catKey(ci)];
             const collapsed = st === "closed" || (st !== "open" && complete);
-            const countLabel = complete ? "✓ зібрано" : done + "/" + base.length;
+            const countLabel = complete
+              ? ui.catDone
+              : done + "/" + base.length;
 
             html +=
               '<div class="cat' +
@@ -1661,7 +1620,7 @@
               '"><button class="cat-head" aria-expanded="' +
               !collapsed +
               '" data-cat="' +
-              escAttr(catKey(c)) +
+              escAttr(catKey(ci)) +
               '"><span class="blaze"></span><h2>' +
               esc(c.cat) +
               "</h2>" +
@@ -1674,8 +1633,9 @@
               html += '<p class="cat-note">' + esc(c.note) + "</p>";
             if (!collapsed) {
               html += '<ul class="list">';
-              shown.forEach((it) => {
-                const k = keyOf(day, c.cat, it.n),
+              shown.forEach((x) => {
+                const it = x.it,
+                  k = keyOf(day, ci, x.ii),
                   on = !!checked[k];
                 html +=
                   '<button class="item" role="checkbox" aria-checked="' +
@@ -1691,7 +1651,9 @@
                     ? '<span class="item-desc">' + esc(it.desc) + "</span>"
                     : "") +
                   "</span>" +
-                  (it.opt ? '<span class="badge">опц.</span>' : "") +
+                  (it.opt
+                    ? '<span class="badge">' + esc(ui.optBadge) + "</span>"
+                    : "") +
                   "</button>";
               });
               html += "</ul>";
@@ -1702,7 +1664,7 @@
           // Підказка про сховане, щоб не було відчуття «а де поділись речі?»
           let hiddenByFilter = 0;
           if (filter !== "all")
-            visibleCats().forEach((c) =>
+            visibleCats().forEach(({ c }) =>
               c.items.map(norm).forEach((it) => {
                 const passes = filter === "opt" ? !!it.opt : !it.opt;
                 if (!passes) hiddenByFilter++;
@@ -1712,34 +1674,40 @@
           if (hiddenByFilter)
             parts.push(
               hiddenByFilter +
-                (filter === "must" ? " опційних" : " необхідних"),
+                " " +
+                (filter === "must" ? ui.hiddenOpt : ui.hiddenMust),
             );
-          if (hidePacked && hiddenPacked) parts.push(hiddenPacked + " зібраних");
+          if (hidePacked && hiddenPacked)
+            parts.push(hiddenPacked + " " + ui.hiddenPacked);
           const hiddenNote = parts.length
-            ? '<p class="hidden-note">Сховано: ' + parts.join(" · ") + "</p>"
+            ? '<p class="hidden-note">' +
+              esc(ui.hiddenPrefix) +
+              parts.join(" · ") +
+              "</p>"
             : "";
 
           const hasCats = html !== "";
           if (!hasCats) {
             html =
-              baseTotal > 0
-                ? '<div class="info">🎒 Усе зібрано в цьому списку!</div>'
-                : '<div class="info">У цьому фільтрі немає речей. Спробуй <b>«Усі»</b>.</div>';
+              '<div class="info">' +
+              (baseTotal > 0 ? fmt(ui.emptyAllPacked) : fmt(ui.emptyFilter)) +
+              "</div>";
           }
           gearEl.innerHTML = (hasCats ? hiddenNote : "") + html;
           updateProgress();
         }
         function updateProgress() {
+          const ui = D.ui;
           let total = 0,
             done = 0;
-          visibleCats().forEach((c) =>
-            itemsFor(c).forEach((it) => {
+          visibleCats().forEach(({ c, ci }) =>
+            itemsFor(c).forEach((x) => {
               total++;
-              if (checked[keyOf(day, c.cat, it.n)]) done++;
+              if (checked[keyOf(day, ci, x.ii)]) done++;
             }),
           );
           document.getElementById("progressText").textContent =
-            "Зібрано " + done + " / " + total;
+            ui.packed + " " + done + " / " + total;
           document.getElementById("progressBar").style.width = total
             ? (done / total) * 100 + "%"
             : "0%";
@@ -1749,10 +1717,10 @@
           if (allDone)
             flag.textContent =
               filter === "must"
-                ? "✅ Необхідне зібрано — рюкзак буде легким!"
+                ? ui.doneMust
                 : filter === "opt"
-                  ? "✅ Усе опційне відмічено!"
-                  : "🎒 Рюкзак зібраний — гарного походу!";
+                  ? ui.doneOpt
+                  : ui.doneAll;
         }
         gearEl.addEventListener("click", (e) => {
           const head = e.target.closest(".cat-head");
@@ -1791,8 +1759,8 @@
           const cold = v === "cold";
           seasonChip.setAttribute("aria-checked", cold);
           seasonChip.querySelector(".switch-hint").textContent = cold
-            ? "увімкнено · холодна пора"
-            : "вимкнено · тепла пора";
+            ? D.ui.seasonOn
+            : D.ui.seasonOff;
           renderGear();
         }
         seasonChip.addEventListener("click", () =>
@@ -1801,16 +1769,14 @@
         document.getElementById("resetBtn").addEventListener("click", () => {
           const cats = visibleCats();
           let n = 0;
-          cats.forEach((c) =>
-            c.items.map(norm).forEach((it) => {
-              if (checked[keyOf(day, c.cat, it.n)]) n++;
+          cats.forEach(({ c, ci }) =>
+            c.items.forEach((it, ii) => {
+              if (checked[keyOf(day, ci, ii)]) n++;
             }),
           );
-          if (n === 0 || confirm("Зняти всі позначки для цього списку?")) {
-            cats.forEach((c) =>
-              c.items
-                .map(norm)
-                .forEach((it) => delete checked[keyOf(day, c.cat, it.n)]),
+          if (n === 0 || confirm(D.ui.resetConfirm)) {
+            cats.forEach(({ c, ci }) =>
+              c.items.forEach((it, ii) => delete checked[keyOf(day, ci, ii)]),
             );
             saveChecked();
             renderGear();
@@ -1824,16 +1790,15 @@
           filterBox = document.querySelector(".filters"),
           hidePackedToggle = document.getElementById("hidePackedToggle");
         function updateViewLabel() {
+          const ui = D.ui;
+          const LBL = { must: ui.filterMust, opt: ui.filterOpt };
           const parts = [];
-          if (filter !== "all") parts.push(FILTER_LABEL[filter]);
-          if (hidePacked) parts.push("без зібраного");
+          if (filter !== "all") parts.push(LBL[filter]);
+          if (hidePacked) parts.push(ui.withoutPacked);
           viewToggleLabel.textContent = parts.length
             ? parts.join(" · ")
-            : "Фільтр";
-          viewToggle.classList.toggle(
-            "active",
-            filter !== "all" || hidePacked,
-          );
+            : ui.filterLabel;
+          viewToggle.classList.toggle("active", filter !== "all" || hidePacked);
         }
         viewToggle.addEventListener("click", () => {
           const open = viewToggle.getAttribute("aria-expanded") === "true";
@@ -1861,82 +1826,90 @@
         updateViewLabel();
 
         /* ---------- STUFF (examples) ---------- */
-        document.getElementById("exampleList").innerHTML = D.gearExamples
-          .map(
-            (e) =>
-              '<div class="ex-card"><div class="ex-head"><h3>' +
-              esc(e.item) +
-              "</h3>" +
-              (e.layer
-                ? '<span class="ex-layer">' + esc(e.layer) + "</span>"
-                : "") +
-              "</div>" +
-              '<div class="ex-row wrong"><span class="mark">✗</span><span>' +
-              esc(e.wrong) +
-              "</span></div>" +
-              '<div class="ex-row right"><span class="mark">✓</span><span>' +
-              esc(e.right) +
-              "</span></div></div>",
-          )
-          .join("");
+        function renderExamples() {
+          document.getElementById("exampleList").innerHTML = D.gearExamples
+            .map(
+              (e) =>
+                '<div class="ex-card"><div class="ex-head"><h3>' +
+                esc(e.item) +
+                "</h3>" +
+                (e.layer
+                  ? '<span class="ex-layer">' + esc(e.layer) + "</span>"
+                  : "") +
+                "</div>" +
+                '<div class="ex-row wrong"><span class="mark">✗</span><span>' +
+                esc(e.wrong) +
+                "</span></div>" +
+                '<div class="ex-row right"><span class="mark">✓</span><span>' +
+                esc(e.right) +
+                "</span></div></div>",
+            )
+            .join("");
+        }
 
         /* ---------- VIDEOS ---------- */
-        document.getElementById("videoList").innerHTML = D.videos
-          .map(
-            (v) =>
-              '<a class="vcard" href="https://www.youtube.com/watch?v=' +
-              escAttr(v.id) +
-              '" target="_blank" rel="noopener">' +
-              '<span class="thumb"><img loading="lazy" src="https://i.ytimg.com/vi/' +
-              escAttr(v.id) +
-              '/hqdefault.jpg" alt="">' +
-              '<span class="play"><span><svg width="16" height="16" viewBox="0 0 24 24" fill="#fff"><path d="M8 5l11 7-11 7V5z"/></svg></span></span></span>' +
-              '<span class="vmeta"><h3>' +
-              esc(v.title) +
-              "</h3><p>" +
-              esc(v.desc) +
-              '</p><span class="src">Дивитися на YouTube →</span></span></a>',
-          )
-          .join("");
+        function renderVideos() {
+          document.getElementById("videoList").innerHTML = D.videos
+            .map(
+              (v) =>
+                '<a class="vcard" href="https://www.youtube.com/watch?v=' +
+                escAttr(v.id) +
+                '" target="_blank" rel="noopener">' +
+                '<span class="thumb"><img loading="lazy" src="https://i.ytimg.com/vi/' +
+                escAttr(v.id) +
+                '/hqdefault.jpg" alt="">' +
+                '<span class="play"><span><svg width="16" height="16" viewBox="0 0 24 24" fill="#fff"><path d="M8 5l11 7-11 7V5z"/></svg></span></span></span>' +
+                '<span class="vmeta"><h3>' +
+                esc(v.title) +
+                "</h3><p>" +
+                esc(v.desc) +
+                '</p><span class="src">' +
+                esc(D.ui.youtube) +
+                "</span></span></a>",
+            )
+            .join("");
+        }
 
         /* ---------- ARTICLES ---------- */
         const articleList = document.getElementById("articleList");
-        articleList.innerHTML = (D.articles || [])
-          .map(
-            (a, i) =>
-              '<div class="acard">' +
-              '<button class="acard-head" aria-expanded="false" data-a="' +
-              i +
-              '"><h3>' +
-              esc(a.title) +
-              "</h3>" +
-              CHEV +
-              "</button>" +
-              '<div class="acard-body">' +
-              (a.intro ? '<p class="a-intro">' + esc(a.intro) + "</p>" : "") +
-              '<ol class="asteps">' +
-              (a.steps || [])
-                .map((s) => "<li><b>" + esc(s.t) + "</b>" + esc(s.d) + "</li>")
-                .join("") +
-              "</ol>" +
-              (a.warnings && a.warnings.length
-                ? (a.warnIntro
-                    ? '<p class="a-intro a-warn-intro">' +
-                      esc(a.warnIntro) +
-                      "</p>"
-                    : "") +
-                  '<ul class="awarn">' +
-                  a.warnings
-                    .map(
-                      (w) =>
-                        "<li><b>" + esc(w.t) + "</b>" + esc(w.d) + "</li>",
-                    )
-                    .join("") +
-                  "</ul>"
-                : "") +
-              "</div></div>",
-          )
-          .join("");
+        function renderArticles() {
+          articleList.innerHTML = (D.articles || [])
+            .map(
+              (a, i) =>
+                '<div class="acard">' +
+                '<button class="acard-head" aria-expanded="false" data-a="' +
+                i +
+                '"><h3>' +
+                esc(a.title) +
+                "</h3>" +
+                CHEV +
+                "</button>" +
+                '<div class="acard-body">' +
+                (a.intro ? '<p class="a-intro">' + esc(a.intro) + "</p>" : "") +
+                '<ol class="asteps">' +
+                (a.steps || [])
+                  .map((s) => "<li><b>" + esc(s.t) + "</b> " + esc(s.d) + "</li>")
+                  .join("") +
+                "</ol>" +
+                (a.warnings && a.warnings.length
+                  ? (a.warnIntro
+                      ? '<p class="a-intro a-warn-intro">' +
+                        esc(a.warnIntro) +
+                        "</p>"
+                      : "") +
+                    '<ul class="awarn">' +
+                    a.warnings
+                      .map(
+                        (w) =>
+                          "<li><b>" + esc(w.t) + "</b> " + esc(w.d) + "</li>",
+                      )
+                      .join("") +
+                    "</ul>"
+                  : "") +
+                "</div></div>",
+            )
+            .join("");
+        }
         articleList.addEventListener("click", (e) => {
           const head = e.target.closest(".acard-head");
           if (!head) return;
@@ -1947,62 +1920,162 @@
         /* ---------- ROUTES ---------- */
         function diffClass(d) {
           d = (d || "").toLowerCase();
-          if (d.indexOf("склад") > -1) return "pill--hard";
-          if (d.indexOf("серед") > -1) return "pill--mid";
+          if (/склад|hard|важк/.test(d)) return "pill--hard";
+          if (/серед|medium|moder/.test(d)) return "pill--mid";
           return "pill--easy";
         }
-        document.getElementById("routeList").innerHTML = D.routes
-          .map((r) => {
-            const badge = r.days === 2 ? "2 дні" : "1 день";
-            return (
-              '<article class="route-card">' +
-              '<div class="route-img"><img loading="lazy" src="' +
-              escAttr(r.image) +
-              '" alt="' +
-              escAttr(r.name) +
-              '" onerror="this.style.display=\'none\'"></div>' +
-              '<div class="route-body"><div class="route-top"><h3>' +
-              esc(r.name) +
-              '</h3><span class="days-badge">' +
-              badge +
-              "</span></div>" +
-              '<p class="route-area">' +
-              esc(r.area) +
-              "</p>" +
-              '<div class="route-meta"><span>⛰ ' +
-              esc(r.height) +
-              '</span><span class="m">' +
-              esc(r.duration) +
-              "</span>" +
-              '<span class="pill ' +
-              diffClass(r.difficulty) +
-              '">' +
-              esc(r.difficulty) +
-              "</span></div>" +
-              '<p class="route-desc">' +
-              esc(r.desc) +
-              "</p>" +
-              (r.tip ? '<p class="route-tip">💡 ' + esc(r.tip) + "</p>" : "") +
-              "</div></article>"
-            );
-          })
-          .join("");
+        function renderRoutes() {
+          document.getElementById("routeList").innerHTML = D.routes
+            .map((r) => {
+              const badge = r.days === 2 ? D.ui.day2 : D.ui.day1;
+              return (
+                '<article class="route-card">' +
+                '<div class="route-img"><img loading="lazy" src="' +
+                escAttr(r.image) +
+                '" alt="' +
+                escAttr(r.name) +
+                '" onerror="this.style.display=\'none\'"></div>' +
+                '<div class="route-body"><div class="route-top"><h3>' +
+                esc(r.name) +
+                '</h3><span class="days-badge">' +
+                esc(badge) +
+                "</span></div>" +
+                '<p class="route-area">' +
+                esc(r.area) +
+                "</p>" +
+                '<div class="route-meta"><span>⛰ ' +
+                esc(r.height) +
+                '</span><span class="m">' +
+                esc(r.duration) +
+                "</span>" +
+                '<span class="pill ' +
+                diffClass(r.difficulty) +
+                '">' +
+                esc(r.difficulty) +
+                "</span></div>" +
+                '<p class="route-desc">' +
+                esc(r.desc) +
+                "</p>" +
+                (r.tip ? '<p class="route-tip">💡 ' + esc(r.tip) + "</p>" : "") +
+                "</div></article>"
+              );
+            })
+            .join("");
+        }
+        function renderApps() {
+          document.getElementById("appList").innerHTML = D.routeApps
+            .map(
+              (a) =>
+                '<a class="link-card" href="' +
+                escAttr(a.url) +
+                '" target="_blank" rel="noopener">' +
+                '<span class="lc-ico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#2E6B4F" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 4L3 6v14l6-2 6 2 6-2V4l-6 2-6-2z"/><path d="M9 4v14M15 6v14"/></svg></span>' +
+                '<span class="lc-body"><h3>' +
+                esc(a.name) +
+                "</h3><p>" +
+                esc(a.desc) +
+                "</p></span>" +
+                '<span class="lc-go"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7M9 7h8v8"/></svg></span></a>',
+            )
+            .join("");
+        }
 
-        document.getElementById("appList").innerHTML = D.routeApps
-          .map(
-            (a) =>
-              '<a class="link-card" href="' +
-              escAttr(a.url) +
-              '" target="_blank" rel="noopener">' +
-              '<span class="lc-ico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#2E6B4F" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 4L3 6v14l6-2 6 2 6-2V4l-6 2-6-2z"/><path d="M9 4v14M15 6v14"/></svg></span>' +
-              '<span class="lc-body"><h3>' +
-              esc(a.name) +
-              "</h3><p>" +
-              esc(a.desc) +
-              "</p></span>" +
-              '<span class="lc-go"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7M9 7h8v8"/></svg></span></a>',
-          )
-          .join("");
+        /* ---------- SAFETY (rendered from data) ---------- */
+        const SAFE_SHIELD =
+          '<svg class="si" viewBox="0 0 24 24" fill="none" stroke="#F26A1B" stroke-width="2"><path d="M12 2l8 4v6c0 5-3.5 8-8 10-4.5-2-8-5-8-10V6l8-4z"/></svg>';
+        const SAFE_ICONS = [
+          '<svg class="si" viewBox="0 0 24 24" fill="none" stroke="#2E6B4F" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 7v6m0 4h.01"/></svg>',
+          '<svg class="si" viewBox="0 0 24 24" fill="none" stroke="#2E6B4F" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg>',
+          '<svg class="si" viewBox="0 0 24 24" fill="none" stroke="#2E6B4F" stroke-width="2"><circle cx="9" cy="8" r="3"/><circle cx="17" cy="9" r="2.2"/><path d="M3 20c0-3 2.5-5 6-5s6 2 6 5M15 20c0-2 1-3.5 3-3.5"/></svg>',
+        ];
+        function renderSafety() {
+          const s = D.safety;
+          let html =
+            '<h2 class="panel-title">' +
+            esc(D.ui.safetyTitle) +
+            '</h2><p class="lead">' +
+            esc(s.lead) +
+            "</p>";
+          // екстрені номери
+          html +=
+            '<div class="scard"><h3>' +
+            SAFE_SHIELD +
+            esc(s.emergency.title) +
+            '</h3><div class="emergency">' +
+            s.emergency.numbers
+              .map(
+                (num) =>
+                  '<a' +
+                  (num.alt ? ' class="alt"' : "") +
+                  ' href="tel:' +
+                  escAttr(num.n) +
+                  '"><span class="num">' +
+                  esc(num.n) +
+                  '</span><span class="who">' +
+                  esc(num.who) +
+                  "</span></a>",
+              )
+              .join("") +
+            '</div><ul style="margin-top:12px">' +
+            s.emergency.notes.map((n) => "<li>" + fmt(n) + "</li>").join("") +
+            "</ul></div>";
+          // картки
+          html += s.cards
+            .map(
+              (card, i) =>
+                '<div class="scard"><h3>' +
+                (SAFE_ICONS[i] || "") +
+                esc(card.title) +
+                "</h3><ul>" +
+                card.items.map((it) => "<li>" + fmt(it) + "</li>").join("") +
+                "</ul></div>",
+            )
+            .join("");
+          html += '<p class="footnote">' + esc(s.footnote) + "</p>";
+          document.getElementById("safety").innerHTML = html;
+        }
+
+        /* ---------- I18N: статичні рядки + перемикач мови ---------- */
+        function applyStrings() {
+          const ui = D.ui;
+          document.documentElement.lang = ui.htmlLang;
+          document.title = ui.docTitle;
+          document.querySelectorAll("[data-i18n]").forEach((el) => {
+            el.textContent = ui[el.dataset.i18n];
+          });
+          document.querySelectorAll("[data-i18n-html]").forEach((el) => {
+            el.innerHTML = fmt(ui[el.dataset.i18nHtml]);
+          });
+        }
+        function renderAll() {
+          applyStrings();
+          renderExamples();
+          renderVideos();
+          renderArticles();
+          renderRoutes();
+          renderApps();
+          renderSafety();
+          updateViewLabel();
+          setSeason(season); // оновлює підпис сезону + перемальовує чек-лист
+        }
+        const langButtons = document.querySelectorAll(".lang-switch button");
+        function setLang(v) {
+          if (!DATA[v] || v === lang) return;
+          lang = v;
+          D = DATA[v];
+          localStorage.setItem(LS_LANG, v);
+          langButtons.forEach((b) =>
+            b.setAttribute(
+              "aria-pressed",
+              b.dataset.lang === v ? "true" : "false",
+            ),
+          );
+          renderAll();
+        }
+        langButtons.forEach((b) => {
+          b.setAttribute("aria-pressed", b.dataset.lang === lang ? "true" : "false");
+          b.addEventListener("click", () => setLang(b.dataset.lang));
+        });
 
         /* ---------- TABS ---------- */
         const tabButtons = document.querySelectorAll(".dock button");
@@ -2026,7 +2099,7 @@
         /* ---------- INIT ---------- */
         d1.setAttribute("aria-pressed", day === "1");
         d2.setAttribute("aria-pressed", day === "2");
-        setSeason(season);
+        renderAll(); // applyStrings + усі розділи + setSeason(→renderGear)
         showTab("gear");
       })();
     </script>

@@ -53,10 +53,32 @@ of the app.
 Already set up: **Settings → Pages → Deploy from a branch**, branch `main`,
 folder `/ (root)`. Every push to `main` rebuilds the live site automatically.
 
+## Languages (i18n)
+
+The app is bilingual (Ukrainian + English) with a `UA | EN` switch in the
+header; the choice is saved in `localStorage`. Content is keyed by language:
+
+```js
+window.MOUNTAIN_DATA = { uk: { …all content… }, en: { …all content… } };
+```
+
+Each language block has the same set of keys (`ui`, `gear`, `routes`,
+`routeApps`, `videos`, `articles`, `gearExamples`, `safety`). **Keep the
+structure identical across languages** — checklist state is saved by position
+(day › category index › item index), so the checkmarks carry over when you
+switch language.
+
+**Add a language:** copy the `uk` block, change the key (e.g. `pl`), translate
+the values, and add a button `<button data-lang="pl">PL</button>` to
+`.lang-switch` in `index.html`.
+
 ## Editing content (`data.js`)
 
-No coding needed — just change text between the quotes.
+No coding needed — just change text between the quotes (inside the right
+language block). In `safety`/`articles` text, `**double asterisks**` render as
+**bold**.
 
+- **`ui`** — all interface strings (tabs, buttons, headings, messages).
 - **`gear`** — object keyed by `"1"` and `"2"` (days). Each is an array of
   categories. Item: `"Ложка"` or `{n:"Баф", opt:true, desc:"..."}`
   (`opt` → "опц." badge, `desc` → small grey hint under the name).
@@ -66,10 +88,11 @@ No coding needed — just change text between the quotes.
 - **`routeApps`** — array `{name, url, desc}` (route-finding services).
 - **`videos`** — array `{id, title, desc}` (`id` is the YouTube watch id).
 - **`articles`** — array `{title, intro?, steps:[{t,d}], warnIntro?,
-  warnings:[{t,d}]}`. Shown as collapsible cards in **Поради**. `steps` render
+  warnings:[{t,d}]}`. Shown as collapsible cards in **Advice**. `steps` render
   as numbered green items, `warnings` as red "do NOT" items.
-- **`gearExamples`** — array `{item, wrong, right, layer?}` for **Стаф**.
-- **Безпека** is static HTML in the `id="safety"` section of `index.html`.
+- **`gearExamples`** — array `{item, wrong, right, layer?}` for the **Gear** tab.
+- **`safety`** — `{lead, emergency:{title, numbers:[{n,who,alt?}], notes:[]},
+  cards:[{title, items:[]}], footnote}`. Rendered into the Safety tab.
 
 ### Add a real route photo
 1. Put the file in `images/routes/` (e.g. `parashka.jpg`).
