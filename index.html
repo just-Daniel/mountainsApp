@@ -218,6 +218,89 @@
         color: var(--mist);
         margin-top: 2px;
       }
+      .filters {
+        display: flex;
+        gap: 6px;
+        margin-top: 12px;
+      }
+      .filters button {
+        flex: 1;
+        cursor: pointer;
+        border: 1px solid var(--line);
+        background: var(--paper);
+        border-radius: 999px;
+        padding: 7px 8px;
+        min-height: 38px;
+        font: inherit;
+        font-size: 12.5px;
+        font-weight: 600;
+        color: var(--mist);
+        transition:
+          border-color 0.16s,
+          background 0.16s,
+          color 0.16s;
+      }
+      .filters button[aria-pressed="true"] {
+        border-color: var(--moss);
+        background: var(--moss-soft);
+        color: var(--spruce);
+      }
+      .viewbar {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-top: 12px;
+      }
+      .view-toggle {
+        display: inline-flex;
+        align-items: center;
+        gap: 7px;
+        cursor: pointer;
+        border: 1px solid var(--line);
+        background: var(--paper);
+        color: var(--mist);
+        border-radius: 999px;
+        padding: 6px 12px;
+        min-height: 34px;
+        font: inherit;
+        font-size: 12.5px;
+        font-weight: 600;
+        transition:
+          border-color 0.16s,
+          background 0.16s,
+          color 0.16s;
+      }
+      .view-toggle svg {
+        width: 15px;
+        height: 15px;
+        flex: 0 0 auto;
+      }
+      .view-toggle.active {
+        border-color: var(--moss);
+        background: var(--moss-soft);
+        color: var(--spruce);
+      }
+      .view-toggle .chev {
+        display: inline-flex;
+        transition: transform 0.2s;
+      }
+      .view-toggle[aria-expanded="true"] .chev {
+        transform: rotate(180deg);
+      }
+      .view-panel {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+        margin-top: 10px;
+      }
+      .view-panel[hidden] {
+        display: none;
+      }
+      .hidden-note {
+        font-size: 12px;
+        color: var(--mist);
+        margin: 0 0 14px 2px;
+      }
       .progress {
         margin-top: 14px;
       }
@@ -231,7 +314,7 @@
         font-size: 14px;
         font-weight: 700;
       }
-      .progress .meta .reset {
+      .reset {
         border: 0;
         background: none;
         color: var(--mist);
@@ -243,7 +326,7 @@
         text-decoration: underline;
         text-underline-offset: 2px;
       }
-      .progress .meta .reset:hover {
+      .reset:hover {
         color: var(--signal);
       }
       .bar {
@@ -314,7 +397,7 @@
 
       /* gear list */
       .cat {
-        margin: 22px 0 10px;
+        margin: 14px 0 6px;
       }
       .cat:first-child {
         margin-top: 6px;
@@ -323,6 +406,35 @@
         display: flex;
         align-items: center;
         gap: 10px;
+        width: 100%;
+        background: none;
+        border: 0;
+        padding: 4px 2px;
+        margin: 0;
+        font: inherit;
+        color: inherit;
+        cursor: pointer;
+        text-align: left;
+        min-height: 40px;
+      }
+      .cat-head .chev {
+        display: inline-flex;
+        color: var(--mist);
+        transition: transform 0.2s;
+      }
+      .cat-head .chev svg {
+        width: 18px;
+        height: 18px;
+      }
+      .cat-head[aria-expanded="false"] .chev {
+        transform: rotate(-90deg);
+      }
+      .cat.complete .cat-count {
+        color: var(--moss);
+        font-weight: 700;
+      }
+      .cat--must.complete .cat-count {
+        color: var(--signal);
       }
       .blaze {
         width: 6px;
@@ -974,12 +1086,62 @@
         <div class="progress">
           <div class="meta">
             <b id="progressText">Зібрано 0 / 0</b>
-            <button class="reset" id="resetBtn">Скинути</button>
           </div>
           <div class="bar"><i id="progressBar"></i></div>
           <div class="done-flag" id="doneFlag">
             🎒 Рюкзак зібраний — гарного походу!
           </div>
+        </div>
+        <div class="viewbar">
+          <button class="reset" id="resetBtn">Скинути</button>
+          <button
+            class="view-toggle"
+            id="viewToggle"
+            aria-expanded="false"
+            aria-controls="viewPanel"
+          >
+            <svg
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+            >
+              <path d="M3 5h18M6 12h12M10 19h4" />
+            </svg>
+            <span id="viewToggleLabel">Фільтр</span>
+            <span class="chev" aria-hidden="true">
+              <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2.4"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <path d="M6 9l6 6 6-6" />
+              </svg>
+            </span>
+          </button>
+        </div>
+        <div class="view-panel" id="viewPanel" hidden>
+          <div class="filters" role="group" aria-label="Що показувати">
+            <button data-filter="all" aria-pressed="true">Усі</button>
+            <button data-filter="must" aria-pressed="false">Необхідне</button>
+            <button data-filter="opt" aria-pressed="false">Опційне</button>
+          </div>
+          <button
+            class="switch"
+            id="hidePackedToggle"
+            role="switch"
+            aria-checked="false"
+          >
+            <span class="switch-track"><span class="switch-thumb"></span></span>
+            <span class="switch-text">
+              <span class="switch-label">Сховати зібране</span>
+              <span class="switch-hint">показувати лише ще не зібране</span>
+            </span>
+          </button>
         </div>
       </div>
     </div>
@@ -1306,60 +1468,138 @@
 
         /* ---------- GEAR ---------- */
         const gearEl = document.getElementById("gear");
+        // Стан перегляду (не зберігається — скидається при відкритті):
+        //   filter: "all" усі · "must" лише необхідне · "opt" лише опційне
+        //   hidePacked: показувати лише ще не зібране
+        //   catState: ручне згортання категорій (catKey -> "open" | "closed")
+        let filter = "all";
+        let hidePacked = false;
+        const catState = {};
+        const FILTER_LABEL = { all: "Усі", must: "Необхідне", opt: "Опційне" };
+        function catKey(c) {
+          return day + "|" + c.cat;
+        }
         function visibleCats() {
           return D.gear[day].filter((c) => !c.season || season === "cold");
         }
+        // Пункти категорії з урахуванням активного фільтра (без «сховати зібране»)
+        function itemsFor(c) {
+          return c.items
+            .map(norm)
+            .filter((it) =>
+              filter === "all" ? true : filter === "opt" ? !!it.opt : !it.opt,
+            );
+        }
+        const TICK =
+          '<span class="tick"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 13l4 4L19 7"/></svg></span>';
+        const CHEV =
+          '<span class="chev" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg></span>';
+
         function renderGear() {
           let html = "";
+          let baseTotal = 0,
+            hiddenPacked = 0;
           visibleCats().forEach((c) => {
             const cls = c.must ? " cat--must" : c.season ? " cat--season" : "";
-            const items = c.items.map(norm);
-            const done = items.filter(
+            const base = itemsFor(c); // після фільтра
+            if (!base.length) return; // у цьому фільтрі категорія порожня
+            baseTotal += base.length;
+            const done = base.filter(
               (it) => checked[keyOf(day, c.cat, it.n)],
             ).length;
+            const complete = done === base.length;
+            const shown = hidePacked
+              ? base.filter((it) => !checked[keyOf(day, c.cat, it.n)])
+              : base;
+            if (hidePacked) hiddenPacked += base.length - shown.length;
+            if (!shown.length) return; // усе зібрано (режим «сховати зібране»)
+
+            // згортання: ручний стан має пріоритет над авто-згортанням повної
+            const st = catState[catKey(c)];
+            const collapsed = st === "closed" || (st !== "open" && complete);
+            const countLabel = complete ? "✓ зібрано" : done + "/" + base.length;
+
             html +=
               '<div class="cat' +
               cls +
-              '"><div class="cat-head"><span class="blaze"></span><h2>' +
+              (collapsed ? " collapsed" : "") +
+              (complete ? " complete" : "") +
+              '"><button class="cat-head" aria-expanded="' +
+              !collapsed +
+              '" data-cat="' +
+              escAttr(catKey(c)) +
+              '"><span class="blaze"></span><h2>' +
               esc(c.cat) +
               "</h2>" +
               '<span class="cat-count">' +
-              done +
-              "/" +
-              items.length +
-              "</span></div>";
-            if (c.note) html += '<p class="cat-note">' + esc(c.note) + "</p>";
-            html += '<ul class="list">';
-            items.forEach((it) => {
-              const k = keyOf(day, c.cat, it.n),
-                on = !!checked[k];
-              html +=
-                '<button class="item" role="checkbox" aria-checked="' +
-                on +
-                '" data-k="' +
-                escAttr(k) +
-                '">' +
-                '<span class="tick"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 13l4 4L19 7"/></svg></span>' +
-                '<span class="label"><span class="item-title">' +
-                esc(it.n) +
-                "</span>" +
-                (it.desc
-                  ? '<span class="item-desc">' + esc(it.desc) + "</span>"
-                  : "") +
-                "</span>" +
-                (it.opt ? '<span class="badge">опц.</span>' : "") +
-                "</button>";
-            });
-            html += "</ul></div>";
+              countLabel +
+              "</span>" +
+              CHEV +
+              "</button>";
+            if (c.note && !collapsed)
+              html += '<p class="cat-note">' + esc(c.note) + "</p>";
+            if (!collapsed) {
+              html += '<ul class="list">';
+              shown.forEach((it) => {
+                const k = keyOf(day, c.cat, it.n),
+                  on = !!checked[k];
+                html +=
+                  '<button class="item" role="checkbox" aria-checked="' +
+                  on +
+                  '" data-k="' +
+                  escAttr(k) +
+                  '">' +
+                  TICK +
+                  '<span class="label"><span class="item-title">' +
+                  esc(it.n) +
+                  "</span>" +
+                  (it.desc
+                    ? '<span class="item-desc">' + esc(it.desc) + "</span>"
+                    : "") +
+                  "</span>" +
+                  (it.opt ? '<span class="badge">опц.</span>' : "") +
+                  "</button>";
+              });
+              html += "</ul>";
+            }
+            html += "</div>";
           });
-          gearEl.innerHTML = html;
+
+          // Підказка про сховане, щоб не було відчуття «а де поділись речі?»
+          let hiddenByFilter = 0;
+          if (filter !== "all")
+            visibleCats().forEach((c) =>
+              c.items.map(norm).forEach((it) => {
+                const passes = filter === "opt" ? !!it.opt : !it.opt;
+                if (!passes) hiddenByFilter++;
+              }),
+            );
+          const parts = [];
+          if (hiddenByFilter)
+            parts.push(
+              hiddenByFilter +
+                (filter === "must" ? " опційних" : " необхідних"),
+            );
+          if (hidePacked && hiddenPacked) parts.push(hiddenPacked + " зібраних");
+          const hiddenNote = parts.length
+            ? '<p class="hidden-note">Сховано: ' + parts.join(" · ") + "</p>"
+            : "";
+
+          const hasCats = html !== "";
+          if (!hasCats) {
+            html =
+              baseTotal > 0
+                ? '<div class="info">🎒 Усе зібрано в цьому списку!</div>'
+                : '<div class="info">У цьому фільтрі немає речей. Спробуй <b>«Усі»</b>.</div>';
+          }
+          gearEl.innerHTML = (hasCats ? hiddenNote : "") + html;
           updateProgress();
         }
         function updateProgress() {
           let total = 0,
             done = 0;
           visibleCats().forEach((c) =>
-            c.items.map(norm).forEach((it) => {
+            itemsFor(c).forEach((it) => {
               total++;
               if (checked[keyOf(day, c.cat, it.n)]) done++;
             }),
@@ -1369,24 +1609,33 @@
           document.getElementById("progressBar").style.width = total
             ? (done / total) * 100 + "%"
             : "0%";
-          document
-            .getElementById("doneFlag")
-            .classList.toggle("show", total > 0 && done === total);
+          const allDone = total > 0 && done === total;
+          const flag = document.getElementById("doneFlag");
+          flag.classList.toggle("show", allDone);
+          if (allDone)
+            flag.textContent =
+              filter === "must"
+                ? "✅ Необхідне зібрано — рюкзак буде легким!"
+                : filter === "opt"
+                  ? "✅ Усе опційне відмічено!"
+                  : "🎒 Рюкзак зібраний — гарного походу!";
         }
         gearEl.addEventListener("click", (e) => {
+          const head = e.target.closest(".cat-head");
+          if (head) {
+            const key = head.getAttribute("data-cat");
+            catState[key] =
+              head.getAttribute("aria-expanded") === "true" ? "closed" : "open";
+            renderGear();
+            return;
+          }
           const btn = e.target.closest(".item");
           if (!btn) return;
           const k = btn.getAttribute("data-k");
           if (checked[k]) delete checked[k];
           else checked[k] = true;
-          btn.setAttribute("aria-checked", checked[k] ? "true" : "false");
           saveChecked();
-          const box = btn.closest(".cat");
-          box.querySelector(".cat-count").textContent =
-            box.querySelectorAll('.item[aria-checked="true"]').length +
-            "/" +
-            box.querySelectorAll(".item").length;
-          updateProgress();
+          renderGear();
         });
 
         /* ---------- CONTROLS ---------- */
@@ -1433,6 +1682,49 @@
             renderGear();
           }
         });
+
+        /* ---------- ПЕРЕГЛЯД: фільтр / сховати зібране / масова дія ---------- */
+        const viewToggle = document.getElementById("viewToggle"),
+          viewPanel = document.getElementById("viewPanel"),
+          viewToggleLabel = document.getElementById("viewToggleLabel"),
+          filterBox = document.querySelector(".filters"),
+          hidePackedToggle = document.getElementById("hidePackedToggle");
+        function updateViewLabel() {
+          const parts = [];
+          if (filter !== "all") parts.push(FILTER_LABEL[filter]);
+          if (hidePacked) parts.push("без зібраного");
+          viewToggleLabel.textContent = parts.length
+            ? parts.join(" · ")
+            : "Фільтр";
+          viewToggle.classList.toggle(
+            "active",
+            filter !== "all" || hidePacked,
+          );
+        }
+        viewToggle.addEventListener("click", () => {
+          const open = viewToggle.getAttribute("aria-expanded") === "true";
+          viewToggle.setAttribute("aria-expanded", !open);
+          viewPanel.hidden = open;
+        });
+        filterBox.addEventListener("click", (e) => {
+          const btn = e.target.closest("button[data-filter]");
+          if (!btn) return;
+          filter = btn.getAttribute("data-filter");
+          filterBox
+            .querySelectorAll("button")
+            .forEach((b) =>
+              b.setAttribute("aria-pressed", b === btn ? "true" : "false"),
+            );
+          updateViewLabel();
+          renderGear();
+        });
+        hidePackedToggle.addEventListener("click", () => {
+          hidePacked = !hidePacked;
+          hidePackedToggle.setAttribute("aria-checked", hidePacked);
+          updateViewLabel();
+          renderGear();
+        });
+        updateViewLabel();
 
         /* ---------- STUFF (examples) ---------- */
         document.getElementById("exampleList").innerHTML = D.gearExamples
