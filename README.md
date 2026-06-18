@@ -1,65 +1,97 @@
-# У гори — застосунок-помічник для походу
+# У гори — hiking helper app
 
-Статичний застосунок (SPA + PWA) для майстер-класу з підлітками. Працює офлайн і встановлюється на телефон як іконка.
+A static app (SPA + PWA) for a teen workshop about mountain hiking. Works
+offline and installs on a phone like a native app. No backend, no database —
+all content lives in `data.js`, user state lives in `localStorage`.
 
-## Розділи
-- **Рюкзак** — інтерактивний чек-лист на 1 і 2 дні (галочки зберігаються), перемикач «Холодна пора» додає зимове спорядження.
-- **Стаф** — як виглядає правильне спорядження: приклади «правильно / неправильно» + правило трьох шарів.
-- **Відео** — відео-поради з YouTube.
-- **Маршрути** — рекомендовані маршрути з фото (Парашка, Говерла, Піп Іван, Синевир) + сервіси для пошуку власних.
-- **Безпека** — екстрені номери, дії при втраті групи, перша допомога, правила групи.
+**Live:** https://just-daniel.github.io/mountainsApp/
 
-## Структура файлів
+## Sections (bottom navigation)
+
+- **Рюкзак** — interactive checklist for 1- and 2-day trips (checks are saved).
+  Season switch adds winter gear; a view filter (All / Essential / Optional),
+  "hide packed" toggle, and auto-collapsing categories help pack faster.
+- **Стаф** — what proper gear looks like: "right / wrong" examples + the
+  three-layer rule.
+- **Поради** — advice: YouTube videos and readable articles (e.g. first aid).
+- **Маршрути** — recommended routes with photos + services to find your own.
+- **Безпека** — emergency numbers, what to do if you lose the group, first aid,
+  group rules.
+
+## File structure
 
 ```
 mountainsApp/
-├── index.html      ← застосунок (дизайн + логіка)
-├── data.js         ← УВЕСЬ КОНТЕНТ (редагуй цей файл)
-├── sw.js           ← офлайн-кеш (service worker)
-├── manifest.json   ← налаштування PWA
+├── index.html              ← the app (design + logic; no content here)
+├── data.js                 ← ALL CONTENT (edit this file)
+├── sw.js                   ← offline cache (service worker)
+├── manifest.json           ← PWA settings
 ├── favicon.png, icon-192.png, icon-512.png, icon-maskable-512.png, apple-touch-icon.png
-└── images/         ← ілюстрації маршрутів (сюди ж клади реальні фото)
-    ├── parashka.svg
-    ├── hoverla.svg
-    ├── pip-ivan.svg
-    └── synevyr.svg
+└── images/
+    └── routes/             ← route photos/illustrations
+        ├── parashka.svg
+        └── hora_lopata.jpg
 ```
 
-> Важливо: теку **images/** треба зберегти — картинки маршрутів лежать саме в ній.
+Content images are grouped by purpose under `images/` (currently `routes/`).
+Add new folders (e.g. `images/gear/`) as new content types appear.
 
-## Як зберегти локально (macOS, Finder)
+## Run locally
 
-1. Завантаж усі файли (разом із текою `images/`).
-2. У Finder відкрий **Documents** і створи теку **mountainsApp** (`Cmd+Shift+N`).
-3. Перенеси всі файли в `mountainsApp`, зберігаючи структуру — `images/` має лишитись окремою підтекою.
-4. Подвійний клік на `index.html` відкриє застосунок у браузері.
+Double-click `index.html` — the design and checklist work fully over `file://`.
 
-> При відкритті через подвійний клік (`file://`) дизайн і чек-лист працюють повністю. Офлайн-кеш PWA і встановлення на телефон активуються лише при відкритті через `https://` (тобто на GitHub Pages).
+> PWA offline caching and "install to phone" only activate over `https://`
+> (i.e. on GitHub Pages) or a local server (`python3 -m http.server`).
 
-## Як викласти на GitHub Pages
+A tiny dev server for live preview lives in `.claude/` (git-ignored) — not part
+of the app.
 
-1. Створи репозиторій (напр. `mountainsApp`) і завантаж усі файли разом із текою `images/`.
-2. **Settings → Pages → Build and deployment → Deploy from a branch**, гілка `main`, тека `/ (root)`.
-3. За хвилину з'явиться посилання `https://ТВІЙ-НІК.github.io/mountainsApp/`.
+## Deploy (GitHub Pages)
 
-## Як редагувати контент (файл `data.js`)
+Already set up: **Settings → Pages → Deploy from a branch**, branch `main`,
+folder `/ (root)`. Every push to `main` rebuilds the live site automatically.
 
-Програмувати не треба — лише міняти тексти між лапками.
+## Editing content (`data.js`)
 
-- **Спорядження** — об'єкт `gear` (`"1"` і `"2"` дні). Пункт: `"Ложка"` або `{n:"Баф", opt:true}`. Спецкатегорії: `must:true`, `season:true`, `note:"..."`.
-- **Маршрути** — масив `routes`. Поле `image` вказує на картинку.
-- **Відео** — масив `videos` (потрібен лише `id` з YouTube).
-- **Сервіси маршрутів** — масив `routeApps`.
-- **Приклади спорядження** — масив `gearExamples` (`wrong` / `right`, опційно `layer`).
-- **Безпека** — це HTML у секції `id="safety"` в `index.html`.
+No coding needed — just change text between the quotes.
 
-### Додати реальне фото маршруту
-1. Поклади фото у теку `images/` (напр. `parashka.jpg`).
-2. У `data.js` зміни рядок маршруту: `image: "images/parashka.jpg"`.
+- **`gear`** — object keyed by `"1"` and `"2"` (days). Each is an array of
+  categories. Item: `"Ложка"` or `{n:"Баф", opt:true, desc:"..."}`
+  (`opt` → "опц." badge, `desc` → small grey hint under the name).
+  Category flags: `must:true`, `season:true`, `note:"..."`.
+- **`routes`** — array `{name, area, height, duration, difficulty, days,
+  image, desc, tip}`. `image` points to a file in `images/routes/`.
+- **`routeApps`** — array `{name, url, desc}` (route-finding services).
+- **`videos`** — array `{id, title, desc}` (`id` is the YouTube watch id).
+- **`articles`** — array `{title, intro?, steps:[{t,d}], warnIntro?,
+  warnings:[{t,d}]}`. Shown as collapsible cards in **Поради**. `steps` render
+  as numbered green items, `warnings` as red "do NOT" items.
+- **`gearExamples`** — array `{item, wrong, right, layer?}` for **Стаф**.
+- **Безпека** is static HTML in the `id="safety"` section of `index.html`.
 
-Після будь-якої зміни контенту підвищ версію кешу в `sw.js` (`u-gory-v2` → `u-gory-v3`), щоб користувачі отримали свіжу версію.
+### Add a real route photo
+1. Put the file in `images/routes/` (e.g. `parashka.jpg`).
+2. Set `image: "images/routes/parashka.jpg"` on the route in `data.js`.
+3. Add the new file to the `ASSETS` array in `sw.js` so it works offline.
 
-## Технічні нотатки
-- Стан чек-листа зберігається в `localStorage` (окремо для 1 і 2 днів).
-- Відео з YouTube офлайн не відкриваються — підказка про це є в застосунку.
-- Контент винесено в `data.js` (а не `data.json`) навмисно: так він теж працює при відкритті файлу подвійним кліком, без сервера.
+> After **any** content change, bump the cache version in `sw.js`
+> (`u-gory-vN` → `u-gory-v(N+1)`) so users get the fresh version. Current: `v9`.
+
+## Versioning
+
+Annotated semver tags + GitHub Releases mark restore points; feature branches
+hold parallel work. `main` is always deployable. Commit messages and release
+notes are in English; UI/content is in Ukrainian.
+
+```
+git tag -a vX.Y.Z -m "..." && git push --tags
+gh release create vX.Y.Z --latest --title "..." --notes "..."
+```
+
+## Technical notes
+
+- Checklist state is stored in `localStorage` (separately for 1 and 2 days).
+- YouTube videos don't open offline — the app hints about this.
+- Content lives in `data.js` (not `data.json`) on purpose: it also works when
+  opening the file by double-click, with no server (avoids `fetch`/CORS over
+  `file://`).

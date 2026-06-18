@@ -1,6 +1,6 @@
 // Service worker — кешує застосунок для роботи офлайн.
 // Підвищуй версію CACHE при оновленні контенту, щоб користувачі отримали свіжу версію.
-const CACHE = "u-gory-v8";
+const CACHE = "u-gory-v9";
 const ASSETS = [
   "./",
   "./index.html",
@@ -11,10 +11,8 @@ const ASSETS = [
   "./icon-512.png",
   "./icon-maskable-512.png",
   "./apple-touch-icon.png",
-  "./images/parashka.svg",
-  "./images/hoverla.svg",
-  "./images/pip-ivan.svg",
-  "./images/synevyr.svg",
+  "./images/routes/parashka.svg",
+  "./images/routes/hora_lopata.jpg",
 ];
 
 self.addEventListener("install", (e) => {
