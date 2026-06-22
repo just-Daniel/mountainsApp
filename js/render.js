@@ -151,7 +151,13 @@ function renderApps() {
         '<span class="lc-body"><div class="lc-top"><h3>' +
         esc(a.name) +
         "</h3>" +
-        (a.tag ? '<span class="lc-tag">' + esc(a.tag) + "</span>" : "") +
+        (a.tag
+          ? '<span class="lc-tag" data-t="' +
+            escAttr(a.tagType || "") +
+            '">' +
+            esc(a.tag) +
+            "</span>"
+          : "") +
         "</div><p>" +
         esc(a.desc) +
         "</p></span>" +

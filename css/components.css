@@ -699,6 +699,19 @@ color: var(--mist);
         border-radius: 999px;
         padding: 2px 8px;
       }
+      /* кольори тегів за типом */
+      .lc-tag[data-t="track"] {
+        color: var(--moss);
+        background: var(--moss-soft);
+      }
+      .lc-tag[data-t="route"] {
+        color: #1c4a6b;
+        background: var(--sky-soft);
+      }
+      .lc-tag[data-t="weather"] {
+        color: #b8530f;
+        background: var(--signal-soft);
+      }
       .link-card .lc-go {
 color: var(--mist);
 flex: 0 0 auto;
