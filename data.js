@@ -57,14 +57,14 @@ window.MOUNTAIN_DATA = {
       subVideos: "Відео",
       subArticles: "Статті",
       youtube: "Дивитися на YouTube →",
-      routesTitle: "Маршрути",
-      routesLead: "Куди можна сходити й де шукати власні маршрути.",
+      routesTitle: "Сервіси",
+      routesLead: "Додатки та сервіси для маршрутів, трекінгу й погоди.",
       subFindRoutes: "Де шукати й планувати",
       safetyTitle: "Безпека",
       navGear: "Рюкзак",
       navStuff: "Стаф",
       navAdvice: "Поради",
-      navRoutes: "Маршрути",
+      navRoutes: "Сервіси",
       navSafety: "Безпека",
       resetConfirm: "Зняти всі позначки для цього списку?",
       noData:
@@ -147,57 +147,45 @@ window.MOUNTAIN_DATA = {
     ],
 
     /* ---------- МАРШРУТИ (image — у images/routes/) ---------- */
-    routes: [
-      {
-        name: "Гора Парашка",
-        area: "Сколівські Бескиди, Львівщина",
-        height: "1268 м",
-        duration: "6–8 год · ~16 км",
-        difficulty: "середній",
-        days: 1,
-        image: "images/routes/parashka.svg",
-        desc: "Найвища вершина Сколівських Бескидів і найближча класична гора до Львова (~110 км). Стежка йде через ліс, а на безлісому хребті відкриваються панорами на долини Опору й Стрия.",
-        tip: "Чудовий перший похід: стежка маркована, складність — переважно у відстані.",
-      },
-      {
-        name: "Гора Лопата",
-        area: "Сколівські Бескиди, Львівщина",
-        height: "2061 м",
-        duration: "5–6 год · ~15 км",
-        difficulty: "Легкий–",
-        days: 1,
-        image: "images/routes/hora_lopata.jpg",
-        desc: "Вершина Сколівських Бескидів. Класичний маркований маршрут стартує від Сколе.",
-        tip: "Чудовий перший похід: можна добратись потягом або автобусом. Часто їздить транспорт.",
-      },
-    ],
+    routes: [],
 
-    /* ---------- ДЕ ШУКАТИ МАРШРУТИ ---------- */
+    /* ---------- ДЕ ШУКАТИ МАРШРУТИ (tag: трекінг / маршрути / погода) ---------- */
     routeApps: [
       {
         name: "OrganicMaps",
         url: "https://organicmaps.app/",
+        tag: "трекінг",
         desc: "Додаток на телефон для побудови та трекінгу маршруту.",
       },
       {
         name: "Mapy.com",
         url: "https://mapy.com/",
+        tag: "трекінг",
         desc: "Трекінг та побудова маршрутів. Сайт а також додаток на телефон.",
       },
       {
         name: "vpohid.com.ua",
         url: "https://vpohid.com.ua/",
+        tag: "маршрути",
         desc: "Український сервіс із маршрутами та описами походів.",
       },
       {
         name: "AllTrails",
         url: "https://www.alltrails.com/",
+        tag: "маршрути",
         desc: "Велика база маршрутів з картами, фото й відгуками.",
       },
       {
         name: "propohody.com",
         url: "https://propohody.com/",
+        tag: "маршрути",
         desc: "Описи маршрутів і корисні матеріали для походів.",
+      },
+      {
+        name: "Meteoblue",
+        url: "https://www.meteoblue.com/uk/weather/week/",
+        tag: "погода",
+        desc: "Прогноз погоди на тиждень — перевір перед виходом на маршрут.",
       },
     ],
 
@@ -288,7 +276,11 @@ window.MOUNTAIN_DATA = {
         },
         {
           cat: "Гігієна",
-          items: ["Туалетний папір / сухі серветки", "Вологі серветки"],
+          items: [
+            "Туалетний папір / сухі серветки",
+            "Вологі серветки",
+            "Сонцезахисний крем",
+          ],
         },
         {
           cat: "Одяг",
@@ -383,6 +375,7 @@ window.MOUNTAIN_DATA = {
             "Зубна паста",
             "Зубна нитка",
             "Вологі серветки",
+            "Сонцезахисний крем",
             { n: "Сухі серветки", opt: true },
             { n: "Дезік", opt: true },
             { n: "Рушник", opt: true },
@@ -546,14 +539,14 @@ window.MOUNTAIN_DATA = {
       subVideos: "Videos",
       subArticles: "Articles",
       youtube: "Watch on YouTube →",
-      routesTitle: "Routes",
-      routesLead: "Where to go and where to find your own routes.",
+      routesTitle: "Services",
+      routesLead: "Apps and services for routes, tracking and weather.",
       subFindRoutes: "Where to find & plan",
       safetyTitle: "Safety",
       navGear: "Backpack",
       navStuff: "Gear",
       navAdvice: "Advice",
-      navRoutes: "Routes",
+      navRoutes: "Services",
       navSafety: "Safety",
       resetConfirm: "Clear all checks for this list?",
       noData:
@@ -633,56 +626,44 @@ window.MOUNTAIN_DATA = {
       },
     ],
 
-    routes: [
-      {
-        name: "Mount Parashka",
-        area: "Skolivski Beskydy, Lviv region",
-        height: "1268 m",
-        duration: "6–8 h · ~16 km",
-        difficulty: "medium",
-        days: 1,
-        image: "images/routes/parashka.svg",
-        desc: "The highest peak of the Skolivski Beskydy and the closest classic mountain to Lviv (~110 km). The trail goes through forest, and the treeless ridge opens up panoramas over the Opir and Stryi valleys.",
-        tip: "A great first hike: the trail is marked, the difficulty is mostly in the distance.",
-      },
-      {
-        name: "Mount Lopata",
-        area: "Skolivski Beskydy, Lviv region",
-        height: "2061 m",
-        duration: "5–6 h · ~15 km",
-        difficulty: "easy",
-        days: 1,
-        image: "images/routes/hora_lopata.jpg",
-        desc: "A peak of the Skolivski Beskydy. The classic marked route starts from Skole.",
-        tip: "A great first hike: you can get there by train or bus, and transport runs often.",
-      },
-    ],
+    routes: [],
 
     routeApps: [
       {
         name: "OrganicMaps",
         url: "https://organicmaps.app/",
+        tag: "tracking",
         desc: "A phone app for building and tracking routes.",
       },
       {
         name: "Mapy.com",
         url: "https://mapy.com/",
+        tag: "tracking",
         desc: "Route tracking and planning. Website and phone app.",
       },
       {
         name: "vpohid.com.ua",
         url: "https://vpohid.com.ua/",
+        tag: "routes",
         desc: "A Ukrainian service with routes and hike descriptions.",
       },
       {
         name: "AllTrails",
         url: "https://www.alltrails.com/",
+        tag: "routes",
         desc: "A large database of routes with maps, photos and reviews.",
       },
       {
         name: "propohody.com",
         url: "https://propohody.com/",
+        tag: "routes",
         desc: "Route descriptions and useful materials for hikes.",
+      },
+      {
+        name: "Meteoblue",
+        url: "https://www.meteoblue.com/en/weather/week/",
+        tag: "weather",
+        desc: "Weather forecast for the week — check before you set out.",
       },
     ],
 
@@ -761,7 +742,7 @@ window.MOUNTAIN_DATA = {
         },
         {
           cat: "Hygiene",
-          items: ["Toilet paper / dry wipes", "Wet wipes"],
+          items: ["Toilet paper / dry wipes", "Wet wipes", "Sunscreen"],
         },
         {
           cat: "Clothes",
@@ -852,6 +833,7 @@ window.MOUNTAIN_DATA = {
             "Toothpaste",
             "Dental floss",
             "Wet wipes",
+            "Sunscreen",
             { n: "Dry wipes", opt: true },
             { n: "Deodorant", opt: true },
             { n: "Towel", opt: true },
