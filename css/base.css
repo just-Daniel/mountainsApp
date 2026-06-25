@@ -75,13 +75,44 @@ text-transform: uppercase;
 color: #8fb7a2;
 font-weight: 700;
 margin: 0 0 6px;
-padding-right: 92px;
+padding-right: 132px;
       }
-      .lang-switch {
+      .topbar {
 position: absolute;
 top: calc(14px + env(safe-area-inset-top));
-right: 18px;
+right: 16px;
 z-index: 2;
+display: flex;
+align-items: center;
+gap: 8px;
+      }
+      .theme-toggle {
+width: 34px;
+height: 34px;
+flex: 0 0 auto;
+border: 0;
+border-radius: 999px;
+background: rgba(255, 255, 255, 0.12);
+color: rgba(255, 255, 255, 0.88);
+display: grid;
+place-items: center;
+cursor: pointer;
+      }
+      .theme-toggle .icon-moon,
+      .theme-toggle .icon-sun {
+font-size: 18px;
+line-height: 1;
+      }
+      .theme-toggle .icon-sun {
+display: none;
+      }
+      [data-theme="dark"] .theme-toggle .icon-sun {
+display: inline-flex;
+      }
+      [data-theme="dark"] .theme-toggle .icon-moon {
+display: none;
+      }
+      .lang-switch {
 display: flex;
 gap: 2px;
 background: rgba(255, 255, 255, 0.12);
@@ -318,4 +349,180 @@ display: none;
 font-size: 12px;
 color: var(--mist);
 margin: 0 0 14px 2px;
+      }
+
+      /* ============================================================
+         ТЕМНА ТЕМА — усі перевизначення в одному місці.
+         Перемикається атрибутом data-theme="dark" на <html>.
+         Більшість компонентів на токенах і адаптуються самі;
+         нижче — лише «зашиті» кольори, що інакше зламалися б.
+         (--spruce лишаємо темно-зеленим: це фон шапки/плашок.)
+         ============================================================ */
+      [data-theme="dark"] {
+        --moss: #5aa97f;
+        --moss-soft: #1c2f26;
+        --signal: #ff7d3c;
+        --signal-soft: #34220f;
+        --sky: #62a0cf;
+        --sky-soft: #163047;
+        --stone: #0e1512;
+        --paper: #19221d;
+        --ink: #e8efe9;
+        --mist: #94a59c;
+        --line: #2a352f;
+        --shadow:
+          0 1px 2px rgba(0, 0, 0, 0.5), 0 10px 28px rgba(0, 0, 0, 0.4);
+      }
+      /* заголовки/мітки, що використовували --spruce як текст */
+      [data-theme="dark"] .sub-head,
+      [data-theme="dark"] .cat-head h2,
+      [data-theme="dark"] .scard h3,
+      [data-theme="dark"] .info b,
+      [data-theme="dark"] .days-badge,
+      [data-theme="dark"] .dock button[aria-current="true"],
+      [data-theme="dark"] .filters button[aria-pressed="true"],
+      [data-theme="dark"] .view-toggle.active {
+        color: #cfe8db;
+      }
+      /* інпути / прогрес / штрихи */
+      [data-theme="dark"] .bar {
+        background: #2a352f;
+      }
+      [data-theme="dark"] .switch-track {
+        background: #3a4a42;
+      }
+      [data-theme="dark"] .tick {
+        border-color: #3c4c44;
+      }
+      [data-theme="dark"] .item:active {
+        background: rgba(255, 255, 255, 0.05);
+      }
+      [data-theme="dark"] .item[aria-checked="true"] .item-title {
+        text-decoration-color: #5a6b62;
+      }
+      /* інфо-блоки */
+      [data-theme="dark"] .info {
+        border-color: #284a3b;
+        color: #cfe7da;
+      }
+      [data-theme="dark"] .info--warn {
+        border-color: #4a3320;
+        color: #ffc6a0;
+      }
+      [data-theme="dark"] .info--warn b {
+        color: #ff9a5c;
+      }
+      /* статті: застереження */
+      [data-theme="dark"] .a-warn-intro {
+        color: #ff8a7a;
+      }
+      [data-theme="dark"] .awarn li::before {
+        background: #3a201c;
+        color: #ff8a7a;
+      }
+      /* стаф: приклади */
+      [data-theme="dark"] .ex-row.wrong .mark {
+        background: #3a201a;
+        color: #ff8a6a;
+      }
+      [data-theme="dark"] .ex-row.right .mark {
+        color: #7fd1a6;
+      }
+      [data-theme="dark"] .ex-row.right span:last-child {
+        color: #c9d6cf;
+      }
+      [data-theme="dark"] .ex-layer {
+        color: #9cc7e8;
+      }
+      /* теги ресурсів */
+      [data-theme="dark"] .lc-tag[data-t="route"] {
+        color: #9cc7e8;
+      }
+      [data-theme="dark"] .lc-tag[data-t="weather"] {
+        color: #ffb27a;
+      }
+      [data-theme="dark"] .link-card .lc-ico svg {
+        stroke: var(--moss);
+      }
+      /* маршрути (поки приховані, але на майбутнє) */
+      [data-theme="dark"] .pill--easy {
+        color: #7fd1a6;
+      }
+      [data-theme="dark"] .pill--mid {
+        background: #3a3115;
+        color: #e3c067;
+      }
+      [data-theme="dark"] .pill--hard {
+        color: #ffb27a;
+      }
+      [data-theme="dark"] .route-desc {
+        color: #c9d6cf;
+      }
+      [data-theme="dark"] .route-tip {
+        color: #cfe7da;
+      }
+
+      /* святкування при «зібрано» */
+      .confetti {
+        position: fixed;
+        inset: 0;
+        pointer-events: none;
+        z-index: 60;
+        overflow: hidden;
+      }
+      .confetti i {
+        position: absolute;
+        top: -16px;
+        width: 9px;
+        height: 14px;
+        border-radius: 2px;
+        opacity: 0.95;
+        animation: confetti-fall linear forwards;
+      }
+      @keyframes confetti-fall {
+        0% {
+          transform: translateY(0) rotate(0deg);
+        }
+        100% {
+          transform: translateY(106vh) rotate(600deg);
+          opacity: 0.85;
+        }
+      }
+      @media (prefers-reduced-motion: reduce) {
+        .confetti {
+          display: none;
+        }
+      }
+
+      /* тост «доступне оновлення» */
+      .toast {
+        position: fixed;
+        left: 50%;
+        transform: translateX(-50%);
+        bottom: calc(96px + env(safe-area-inset-bottom));
+        z-index: 50;
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        background: var(--spruce);
+        color: #fff;
+        border-radius: 999px;
+        padding: 10px 12px 10px 18px;
+        font-size: 13.5px;
+        font-weight: 600;
+        box-shadow: 0 6px 28px rgba(0, 0, 0, 0.28);
+        max-width: calc(100vw - 32px);
+      }
+      .toast[hidden] {
+        display: none;
+      }
+      .toast button {
+        border: 0;
+        cursor: pointer;
+        background: var(--signal);
+        color: #fff;
+        font: inherit;
+        font-weight: 700;
+        border-radius: 999px;
+        padding: 7px 14px;
       }

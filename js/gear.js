@@ -139,6 +139,29 @@ function updateProgress() {
         : filter === "opt"
           ? ui.doneOpt
           : ui.doneAll;
+  // Святкування лише на переході «не зібрано → зібрано» (не на першому рендері)
+  if (allDone && prevAllDone === false) celebrate();
+  prevAllDone = allDone;
+}
+let prevAllDone = null;
+function celebrate() {
+  if (window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches)
+    return;
+  const colors = ["#2e6b4f", "#f26a1b", "#3c7db0", "#5aa97f", "#ffd24a", "#e8556d"];
+  const box = document.createElement("div");
+  box.className = "confetti";
+  for (let i = 0; i < 32; i++) {
+    const p = document.createElement("i");
+    p.style.left = Math.random() * 100 + "vw";
+    p.style.background = colors[i % colors.length];
+    p.style.animationDelay = Math.random() * 0.25 + "s";
+    p.style.animationDuration = 1 + Math.random() * 0.7 + "s";
+    box.appendChild(p);
+  }
+  document.body.appendChild(box);
+  setTimeout(function () {
+    box.remove();
+  }, 2300);
 }
 gearEl.addEventListener("click", (e) => {
   const head = e.target.closest(".cat-head");

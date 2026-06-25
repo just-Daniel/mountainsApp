@@ -86,3 +86,17 @@ hidePackedToggle.addEventListener("click", () => {
   updateViewLabel();
   renderGear();
 });
+
+/* ---------- ТЕМА (світла / темна) ----------
+   Початкове значення вже виставив anti-FOUC скрипт у <head>. */
+const themeToggle = document.getElementById("themeToggle");
+if (themeToggle) {
+  themeToggle.addEventListener("click", () => {
+    const dark = document.documentElement.dataset.theme === "dark";
+    const next = dark ? "light" : "dark";
+    document.documentElement.dataset.theme = next;
+    try {
+      localStorage.setItem("gory-theme-v1", next);
+    } catch (e) {}
+  });
+}

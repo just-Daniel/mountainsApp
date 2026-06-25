@@ -1,6 +1,6 @@
 // Service worker — кешує застосунок для роботи офлайн.
 // Підвищуй версію CACHE при оновленні контенту, щоб користувачі отримали свіжу версію.
-const CACHE = "u-gory-v15";
+const CACHE = "u-gory-v16";
 const ASSETS = [
   "./",
   "./index.html",
@@ -25,12 +25,14 @@ const ASSETS = [
 ];
 
 self.addEventListener("install", (e) => {
-  e.waitUntil(
-    caches
-      .open(CACHE)
-      .then((c) => c.addAll(ASSETS))
-      .then(() => self.skipWaiting()),
-  );
+  // НЕ робимо skipWaiting автоматично — новий SW чекає, поки користувач
+  // натисне «Оновити» в тості (повідомлення SKIP_WAITING нижче).
+  e.waitUntil(caches.open(CACHE).then((c) => c.addAll(ASSETS)));
+});
+
+// Активувати новий SW на вимогу сторінки (кнопка «Оновити»)
+self.addEventListener("message", (e) => {
+  if (e.data && e.data.type === "SKIP_WAITING") self.skipWaiting();
 });
 
 self.addEventListener("activate", (e) => {

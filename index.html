@@ -15,6 +15,17 @@
     <link rel="manifest" href="manifest.json" />
     <link rel="icon" href="images/icons/favicon.png" />
     <link rel="apple-touch-icon" href="images/icons/apple-touch-icon.png" />
+    <!-- Тема: ставимо data-theme ДО рендеру, щоб не блимало (anti-FOUC) -->
+    <script>
+      try {
+        var _t = localStorage.getItem("gory-theme-v1");
+        if (!_t)
+          _t = matchMedia("(prefers-color-scheme: dark)").matches
+            ? "dark"
+            : "light";
+        document.documentElement.dataset.theme = _t;
+      } catch (e) {}
+    </script>
     <link rel="stylesheet" href="css/base.css" />
     <link rel="stylesheet" href="css/components.css" />
     <link rel="stylesheet" href="css/safety-nav.css" />
@@ -41,9 +52,20 @@
         />
       </svg>
       <div class="inner">
-        <div class="lang-switch" role="group" aria-label="Language / Мова">
-          <button type="button" data-lang="uk" aria-pressed="true">UA</button>
-          <button type="button" data-lang="en" aria-pressed="false">EN</button>
+        <div class="topbar">
+          <button
+            type="button"
+            class="theme-toggle"
+            id="themeToggle"
+            aria-label="Перемкнути тему"
+          >
+            <span class="icon-moon" aria-hidden="true">🌙</span>
+            <span class="icon-sun" aria-hidden="true">☀️</span>
+          </button>
+          <div class="lang-switch" role="group" aria-label="Language / Мова">
+            <button type="button" data-lang="uk" aria-pressed="true">UA</button>
+            <button type="button" data-lang="en" aria-pressed="false">EN</button>
+          </div>
         </div>
         <p class="eyebrow" data-i18n="eyebrow">
           Похід у гори · Що з собою брати? · Чи кого?
@@ -292,6 +314,11 @@
           <span data-i18n="navSafety">Безпека</span>
         </button>
       </nav>
+    </div>
+
+    <div class="toast" id="updateToast" role="status" hidden>
+      <span data-i18n="updateAvailable">Доступне оновлення</span>
+      <button type="button" id="updateBtn" data-i18n="updateBtn">Оновити</button>
     </div>
 
     <script src="data.js"></script>

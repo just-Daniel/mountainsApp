@@ -66,6 +66,8 @@ window.MOUNTAIN_DATA = {
       navAdvice: "Поради",
       navRoutes: "Сервіси",
       navSafety: "Безпека",
+      updateAvailable: "Доступне оновлення",
+      updateBtn: "Оновити",
       resetConfirm: "Зняти всі позначки для цього списку?",
       noData:
         "Не вдалося завантажити контент (data.js). Переконайся, що файл data.js лежить поряд з index.html.",
@@ -554,6 +556,8 @@ window.MOUNTAIN_DATA = {
       navAdvice: "Advice",
       navRoutes: "Services",
       navSafety: "Safety",
+      updateAvailable: "Update available",
+      updateBtn: "Update",
       resetConfirm: "Clear all checks for this list?",
       noData:
         "Could not load content (data.js). Make sure data.js sits next to index.html.",
@@ -750,7 +754,11 @@ window.MOUNTAIN_DATA = {
         },
         {
           cat: "Electronics",
-          items: ["Power bank", "Charging cable", "Flashlight"],
+          items: [
+            "Power bank",
+            "Charging cable",
+            { n: "Flashlight", opt: true, desc: "If a long hike is planned" },
+          ],
         },
         {
           cat: "Hygiene",
