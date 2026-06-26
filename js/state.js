@@ -43,33 +43,19 @@ const DATA = window.MOUNTAIN_DATA;
     });
     return;
   }
-  window.addEventListener("load", () => {
-    navigator.serviceWorker
-      .register("sw.js")
-      .then((reg) => {
-        function offer(sw) {
-          if (sw && typeof showUpdateToast === "function") showUpdateToast(sw);
-        }
-        // якщо новий SW уже чекає
-        if (reg.waiting && navigator.serviceWorker.controller) offer(reg.waiting);
-        // або зʼявляється під час сесії
-        reg.addEventListener("updatefound", () => {
-          const nw = reg.installing;
-          if (!nw) return;
-          nw.addEventListener("statechange", () => {
-            if (nw.state === "installed" && navigator.serviceWorker.controller)
-              offer(nw);
-          });
-        });
-      })
-      .catch(() => {});
-    // коли новий SW активувався (після «Оновити») — один раз перезавантажити
+  // Якщо сторінку вже контролює SW — нова версія активується сама
+  // (skipWaiting) і ми один раз перезавантажуємось, щоб підхопити свіжі
+  // ассети. На першому візиті контролера ще немає → зайвого reload не буде.
+  if (navigator.serviceWorker.controller) {
     let reloaded = false;
     navigator.serviceWorker.addEventListener("controllerchange", () => {
       if (reloaded) return;
       reloaded = true;
       location.reload();
     });
+  }
+  window.addEventListener("load", () => {
+    navigator.serviceWorker.register("sw.js").catch(() => {});
   });
 })();
 

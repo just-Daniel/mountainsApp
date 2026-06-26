@@ -1,6 +1,6 @@
 // Service worker — кешує застосунок для роботи офлайн.
 // Підвищуй версію CACHE при оновленні контенту, щоб користувачі отримали свіжу версію.
-const CACHE = "u-gory-v16";
+const CACHE = "u-gory-v18";
 const ASSETS = [
   "./",
   "./index.html",
@@ -13,6 +13,7 @@ const ASSETS = [
   "./js/controls.js",
   "./js/render.js",
   "./js/i18n.js",
+  "./js/export.js",
   "./js/main.js",
   "./manifest.json",
   "./images/icons/favicon.png",
@@ -25,14 +26,14 @@ const ASSETS = [
 ];
 
 self.addEventListener("install", (e) => {
-  // НЕ робимо skipWaiting автоматично — новий SW чекає, поки користувач
-  // натисне «Оновити» в тості (повідомлення SKIP_WAITING нижче).
-  e.waitUntil(caches.open(CACHE).then((c) => c.addAll(ASSETS)));
-});
-
-// Активувати новий SW на вимогу сторінки (кнопка «Оновити»)
-self.addEventListener("message", (e) => {
-  if (e.data && e.data.type === "SKIP_WAITING") self.skipWaiting();
+  // Активуємо новий SW одразу: сторінка сама перезавантажиться при
+  // controllerchange і отримає свіжі ассети (надійне авто-оновлення).
+  e.waitUntil(
+    caches
+      .open(CACHE)
+      .then((c) => c.addAll(ASSETS))
+      .then(() => self.skipWaiting()),
+  );
 });
 
 self.addEventListener("activate", (e) => {

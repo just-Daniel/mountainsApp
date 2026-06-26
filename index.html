@@ -129,7 +129,12 @@
           </div>
         </div>
         <div class="viewbar">
-          <button class="reset" id="resetBtn" data-i18n="reset">Скинути</button>
+          <div class="viewbar-left">
+            <button class="reset" id="resetBtn" data-i18n="reset">Скинути</button>
+            <button class="mini-btn" id="exportBtn" data-i18n="exportLabel">
+              Експорт
+            </button>
+          </div>
           <button
             class="view-toggle"
             id="viewToggle"
@@ -316,17 +321,13 @@
       </nav>
     </div>
 
-    <div class="toast" id="updateToast" role="status" hidden>
-      <span data-i18n="updateAvailable">Доступне оновлення</span>
-      <button type="button" id="updateBtn" data-i18n="updateBtn">Оновити</button>
-    </div>
-
     <script src="data.js"></script>
     <script src="js/state.js"></script>
     <script src="js/gear.js"></script>
     <script src="js/controls.js"></script>
     <script src="js/render.js"></script>
     <script src="js/i18n.js"></script>
+    <script src="js/export.js"></script>
     <script src="js/main.js"></script>
   </body>
 </html>

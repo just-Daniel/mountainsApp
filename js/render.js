@@ -221,19 +221,3 @@ function renderSafety() {
     html += '<p class="footnote">' + esc(s.footnote) + "</p>";
   document.getElementById("safety").innerHTML = html;
 }
-
-/* ---------- ТОСТ «ДОСТУПНЕ ОНОВЛЕННЯ» ----------
-   Викликається з manageSW (state.js), коли новий service worker готовий. */
-function showUpdateToast(sw) {
-  const t = document.getElementById("updateToast");
-  if (!t) return;
-  t.hidden = false;
-  const btn = document.getElementById("updateBtn");
-  if (btn)
-    btn.onclick = function () {
-      try {
-        if (sw) sw.postMessage({ type: "SKIP_WAITING" });
-      } catch (e) {}
-      t.hidden = true;
-    };
-}
