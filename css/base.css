@@ -522,7 +522,6 @@ margin: 0 0 14px 2px;
         background: rgba(0, 0, 0, 0.5);
         display: grid;
         place-items: end center;
-        padding: 0 0 max(0px, env(safe-area-inset-bottom));
         animation: fade 0.18s ease both;
       }
       .modal {
