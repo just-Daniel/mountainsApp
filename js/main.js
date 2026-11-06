@@ -17,9 +17,42 @@ function showTab(name) {
   );
   controls.style.display = name === "gear" ? "" : "none";
   window.scrollTo(0, 0);
+  controls.classList.remove("collapsed");
+  lastScrollY = 0;
 }
 tabButtons.forEach((b) =>
   b.addEventListener("click", () => showTab(b.dataset.tab)),
+);
+
+/* ---------- СТИСКАННЯ ПЕРЕМИКАЧА ДНІВ/СЕЗОНУ ПРИ СКРОЛІ ----------
+   На «Рюкзаку» при скролі вниз ховаємо день/зимове спорядження, щоб
+   список речей мав більше місця; при скролі вгору (чи вгорі сторінки)
+   повертаємо назад. */
+let lastScrollY = window.scrollY;
+let scrollTicking = false;
+function updateControlsOnScroll() {
+  const y = window.scrollY;
+  if (controls.style.display !== "none") {
+    if (y <= 8) {
+      controls.classList.remove("collapsed");
+    } else if (y > lastScrollY + 4) {
+      controls.classList.add("collapsed");
+    } else if (y < lastScrollY - 4) {
+      controls.classList.remove("collapsed");
+    }
+  }
+  lastScrollY = y;
+  scrollTicking = false;
+}
+window.addEventListener(
+  "scroll",
+  () => {
+    if (!scrollTicking) {
+      requestAnimationFrame(updateControlsOnScroll);
+      scrollTicking = true;
+    }
+  },
+  { passive: true },
 );
 
 /* ---------- INIT ---------- */

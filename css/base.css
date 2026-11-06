@@ -169,6 +169,20 @@ max-width: var(--maxw);
 margin: 0 auto;
 padding: 12px 16px 14px;
       }
+      /* Перемикач днів + зимове спорядження — ховаються при скролі вниз,
+         щоб лишити більше місця списку речей (повертаються при скролі вгору). */
+      .collapsible {
+overflow: hidden;
+max-height: 260px;
+opacity: 1;
+transition:
+  max-height 0.28s ease,
+  opacity 0.2s ease;
+      }
+      .controls.collapsed .collapsible {
+max-height: 0;
+opacity: 0;
+      }
       .segmented {
 display: flex;
 gap: 4px;

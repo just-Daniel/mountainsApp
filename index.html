@@ -93,31 +93,37 @@
 
     <div class="controls" id="controls">
       <div class="inner">
-        <div class="segmented" role="group" aria-label="Тривалість походу">
-          <button id="day1" aria-pressed="true">
-            <span class="d-main" data-i18n="day1">1 день</span
-            ><span class="sub" data-i18n="day1sub">радіалка / без ночівлі</span>
-          </button>
-          <button id="day2" aria-pressed="false">
-            <span class="d-main" data-i18n="day2">2 дні</span
-            ><span class="sub" data-i18n="day2sub">з ночівлею в наметі</span>
-          </button>
-        </div>
-        <div class="row2">
-          <button
-            class="switch"
-            id="seasonChip"
-            role="switch"
-            aria-checked="false"
-          >
-            <span class="switch-track"><span class="switch-thumb"></span></span>
-            <span class="switch-text">
-              <span class="switch-label" data-i18n="seasonLabel"
-                >❄️ Зимове спорядження</span
+        <div class="collapsible" id="dayseasonBlock">
+          <div class="segmented" role="group" aria-label="Тривалість походу">
+            <button id="day1" aria-pressed="true">
+              <span class="d-main" data-i18n="day1">1 день</span
+              ><span class="sub" data-i18n="day1sub"
+                >радіалка / без ночівлі</span
               >
-              <span class="switch-hint">вимкнено · тепла пора</span>
-            </span>
-          </button>
+            </button>
+            <button id="day2" aria-pressed="false">
+              <span class="d-main" data-i18n="day2">2 дні</span
+              ><span class="sub" data-i18n="day2sub">з ночівлею в наметі</span>
+            </button>
+          </div>
+          <div class="row2">
+            <button
+              class="switch"
+              id="seasonChip"
+              role="switch"
+              aria-checked="false"
+            >
+              <span class="switch-track"
+                ><span class="switch-thumb"></span
+              ></span>
+              <span class="switch-text">
+                <span class="switch-label" data-i18n="seasonLabel"
+                  >❄️ Зимове спорядження</span
+                >
+                <span class="switch-hint">вимкнено · тепла пора</span>
+              </span>
+            </button>
+          </div>
         </div>
         <div class="progress">
           <div class="meta">
