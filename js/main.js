@@ -17,8 +17,8 @@ function showTab(name) {
   );
   controls.style.display = name === "gear" ? "" : "none";
   window.scrollTo(0, 0);
-  controls.classList.remove("collapsed");
-  lastScrollY = 0;
+  setControlsCollapsed(false);
+  scrollAnchorY = 0;
 }
 tabButtons.forEach((b) =>
   b.addEventListener("click", () => showTab(b.dataset.tab)),
@@ -27,21 +27,36 @@ tabButtons.forEach((b) =>
 /* ---------- СТИСКАННЯ ПЕРЕМИКАЧА ДНІВ/СЕЗОНУ ПРИ СКРОЛІ ----------
    На «Рюкзаку» при скролі вниз ховаємо день/зимове спорядження, щоб
    список речей мав більше місця; при скролі вгору (чи вгорі сторінки)
-   повертаємо назад. */
-let lastScrollY = window.scrollY;
+   повертаємо назад.
+   Поріг (24px від точки останнього перемикання) + коротке блокування
+   одразу після перемикання — це гасить "тряску": без них зміна висоти
+   липкого блока під час анімації сама породжує дрібні scroll-події,
+   які миттю перемикали клас туди-сюди. */
+let scrollAnchorY = window.scrollY;
 let scrollTicking = false;
+let collapseLocked = false;
+function setControlsCollapsed(collapsed) {
+  if (controls.classList.contains("collapsed") === collapsed) return;
+  controls.classList.toggle("collapsed", collapsed);
+  collapseLocked = true;
+  setTimeout(() => {
+    collapseLocked = false;
+  }, 320);
+}
 function updateControlsOnScroll() {
   const y = window.scrollY;
-  if (controls.style.display !== "none") {
+  if (controls.style.display !== "none" && !collapseLocked) {
     if (y <= 8) {
-      controls.classList.remove("collapsed");
-    } else if (y > lastScrollY + 4) {
-      controls.classList.add("collapsed");
-    } else if (y < lastScrollY - 4) {
-      controls.classList.remove("collapsed");
+      setControlsCollapsed(false);
+      scrollAnchorY = y;
+    } else if (y - scrollAnchorY > 24) {
+      setControlsCollapsed(true);
+      scrollAnchorY = y;
+    } else if (scrollAnchorY - y > 24) {
+      setControlsCollapsed(false);
+      scrollAnchorY = y;
     }
   }
-  lastScrollY = y;
   scrollTicking = false;
 }
 window.addEventListener(
